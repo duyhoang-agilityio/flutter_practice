@@ -1,0 +1,43 @@
+name: practice_advance
+packages:
+  - packages/**
+  - apps/**
+
+scripts:
+  # Script to format all code
+  format:
+    run: "flutter format ."
+    description: "Format all the Dart code in this repo."
+
+  # Script to run flutter analyze for the entire repo
+  analyze:
+    run: "flutter analyze ."
+    description: "Analyze all packages and apps for issues."
+
+  # Script to run pub get for all packages and apps
+  pub_get:
+    run: |
+      melos exec --concurrency=1 -- flutter pub get
+    description: "Run pub get for all packages and apps."
+
+  # Script to run tests for all packages and apps
+  test:
+    run: |
+      melos exec --scope=practice_advance -- flutter test --coverage
+    description: "Run all unit and widget tests with coverage."
+
+  # Script to run the main Flutter app
+  run_app:
+    run: |
+      melos exec --scope=practice_advance -- flutter run
+    description: "Run the main Flutter app."
+
+  # Script to run tests for a specific package or app (can be scoped)
+  run_test:
+    run: |
+      melos exec -- flutter test
+    description: "Run tests for a specific package or app (change to the right scope)."
+    packageFilters:
+      scope:
+        - practice_advance
+        - api_client
