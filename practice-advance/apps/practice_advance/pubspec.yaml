@@ -87,6 +87,9 @@ dependencies:
   api_client:
     path: ../../packages/api_client  
 
+  practice_advance_design:
+    path: ../practice_advance_design
+
 dev_dependencies:
   # Testing framework for Flutter apps
   flutter_test:

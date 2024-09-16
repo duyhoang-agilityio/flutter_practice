@@ -19,6 +19,12 @@ scripts:
     run: |
       melos exec --concurrency=1 -- flutter pub get
     description: "Run pub get for all packages and apps."
+  
+  # Script to run build runner
+  build_runner:
+    run: |
+      melos exec --scope=practice_advance -- flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
+    description: "Run build runner."
 
   # Script to run tests for all packages and apps
   test:
