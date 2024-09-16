@@ -2,39 +2,71 @@ name: practice_advance
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
+
 dev_dependencies:
+  # Melos is used for managing monorepos and running scripts.
   melos: ^6.1.0
+  
+  # Flutter flavorizr is used to set up and manage different app flavors.
   flutter_flavorizr: ^2.2.3
 
+# Flutter flavorizr configuration.
 flavorizr:
   app:
-  android:
-    flavorDimensions:
-      - "app"
-  ios:
-    targets:
-      Runner:
-        entitlements: "Runner/Runner.entitlements"
-        info_plist: "Runner/Info.plist"
-        schemes:
-          dev: "PracticeAdvanceDev"
-          prod: "PracticeAdvance"
-  flavors:
-    dev:
-      app:
-        name: "Practice Advance Dev"
-      android:
-        applicationId: "com.example.practice_advance.dev"
-        versionName: "1.0.0"
-        versionCode: 1
-      ios:
-        bundleId: "com.example.practice_advance.dev"
-    prod:
-      app:
-        name: "Practice Advance"
-      android:
-        applicationId: "com.example.practice_advance"
-        versionName: "1.0.0"
-        versionCode: 1
-      ios:
-        bundleId: "com.example.practice_advance"
+    # Configuration for Android-specific settings.
+    android:
+      # Define flavor dimensions for Android build variants.
+      flavorDimensions:
+        - "app"
+      
+    # Configuration for iOS-specific settings.
+    ios:
+      targets:
+        # Define settings for the Runner target (the main app).
+        Runner:
+          # Path to the entitlements file used for iOS app capabilities.
+          entitlements: "Runner/Runner.entitlements"
+          
+          # Path to the Info.plist file which contains app configuration settings.
+          info_plist: "Runner/Info.plist"
+          
+          # Define schemes for different build configurations (flavors).
+          schemes:
+            dev: "PracticeAdvanceDev"   # Scheme name for the development flavor.
+            prod: "PracticeAdvance"     # Scheme name for the production flavor.
+    
+    # Define the flavors and their specific configurations.
+    flavors:
+      dev:
+        app:
+          # App name for the development flavor.
+          name: "Practice Advance Dev"
+        
+        android:
+          # Android application ID for the development flavor.
+          applicationId: "com.example.practice_advance.dev"
+          
+          # Android versioning details for the development flavor.
+          versionName: "1.0.0"
+          versionCode: 1
+        
+        ios:
+          # iOS bundle ID for the development flavor.
+          bundleId: "com.example.practice_advance.dev"
+      
+      prod:
+        app:
+          # App name for the production flavor.
+          name: "Practice Advance"
+        
+        android:
+          # Android application ID for the production flavor.
+          applicationId: "com.example.practice_advance"
+          
+          # Android versioning details for the production flavor.
+          versionName: "1.0.0"
+          versionCode: 1
+        
+        ios:
+          # iOS bundle ID for the production flavor.
+          bundleId: "com.example.practice_advance"
