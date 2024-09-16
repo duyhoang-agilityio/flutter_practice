@@ -4,3 +4,37 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 dev_dependencies:
   melos: ^6.1.0
+  flutter_flavorizr: ^2.2.3
+
+flavorizr:
+  app:
+  android:
+    flavorDimensions:
+      - "app"
+  ios:
+    targets:
+      Runner:
+        entitlements: "Runner/Runner.entitlements"
+        info_plist: "Runner/Info.plist"
+        schemes:
+          dev: "PracticeAdvanceDev"
+          prod: "PracticeAdvance"
+  flavors:
+    dev:
+      app:
+        name: "Practice Advance Dev"
+      android:
+        applicationId: "com.example.practice_advance.dev"
+        versionName: "1.0.0"
+        versionCode: 1
+      ios:
+        bundleId: "com.example.practice_advance.dev"
+    prod:
+      app:
+        name: "Practice Advance"
+      android:
+        applicationId: "com.example.practice_advance"
+        versionName: "1.0.0"
+        versionCode: 1
+      ios:
+        bundleId: "com.example.practice_advance"

@@ -26,11 +26,17 @@ scripts:
       melos exec --scope=practice_advance -- flutter test --coverage
     description: "Run all unit and widget tests with coverage."
 
-  # Script to run the main Flutter app
-  run_app:
+  # Run the app with the DEV flavor
+  run_dev:
     run: |
-      melos exec --scope=practice_advance -- flutter run
-    description: "Run the main Flutter app."
+      melos exec --scope=practice_advance -- flutter run --flavor dev
+    description: "Run the app with the DEV flavor."
+
+  # Run the app with the PROD flavor
+  run_prod:
+    run: |
+      melos exec --scope=practice_advance -- flutter run --flavor prod
+    description: "Run the app with the PROD flavor."
 
   # Script to run tests for a specific package or app (can be scoped)
   run_test:
