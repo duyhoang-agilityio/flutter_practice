@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "practice-advance-dev",
+      "cwd": "practice-advance",
+      "request": "launch",
+      "type": "dart",
+      "program": "practice-advance/apps/practice_advance/lib/main_dev.dart",
+      "args": [
+        "--flavor",
+        "dev",
+        "target",
+        "practice-advance/apps/practice_advance/lib/main_dev.dart"
+      ]
+    },
+    {
+      "name": "practice-advance-prod",
+      "cwd": "practice-advance",
+      "request": "launch",
+      "type": "dart",
+      "program": "practice-advance/apps/practice_advance/lib/main_prod.dart",
+      "args": [
+        "--flavor",
+        "prod",
+        "target",
+        "practice-advance/apps/practice_advance/lib/main_prod.dart"
+      ]
+    },
+  ]
+}
