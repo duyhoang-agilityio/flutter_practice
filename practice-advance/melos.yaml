@@ -35,13 +35,13 @@ scripts:
   # Run the app with the DEV flavor
   run_dev:
     run: |
-      melos exec --scope=practice_advance -- flutter run --flavor dev
+      melos exec --scope=practice_advance -- flutter run --flavor dev -t lib/main_dev.dart
     description: "Run the app with the DEV flavor."
 
   # Run the app with the PROD flavor
   run_prod:
     run: |
-      melos exec --scope=practice_advance -- flutter run --flavor prod
+      melos exec --scope=practice_advance -- flutter run --flavor prod -t lib/main_prod.dart
     description: "Run the app with the PROD flavor."
 
   # Script to run tests for a specific package or app (can be scoped)

@@ -14,6 +14,9 @@ dependencies:
   # Core Flutter SDK
     sdk: flutter  
 
+  flutter_localizations:
+    sdk: flutter
+
   # Icons for iOS-style (Cupertino) widgets
   cupertino_icons: ^1.0.8  
 
@@ -39,7 +42,7 @@ dependencies:
   fl_query: ^1.1.0
 
   # NoSQL database for local storage in Flutter apps  
-  isar: ^3.1.0+1  
+  isar: ^3.0.0
 
   # Access to commonly used locations on the filesystem (e.g., documents, temp)
   path_provider: ^2.1.4  
@@ -48,7 +51,7 @@ dependencies:
   device_preview: ^1.2.0  
 
   # Isar database engine specific for Flutter
-  isar_flutter_libs: ^3.1.0+1  
+  isar_flutter_libs: ^3.0.0
 
   # Secure storage for sensitive data like tokens
   flutter_secure_storage: ^9.2.2  
@@ -86,6 +89,10 @@ dependencies:
   # Local package for handling API calls in the monorepo setup
   api_client:
     path: ../../packages/api_client  
+  
+  # Local package for handling API calls in the monorepo setup
+  talker_package:
+    path: ../../packages/talker_package
 
   practice_advance_design:
     path: ../practice_advance_design
@@ -101,14 +108,36 @@ dev_dependencies:
   # Code generation tool used for generating code like serializers, Isar models, etc.
   build_runner: ^2.4.12  
 
+  flutter_gen_runner: ^5.7.0
+
   # Code generator for Isar database models
-  isar_generator: ^3.0.0  
+  isar_generator: ^3.0.0
+  
+  # Generates iOS, Android, and Web-native code for customizing this native splash screen background color and splash image.
+  flutter_native_splash: ^2.4.1
+
+flutter_gen:
+  output: lib/core/gen/
+  line_length: 80 
 
 flutter:
+  generate: true
+
   # Enables Material Design components in the app
   uses-material-design: true  
 
   assets:
   # Specifies the .env file for loading environment variables
-  - .env  
+  - .env    
+  - ../practice_advance_design/assets/
 
+  # This package generates native code to customize Flutter's default white native splash screen
+  # with background color and splash image.
+flutter_native_splash:
+  image: ../practice_advance_design/assets/images/splash.png
+  color: "#54408C"
+
+  android_12:
+    image: ../practice_advance_design/assets/images/splash.png
+    image_dark: ../practice_advance_design/assets/images/splash.png
+    color: "#54408C"

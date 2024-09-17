@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/packages/api_client/melos_api_client.iml" filepath="$PROJECT_DIR$/packages/api_client/melos_api_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/apps/practice_advance/melos_practice_advance.iml" filepath="$PROJECT_DIR$/apps/practice_advance/melos_practice_advance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apps/practice_advance_design/melos_practice_advance_design.iml" filepath="$PROJECT_DIR$/apps/practice_advance_design/melos_practice_advance_design.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/talker_package/melos_talker_package.iml" filepath="$PROJECT_DIR$/packages/talker_package/melos_talker_package.iml" />
       <module fileurl="file://$PROJECT_DIR$/melos_practice_advance.iml" filepath="$PROJECT_DIR$/melos_practice_advance.iml" />
     </modules>
   </component>

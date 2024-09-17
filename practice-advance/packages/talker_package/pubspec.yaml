@@ -1,0 +1,43 @@
+name: talker_package
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Debugging and logging tool with advanced features
+  talker: ^4.4.1  
+
+  # Helps in responsive UI design by adapting layout based on screen size
+  flutter_screenutil: ^5.9.3  
+
+  # Load and display SVG (vector) images in Flutter
+  flutter_svg: ^2.0.10+1  
+
+  # Middleware for logging Dio network requests and responses via Talker
+  talker_dio_logger: ^4.4.1  
+
+  # Middleware for logging Bloc state changes and events via Talker
+  talker_bloc_logger: ^4.4.1  
+
+  # Talker extension for displaying logs and errors in a Flutter UI
+  talker_flutter: ^4.4.1  
+
+  # State management library using the Bloc pattern
+  flutter_bloc: ^8.1.6  
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+

@@ -5,8 +5,8 @@ import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/feature/feature.dart';
 import 'package:practice_advance/core/feature/feature_config.dart';
 import 'package:practice_advance/features/home/data/home_repository_impl.dart';
-import 'package:practice_advance/features/home/domain/repositories/home_repository.dart';
-import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
+import 'package:practice_advance/features/home/presentation/domain/repositories/home_repository.dart';
+import 'package:practice_advance/features/home/presentation/domain/usecases/home_usecase.dart';
 
 ///
 /// Includes Feature Flags/Configuration for module
