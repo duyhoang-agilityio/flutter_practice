@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: talker_package
+dependency_overrides:
+  talker_package:
+    path: ../../packages/talker_package

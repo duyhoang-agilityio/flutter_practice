@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:practice_advance/core/gen/assets.gen.dart';
 import 'package:practice_advance/features/home/presentation/bloc/home_bloc.dart';
 import 'package:practice_advance/features/home/presentation/domain/usecases/home_usecase.dart';
 import 'package:practice_advance/global.dart';
 import 'package:practice_advance/injection.dart';
+import 'package:practice_advance_design/widgets/image.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,7 +29,7 @@ class HomePage extends StatelessWidget {
                     'Example: ${state.homeEntity.title} ${Global.environment == 'dev' ? 'dev' : 'prod'}',
                     style: TextStyle(fontSize: 16.w),
                   ),
-                  Text(AppLocalizations.of(context)?.helloWorld ?? ''),
+                  Text(AppLocalizations.of(context)?.txtCart ?? ''),
                   Text(
                     'Example: ${state.homeEntity.title}',
                     style: TextStyle(fontSize: 16.h),
@@ -39,11 +38,8 @@ class HomePage extends StatelessWidget {
                     'Example: ${state.homeEntity.title}',
                     style: TextStyle(fontSize: 16.sp),
                   ),
-                  SvgPicture.asset(
-                    Assets.values.first,
-                    width: 120,
-                    height: 120,
-                  ),
+                  BazarImage.icBasicAlarm(),
+                  BazarImage.imgOnboarding1(),
                 ],
               ));
             } else if (state is HomeError) {

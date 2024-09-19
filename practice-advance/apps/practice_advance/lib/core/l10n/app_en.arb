@@ -1,5 +1,8 @@
-{
-  "helloWorld": "Hello",
+{  
+  "txtHome": "Home",
+  "txtCategory": "Category",
+  "txtCart": "Cart",
+  "txtProfile": "Profile",
   "numOfWorkers": "{count, plural, =1{1 worker} other{{count} workers}}",
   "@numOfWorkers": {
       "description": "Number of workers",
@@ -7,14 +10,6 @@
       "count": {
           "example": "1"
       }
-      }
-  },
-  "workType": "{workType, select, permanent{Permanent} contract{Contract} other{Unknown}}",
-  "@workType": {
-      "description": "work Type",
-      "placeholders": {
-          "workType":{}
-         
       }
   }
 }

@@ -40,10 +40,3 @@ extension MediaQueryContext on BuildContext {
   double get screenHeight => mediaQuery.size.height;
   double get devicePixelRatio => mediaQuery.devicePixelRatio;
 }
-
-extension ThemeContext on BuildContext {
-  // Convenience getter for ThemeData.
-  ThemeData get theme => Theme.of(this);
-  ColorScheme get colorScheme => theme.colorScheme;
-  TextTheme get textTheme => theme.textTheme;
-}
