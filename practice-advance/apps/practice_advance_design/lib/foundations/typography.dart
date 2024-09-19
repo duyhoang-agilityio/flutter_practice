@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:practice_advance_design/core/resources/assets_generated/fonts.gen.dart';
+import 'package:practice_advance_design/tokens/colors.dart';
 import 'package:practice_advance_design/tokens/typography.dart';
 
 class BazarUiTypographyFoundation {
@@ -6,51 +8,58 @@ class BazarUiTypographyFoundation {
 
   // Text Style
   static final headlineLargeStyle = _defaultTextStyle.copyWith(
-    fontFamily: BazarUiTypography.familOpenSans,
     fontSize: BazarUiTypography.fontSizeHeadingBoldH1,
-    height: BazarUiTypography.heightHeadingBoldH1,
+    fontWeight: FontWeight.bold,
   );
+
   static final headlineMediumStyle = _defaultTextStyle.copyWith(
-    fontFamily: BazarUiTypography.familOpenSans,
     fontSize: BazarUiTypography.fontSizeHeadingBoldH2,
-    height: BazarUiTypography.heightHeadingBoldH2,
+    fontWeight: FontWeight.bold,
   );
+
   static final headlineSmallStyle = _defaultTextStyle.copyWith(
-      fontFamily: BazarUiTypography.familyRoboto,
-      fontSize: BazarUiTypography.fontSizeHeadingBoldH3,
-      height: BazarUiTypography.heightHeadingBoldH3);
+    fontSize: BazarUiTypography.fontSizeHeadingBoldH3,
+    fontWeight: FontWeight.bold,
+  );
+
   static final h4TextStyle = _defaultTextStyle.copyWith(
-    fontFamily: BazarUiTypography.familOpenSans,
+    fontFamily: FontFamily.roboto,
     fontSize: BazarUiTypography.fontSizeHeadingBoldH4,
     height: BazarUiTypography.heightHeadingBoldH4,
   );
+
   static final h5TextStyle = _defaultTextStyle.copyWith(
-    fontFamily: BazarUiTypography.familOpenSans,
     fontSize: BazarUiTypography.fontSizeHeadingBoldH5,
     height: BazarUiTypography.heightHeadingBoldH5,
   );
+
   static final h6TextStyle = _defaultTextStyle.copyWith(
-    fontFamily: BazarUiTypography.familOpenSans,
     fontSize: BazarUiTypography.fontSizeHeadingBoldH6,
     height: BazarUiTypography.heightHeadingBoldH6,
   );
+
   static final bodyLargeStyle = _defaultTextStyle.copyWith(
+    fontFamily: FontFamily.roboto,
     fontSize: BazarUiTypography.fontSizeBodyXlargeMedium,
-    height: BazarUiTypography.heightBodyXlargeMedium,
+    color: BazarLightThemeColors().gray700,
   );
+
   static final bodyMediumStyle = _defaultTextStyle.copyWith(
+    fontFamily: FontFamily.roboto,
     fontSize: BazarUiTypography.fontSizeBodyMedium,
-    height: BazarUiTypography.heightBodyMedium,
   );
-  static final bodySmallBoldStyle = _defaultTextStyle.copyWith(
+
+  static final bodySmallStyle = _defaultTextStyle.copyWith(
+    fontFamily: FontFamily.roboto,
     fontSize: BazarUiTypography.fontSizeBodySmallBold,
-    height: BazarUiTypography.heightBodySmallBold,
   );
+
   static final bodySmallMediumStyle = _defaultTextStyle.copyWith(
     fontWeight: FontWeight.normal,
     fontSize: BazarUiTypography.fontSizeBodySmallMedium,
     height: BazarUiTypography.heightBodySmallMedium,
   );
+
   static final bodySmallRegularStyle = _defaultTextStyle.copyWith(
     fontWeight: FontWeight.normal,
     fontSize: BazarUiTypography.fontSizeBodySmallRegular,
@@ -58,9 +67,10 @@ class BazarUiTypographyFoundation {
   );
 }
 
-TextStyle _defaultTextStyle = const TextStyle(
+TextStyle _defaultTextStyle = TextStyle(
   fontSize: 16,
-  fontFamily: BazarUiTypography.familOpenSans,
-  fontWeight: FontWeight.bold,
+  fontFamily: FontFamily.openSans,
+  fontWeight: FontWeight.normal,
   height: 1.5,
+  color: BazarLightThemeColors().black900,
 );

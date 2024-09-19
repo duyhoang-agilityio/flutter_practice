@@ -22,8 +22,11 @@ class BazarThemeHelper {
     return ThemeData.light().copyWith(
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: colorScheme.surface,
+      ),
       textTheme: BazarTextThemes.textTheme,
-      scaffoldBackgroundColor: colorScheme.primary,
+      scaffoldBackgroundColor: colorScheme.surface,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
