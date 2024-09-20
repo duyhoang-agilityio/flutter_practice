@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/core/router/page_names.dart';
 import 'package:practice_advance/features/home/presentation/home_screen.dart';
+import 'package:practice_advance/features/onboarding/onboarding_screen.dart';
 import 'package:practice_advance_design/foundations/models.dart';
 import 'package:practice_advance_design/molecules/main_navigator.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
@@ -22,6 +23,10 @@ class AppRouteNames {
     '/welcome',
     AgbPageNames.welcome,
   );
+  static AgbUiRoute onboarding = AgbUiRoute(
+    '/onboarding',
+    AgbPageNames.onboarding,
+  );
 
   // Home route
   static AgbUiRoute home = AgbUiRoute('/home', AgbPageNames.home);
@@ -33,25 +38,22 @@ class AppRouteNames {
 final GoRouter router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/home',
+  initialLocation: AppRouteNames.home.path,
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomePage();
-      },
+      path: AppRouteNames.onboarding.path,
+      builder: (BuildContext context, GoRouterState state) =>
+          const OnboardingScreen(),
     ),
     ShellRoute(
       navigatorKey: _shellBottomNavLayoutNavigatorKey,
-      builder: (context, state, child) {
-        return AgbUiScaffold(
-          mainNavigation: AgbUiMainNavigation(
-            items: _navigationItems(context),
-          ),
-          body: child,
-        );
-      },
+      builder: (context, state, child) => BazarScaffold(
+        mainNavigation: AgbUiMainNavigation(
+          items: _navigationItems(context),
+        ),
+        body: child,
+      ),
       routes: [
         GoRoute(
           parentNavigatorKey: _shellBottomNavLayoutNavigatorKey,

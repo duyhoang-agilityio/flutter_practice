@@ -6,7 +6,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/features/home/home_feature.dart';
-import 'package:practice_advance/features/home/presentation/domain/entities/product.dart';
+import 'package:practice_advance/features/home/domain/entities/product.dart';
 
 final locator = GetIt.instance;
 

@@ -8,25 +8,25 @@ part 'product.g.dart';
 class Product {
   static const String keyId = 'id';
   static const String keyTitle = 'title';
-  static const String keyDescription = 'description';
-  static const String keyCategory = 'category';
-  static const String keyPrice = 'price';
-  static const String keyDiscountPercentage = 'discountPercentage';
-  static const String keyRating = 'rating';
-  static const String keyStock = 'stock';
-  static const String keyTags = 'tags';
-  static const String keyBrand = 'brand';
-  static const String keySku = 'sku';
-  static const String keyDimensions = 'dimensions';
-  static const String keyDepth = 'depth';
-  static const String keyWarrantyInformation = 'warrantyInformation';
-  static const String keyShippingInformation = 'shippingInformation';
-  static const String keyAvailabilityStatus = 'availabilityStatus';
-  static const String keyReviews = 'reviews';
-  static const String keyReturnPolicy = 'returnPolicy';
-  static const String keyMinimumOrderQuantity = 'minimumOrderQuantity';
-  static const String keyMeta = 'meta';
-  static const String keyThumbnail = 'thumbnail';
+  // static const String keyDescription = 'description';
+  // static const String keyCategory = 'category';
+  // static const String keyPrice = 'price';
+  // static const String keyDiscountPercentage = 'discountPercentage';
+  // static const String keyRating = 'rating';
+  // static const String keyStock = 'stock';
+  // static const String keyTags = 'tags';
+  // static const String keyBrand = 'brand';
+  // static const String keySku = 'sku';
+  // static const String keyDimensions = 'dimensions';
+  // static const String keyDepth = 'depth';
+  // static const String keyWarrantyInformation = 'warrantyInformation';
+  // static const String keyShippingInformation = 'shippingInformation';
+  // static const String keyAvailabilityStatus = 'availabilityStatus';
+  // static const String keyReviews = 'reviews';
+  // static const String keyReturnPolicy = 'returnPolicy';
+  // static const String keyMinimumOrderQuantity = 'minimumOrderQuantity';
+  // static const String keyMeta = 'meta';
+  // static const String keyThumbnail = 'thumbnail';
   static const String keyImages = 'images';
 
   Id id = Isar.autoIncrement; // Auto-generate id
@@ -82,28 +82,39 @@ class Product {
     return Product(
       productId: json[keyId] ?? 0,
       title: json[keyTitle] ?? '',
-      description: json[keyDescription] ?? '',
-      category: json[keyCategory] ?? '',
-      price: json[keyPrice] ?? 0.0,
-      discountPercentage: json[keyDiscountPercentage] ?? 0.0,
-      rating: json[keyRating] ?? 0.0,
-      stock: json[keyStock] ?? 0,
-      tags: List<String>.from(json[keyTags] ?? []),
-      brand: json[keyBrand] ?? '',
-      sku: json[keySku] ?? '',
-      depth: json[keyDimensions]?[keyDepth] ?? 0.0,
-      warrantyInformation: json[keyWarrantyInformation] ?? '',
-      shippingInformation: json[keyShippingInformation] ?? '',
-      availabilityStatus: json[keyAvailabilityStatus] ?? '',
-      reviews: (json[keyReviews] as List? ?? [])
-          .map((r) => Review.fromJson(r))
-          .toList(),
-      returnPolicy: json[keyReturnPolicy] ?? '',
-      minimumOrderQuantity: json[keyMinimumOrderQuantity] ?? 0,
-      meta: MetaData.fromJson(json[keyMeta] ?? {}),
-      thumbnail: json[keyThumbnail] ?? '',
+      // description: json[keyDescription] ?? '',
+      // category: json[keyCategory] ?? '',
+      // price: json[keyPrice] ?? 0.0,
+      // discountPercentage: json[keyDiscountPercentage] ?? 0.0,
+      // rating: json[keyRating] ?? 0.0,
+      // stock: json[keyStock] ?? 0,
+      // tags: List<String>.from(json[keyTags] ?? []),
+      // brand: json[keyBrand] ?? '',
+      // sku: json[keySku] ?? '',
+      // depth: json[keyDimensions]?[keyDepth] ?? 0.0,
+      // warrantyInformation: json[keyWarrantyInformation] ?? '',
+      // shippingInformation: json[keyShippingInformation] ?? '',
+      // availabilityStatus: json[keyAvailabilityStatus] ?? '',
+      // reviews: (json[keyReviews] as List? ?? [])
+      //     .map((r) => Review.fromJson(r))
+      //     .toList(),
+      // returnPolicy: json[keyReturnPolicy] ?? '',
+      // minimumOrderQuantity: json[keyMinimumOrderQuantity] ?? 0,
+      // meta: MetaData.fromJson(json[keyMeta] ?? {}),
+      // thumbnail: json[keyThumbnail] ?? '',
       images: List<String>.from(json[keyImages] ?? []),
     );
+  }
+
+  // Static method to parse a list of Products
+  static List<Product> fromJsonList(Map<String, dynamic> json) {
+    if (json.isEmpty) return [];
+
+    var jsonList = json['products'] as List<dynamic>;
+
+    return jsonList
+        .map((json) => Product.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 }
 

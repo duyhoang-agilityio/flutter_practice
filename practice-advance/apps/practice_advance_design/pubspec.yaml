@@ -20,6 +20,7 @@ dependencies:
   talker_package:
     path: ../../packages/talker_package
   go_router: ^14.2.7
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
