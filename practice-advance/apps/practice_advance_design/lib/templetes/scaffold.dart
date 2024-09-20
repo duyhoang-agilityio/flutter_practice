@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 
-class AgbUiScaffold extends StatelessWidget {
-  /// Creates a [AgbUiScaffold] widget.
+class BazarScaffold extends StatelessWidget {
+  /// Creates a [BazarScaffold] widget.
   ///
   /// The [body] argument is required and represents the main body of the
   /// scaffold.
@@ -26,7 +26,7 @@ class AgbUiScaffold extends StatelessWidget {
   /// provided, this value will be used as the background color for the page.
   /// If not provided, the background color will be determined by the current
   /// theme's background color.
-  const AgbUiScaffold({
+  const BazarScaffold({
     required this.body,
     this.canPop = true,
     this.appBar,
