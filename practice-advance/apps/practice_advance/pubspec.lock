@@ -168,6 +168,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  cached_query:
+    dependency: transitive
+    description:
+      name: cached_query
+      sha256: "264606c32598bd48caa912c3c489bb9f79ff063f9b79af247963628362bc12b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  cached_query_flutter:
+    dependency: "direct main"
+    description:
+      name: cached_query_flutter
+      sha256: "40605cf58fb45ffc9075eddbead9e71d02925b8bdf61de2840b369862194f463"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -344,6 +360,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -780,6 +804,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  modal_bottom_sheet:
+    dependency: "direct main"
+    description:
+      name: modal_bottom_sheet
+      sha256: eac66ef8cb0461bf069a38c5eb0fa728cee525a531a8304bd3f7b2185407c67e
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   mutex:
     dependency: transitive
     description:

@@ -28,9 +28,9 @@ class ListProducts extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: state.homeEntity.length,
+              itemCount: state.products.length,
               itemBuilder: (BuildContext context, int index) {
-                final item = state.homeEntity[index];
+                final item = state.products[index];
 
                 return Padding(
                   padding: const EdgeInsets.only(left: 20),

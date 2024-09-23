@@ -88,14 +88,14 @@ class _CarouselWithIndicatorState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
-                    AgbUiElevatedButton(
+                    BazarElevatedButton(
                       onPressed: () => context.goNamed(
                         AppRouteNames.home.path,
                       ),
                       text: 'Continue',
                     ),
                     const SizedBox(height: 10),
-                    AgbUiElevatedButton(
+                    BazarElevatedButton(
                       onPressed: () => context.goNamed(
                         AppRouteNames.welcome.name,
                       ),

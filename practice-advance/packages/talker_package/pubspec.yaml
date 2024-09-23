@@ -41,3 +41,6 @@ dev_dependencies:
 
   flutter_lints: ^4.0.0
 
+  # Code generation tool used for generating code like serializers, Isar models, etc.
+  build_runner: ^2.4.12  
+

@@ -15,11 +15,13 @@ class BazarCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: width,
-      width: height,
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: backgroundColor ?? context.colorScheme.primary,
+    return Center(
+      child: SizedBox(
+        height: width,
+        width: height,
+        child: CircularProgressIndicator.adaptive(
+          backgroundColor: backgroundColor ?? context.colorScheme.primary,
+        ),
       ),
     );
   }

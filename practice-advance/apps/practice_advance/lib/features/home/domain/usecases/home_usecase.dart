@@ -11,23 +11,47 @@ class HomeUsecases {
   HomeUsecases(this.repository);
 
   Future<Either<Failure, List<Product>>> getProducts({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) {
     return repository.getProducts(limit: limit, ofset: ofset);
   }
 
   Future<Either<Failure, List<Vendor>>> getVendors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) {
     return repository.getVendors(limit: limit, ofset: ofset);
   }
 
+  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+    int? limit,
+    int ofset = 0,
+    String? name = 'Asian',
+  }) {
+    return repository.getVendorsByCategory(
+      limit: limit,
+      ofset: ofset,
+      name: name,
+    );
+  }
+
   Future<Either<Failure, List<Author>>> getAuthors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) {
     return repository.getAuthors(limit: limit, ofset: ofset);
+  }
+
+  Future<Either<Failure, List<Author>>> getAuthorsByCategory({
+    int? limit = 20,
+    int ofset = 0,
+    String? name = 'Asian',
+  }) {
+    return repository.getAuthorsByCategory(
+      limit: limit,
+      ofset: ofset,
+      name: name,
+    );
   }
 }

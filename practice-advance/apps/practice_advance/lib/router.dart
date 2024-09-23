@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/core/router/page_names.dart';
+import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
+import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
+import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home/presentation/home_screen.dart';
+import 'package:practice_advance/features/home_author/presentation/authors_list.dart';
+import 'package:practice_advance/features/home_product/presentation/products_list.dart';
 import 'package:practice_advance/features/onboarding/onboarding_screen.dart';
 import 'package:practice_advance_design/foundations/models.dart';
 import 'package:practice_advance_design/molecules/main_navigator.dart';
@@ -11,6 +16,8 @@ import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_package/main.dart';
 
+import 'features/home_vendor/presentation/vendors_list.dart';
+
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellBottomNavLayoutNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -18,6 +25,30 @@ class AppRouteNames {
   static AgbUiRoute splash = AgbUiRoute(
     '/splash',
     AgbPageNames.splash,
+  );
+  static AgbUiRoute detailAuthor = AgbUiRoute(
+    '/detailAuthor',
+    AgbPageNames.detailAuthor,
+  );
+  static AgbUiRoute detailVendor = AgbUiRoute(
+    '/detailAuthor',
+    AgbPageNames.detailAuthor,
+  );
+  static AgbUiRoute detailProduct = AgbUiRoute(
+    '/detailAuthor',
+    AgbPageNames.detailAuthor,
+  );
+  static AgbUiRoute authorList = AgbUiRoute(
+    '/authorList',
+    AgbPageNames.authorList,
+  );
+  static AgbUiRoute vendorList = AgbUiRoute(
+    '/vendorList',
+    AgbPageNames.vendorList,
+  );
+  static AgbUiRoute productList = AgbUiRoute(
+    '/productList',
+    AgbPageNames.productList,
   );
   static AgbUiRoute welcome = AgbUiRoute(
     '/welcome',
@@ -45,6 +76,36 @@ final GoRouter router = GoRouter(
       path: AppRouteNames.onboarding.path,
       builder: (BuildContext context, GoRouterState state) =>
           const OnboardingScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: AppRouteNames.authorList.path,
+      name: AppRouteNames.authorList.name,
+      builder: (BuildContext context, GoRouterState state) {
+        final param = state.extra != null ? state.extra! as AuthorBloc : null;
+
+        return ListAuthorsScreen(bloc: param!);
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: AppRouteNames.vendorList.path,
+      name: AppRouteNames.vendorList.name,
+      builder: (BuildContext context, GoRouterState state) {
+        final param = state.extra != null ? state.extra! as VendorBloc : null;
+
+        return ListVendorsScreen(bloc: param!);
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: AppRouteNames.productList.path,
+      name: AppRouteNames.productList.name,
+      builder: (BuildContext context, GoRouterState state) {
+        final param = state.extra != null ? state.extra! as ProductBloc : null;
+
+        return ListProductsScreen(bloc: param!);
+      },
     ),
     ShellRoute(
       navigatorKey: _shellBottomNavLayoutNavigatorKey,

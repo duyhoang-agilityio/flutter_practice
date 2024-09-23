@@ -6,15 +6,25 @@ import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 
 abstract class HomeRepository {
   Future<Either<Failure, List<Product>>> getProducts({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   });
   Future<Either<Failure, List<Vendor>>> getVendors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   });
   Future<Either<Failure, List<Author>>> getAuthors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
+  });
+  Future<Either<Failure, List<Author>>> getAuthorsByCategory({
+    int? limit = 20,
+    int ofset = 0,
+    String? name,
+  });
+  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+    int? limit,
+    int ofset = 0,
+    String? name = 'Asian',
   });
 }

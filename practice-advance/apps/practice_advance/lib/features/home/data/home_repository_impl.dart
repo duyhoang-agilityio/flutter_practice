@@ -16,7 +16,7 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<Product>>> getProducts({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) async {
     try {
@@ -30,7 +30,7 @@ class HomeRepositoryImpl implements HomeRepository {
       final response = await apiClient.get(
         '/products',
         queryParameters: {
-          'limit': limit,
+          if (limit != null) 'limit': limit,
         },
       );
 
@@ -49,14 +49,14 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<Author>>> getAuthors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) async {
     try {
       final response = await apiClient.get(
         '/quotes',
         queryParameters: {
-          'limit': limit,
+          if (limit != null) 'limit': limit,
         },
       );
 
@@ -68,14 +68,14 @@ class HomeRepositoryImpl implements HomeRepository {
 
   @override
   Future<Either<Failure, List<Vendor>>> getVendors({
-    int limit = 5,
+    int? limit,
     int ofset = 0,
   }) async {
     try {
       final response = await apiClient.get(
         '/recipes',
         queryParameters: {
-          'limit': limit,
+          if (limit != null) 'limit': limit,
         },
       );
 
@@ -84,4 +84,85 @@ class HomeRepositoryImpl implements HomeRepository {
       return Left(ErrorMapper.mapError(e));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+    int? limit,
+    String? name = 'Asian',
+    int ofset = 0,
+  }) async {
+    try {
+      final response = await apiClient.get(
+        '/recipes/tag/$name',
+        queryParameters: {
+          if (limit != null) 'limit': limit,
+        },
+      );
+
+      return Right(Vendor.fromJsonList(response.data));
+    } catch (e) {
+      return Left(ErrorMapper.mapError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Author>>> getAuthorsByCategory({
+    int? limit,
+    int ofset = 0,
+    String? name,
+  }) async {
+    try {
+      final response = await apiClient.get(
+        '/recipes/tag/$name',
+        queryParameters: {
+          if (limit != null) 'limit': limit,
+        },
+      );
+
+      return Right(Author.fromJsonList(response.data));
+    } catch (e) {
+      return Left(ErrorMapper.mapError(e));
+    }
+  }
+
+  // @override
+  // InfiniteQuery<List<Vendor>, int> getVendorsByCategory(
+  //     {int? limit = 20, String? name = 'Asian'}) {
+  //   return InfiniteQuery<List<Vendor>, int>(
+  //     key: 'vendors',
+  //     getNextArg: (state) {
+  //       if (state.lastPage?.isEmpty ?? false) return null;
+  //       return null;
+  //       // return state.length + 1;
+  //     },
+  //     queryFn: (skip) async => _getVendors(
+  //       skip: skip,
+  //       limit: limit,
+  //       name: name,
+  //     ),
+  //   );
+  // }
+
+  // Future<List<Vendor>> _getVendors({
+  //   required int skip,
+  //   int? limit = 20,
+  //   String? name = 'Asian',
+  // }) async {
+  //   try {
+  //     // Fetch new vendors from API
+  //     final response = await apiClient.get(
+  //       '/recipes/tag/$name',
+  //       queryParameters: {
+  //         'skip': skip,
+  //         'limit': limit,
+  //       },
+  //     );
+
+  //     final vendors = Vendor.fromJsonList(response.data);
+
+  //     return vendors;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 }

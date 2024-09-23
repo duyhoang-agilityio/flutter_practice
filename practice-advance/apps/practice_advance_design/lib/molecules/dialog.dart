@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AgbUiDialog {
-  AgbUiDialog();
+class BazarDialog {
+  BazarDialog();
 
   static Future<void> show(
     BuildContext context, {
@@ -12,8 +12,13 @@ class AgbUiDialog {
     await showDialog<void>(
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
+      useSafeArea: false,
       context: context,
-      builder: (_) => child,
+      builder: (_) => FractionallySizedBox(
+        alignment: Alignment.bottomCenter,
+        heightFactor: 0.9,
+        child: child,
+      ),
     );
   }
 

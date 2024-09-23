@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
 
-class ListAuthorsScreen extends StatelessWidget {
-  const ListAuthorsScreen({super.key, required this.bloc});
+class ListProductsScreen extends StatelessWidget {
+  const ListProductsScreen({super.key, required this.bloc});
 
   final ProductBloc bloc;
 

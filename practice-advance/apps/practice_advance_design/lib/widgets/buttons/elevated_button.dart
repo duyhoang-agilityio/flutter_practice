@@ -3,14 +3,14 @@ import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
-class AgbUiElevatedButton extends StatefulWidget {
-  /// Returns a Agility Bank style [ElevatedButton]
+class BazarElevatedButton extends StatefulWidget {
+  /// Returns a Bazar style [ElevatedButton]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiElevatedButton({
+  const BazarElevatedButton({
     required this.text,
     this.isLoading = false,
     this.isDisabled = false,
@@ -38,7 +38,7 @@ class AgbUiElevatedButton extends StatefulWidget {
   /// The width of Button
   final double? width;
 
-  /// The padding of [AgbUiElevatedButton] which is defined in Theme is
+  /// The padding of [BazarElevatedButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -74,10 +74,10 @@ class AgbUiElevatedButton extends StatefulWidget {
   final String? semanticValue;
 
   @override
-  State<AgbUiElevatedButton> createState() => _AgbUiElevatedButtonState();
+  State<BazarElevatedButton> createState() => _BazarElevatedButtonState();
 }
 
-class _AgbUiElevatedButtonState extends State<AgbUiElevatedButton> {
+class _BazarElevatedButtonState extends State<BazarElevatedButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -140,7 +140,7 @@ class _AgbUiElevatedButtonState extends State<AgbUiElevatedButton> {
                   child: BazarCircularProgressIndicator(),
                 )
               : FittedBox(
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.contain,
                   child: BazarBodyMediumText(
                     text: widget.text,
                   ),
@@ -151,14 +151,14 @@ class _AgbUiElevatedButtonState extends State<AgbUiElevatedButton> {
   }
 }
 
-class AgbUiElevatedIconButton extends StatefulWidget {
-  /// Returns a Agility Bank style [ElevatedButton.icon]
+class BazarElevatedIconButton extends StatefulWidget {
+  /// Returns a Bazar style [ElevatedButton.icon]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiElevatedIconButton({
+  const BazarElevatedIconButton({
     required this.icon,
     required this.text,
     this.isLoading = false,
@@ -190,7 +190,7 @@ class AgbUiElevatedIconButton extends StatefulWidget {
   /// The width of Button
   final double? width;
 
-  /// The padding of [AgbUiElevatedIconButton] which is defined in Theme is
+  /// The padding of [BazarElevatedIconButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -216,11 +216,11 @@ class AgbUiElevatedIconButton extends StatefulWidget {
   final String? semanticValue;
 
   @override
-  State<AgbUiElevatedIconButton> createState() =>
-      _AgbUiElevatedIconButtonState();
+  State<BazarElevatedIconButton> createState() =>
+      _BazarElevatedIconButtonState();
 }
 
-class _AgbUiElevatedIconButtonState extends State<AgbUiElevatedIconButton> {
+class _BazarElevatedIconButtonState extends State<BazarElevatedIconButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(

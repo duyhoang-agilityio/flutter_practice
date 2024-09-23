@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
@@ -9,7 +10,10 @@ import 'package:practice_advance/features/home/presentation/widgets/list_product
 import 'package:practice_advance/features/home/presentation/widgets/list_vendors.dart';
 import 'package:practice_advance/features/home/presentation/widgets/special_offer.dart';
 import 'package:practice_advance/injection.dart';
+import 'package:practice_advance/router.dart';
+import 'package:practice_advance_design/widgets/app_bar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
+import 'package:practice_advance_design/widgets/buttons/text_button.dart';
 import 'package:practice_advance_design/widgets/icon.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,20 +24,20 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) =>
-              ProductBloc(locator<HomeUsecases>())..add(GetListProductsEvent()),
+          create: (_) => ProductBloc(locator<HomeUsecases>())
+            ..add(GetListProductsEvent(limit: 5)),
         ),
         BlocProvider(
-          create: (_) =>
-              VendorBloc(locator<HomeUsecases>())..add(GetListVendorsEvent()),
+          create: (_) => VendorBloc(locator<HomeUsecases>())
+            ..add(GetListVendorsEvent(limit: 5)),
         ),
         BlocProvider(
-          create: (_) =>
-              AuthorBloc(locator<HomeUsecases>())..add(GetListAuthorsEvent()),
+          create: (_) => AuthorBloc(locator<HomeUsecases>())
+            ..add(GetListAuthorsEvent(limit: 5)),
         ),
       ],
       child: Scaffold(
-        appBar: AppBar(
+        appBar: BazarAppBar(
           title: const Text('Home'),
           leading: AgbUiIconButtons(
             icon: BazarIcon.icCart(),
@@ -41,36 +45,74 @@ class HomePage extends StatelessWidget {
               // TODO: Implement search function
             },
           ),
-          actions: [
-            AgbUiIconButtons(
-              icon: BazarIcon.icCart(),
-              onPressed: () {
-                // TODO: Implement notification function
-              },
-            ),
-          ],
+          trailing: AgbUiIconButtons(
+            icon: BazarIcon.icCart(),
+            onPressed: () {
+              // TODO: Implement notification function
+            },
+          ),
         ),
-        body: const SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             children: [
               // Special Offer
-              SpecialOfferCard(),
+              const SpecialOfferCard(),
 
               // Top of Week
-              ListProducts(),
-              SizedBox(height: 20),
+              BazarSection(
+                text: 'Top of Week',
+                onPressed: () => context.pushNamed(
+                  AppRouteNames.productList.name,
+                  extra: ProductBloc(locator<HomeUsecases>()),
+                ),
+              ),
+              const ListProducts(),
+              const SizedBox(height: 20),
 
               // Best Vendors
-              ListVendor(),
-              SizedBox(height: 20),
+              BazarSection(
+                text: 'Vendors',
+                onPressed: () => context.pushNamed(
+                  AppRouteNames.vendorList.name,
+                  extra: VendorBloc(locator<HomeUsecases>()),
+                ),
+              ),
+              const ListVendor(),
+              const SizedBox(height: 20),
 
               // Authors
-              ListAuthors(),
-              SizedBox(height: 20),
+
+              BazarSection(
+                text: 'Authors',
+                onPressed: () => context.pushNamed(
+                  AppRouteNames.authorList.name,
+                  extra: AuthorBloc(locator<HomeUsecases>()),
+                ),
+              ),
+              const ListAuthors(),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class BazarSection extends StatelessWidget {
+  const BazarSection({super.key, this.onPressed, required this.text});
+
+  final void Function()? onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(child: Text(text)),
+        BazarTextButton(onPressed: onPressed ?? () {}, text: 'See all'),
+      ],
     );
   }
 }

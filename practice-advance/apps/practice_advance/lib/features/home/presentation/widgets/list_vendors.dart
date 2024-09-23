@@ -20,13 +20,13 @@ class ListVendor extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: state.vendorEntity.length,
+              itemCount: state.vendors?.length,
               itemBuilder: (BuildContext context, int index) {
-                final item = state.vendorEntity[index];
+                final item = state.vendors?[index];
 
                 return Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: BazarBodyLargeText(text: item.name ?? ''),
+                  child: BazarBodyLargeText(text: item?.name ?? ''),
                 );
               },
             ),

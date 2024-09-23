@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 
-class AgbUiTextButton extends StatefulWidget {
+class BazarTextButton extends StatefulWidget {
   /// Returns a Agility Bank style [TextButton]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiTextButton({
+  const BazarTextButton({
     required this.text,
     this.isLoading = false,
     this.isDisabled = false,
-    this.width = double.infinity,
+    this.width,
     this.padding,
     this.onPressed,
     this.contentPadding,
@@ -32,7 +32,7 @@ class AgbUiTextButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiTextButton] which is defined in Theme is
+  /// The padding of [BazarTextButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -53,10 +53,10 @@ class AgbUiTextButton extends StatefulWidget {
   final String? semanticValue;
 
   @override
-  State<AgbUiTextButton> createState() => _AgbUiTextButtonState();
+  State<BazarTextButton> createState() => _BazarTextButtonState();
 }
 
-class _AgbUiTextButtonState extends State<AgbUiTextButton> {
+class _BazarTextButtonState extends State<BazarTextButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -64,7 +64,7 @@ class _AgbUiTextButtonState extends State<AgbUiTextButton> {
       value: widget.semanticValue,
       child: Container(
         padding: widget.padding,
-        width: widget.width ?? double.infinity,
+        width: widget.width,
         height: widget.height,
         child: TextButton(
           style: ButtonStyle(
@@ -76,7 +76,7 @@ class _AgbUiTextButtonState extends State<AgbUiTextButton> {
             minimumSize: widget.height != null || widget.width != null
                 ? WidgetStateProperty.all<Size>(
                     Size(
-                      widget.width ?? double.infinity,
+                      widget.width!,
                       widget.height ?? 48,
                     ),
                   )
@@ -96,14 +96,14 @@ class _AgbUiTextButtonState extends State<AgbUiTextButton> {
   }
 }
 
-class AgbUiTextIconButton extends StatefulWidget {
+class BazarTextIconButton extends StatefulWidget {
   /// Returns a Agility Bank style [TextButton.icon]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiTextIconButton({
+  const BazarTextIconButton({
     required this.icon,
     required this.text,
     this.isLoading = false,
@@ -129,7 +129,7 @@ class AgbUiTextIconButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiTextIconButton] which is defined in Theme is
+  /// The padding of [BazarTextIconButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -150,10 +150,10 @@ class AgbUiTextIconButton extends StatefulWidget {
   final String? semanticValue;
 
   @override
-  State<AgbUiTextIconButton> createState() => _AgbUiTextIconButtonState();
+  State<BazarTextIconButton> createState() => _BazarTextIconButtonState();
 }
 
-class _AgbUiTextIconButtonState extends State<AgbUiTextIconButton> {
+class _BazarTextIconButtonState extends State<BazarTextIconButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(
