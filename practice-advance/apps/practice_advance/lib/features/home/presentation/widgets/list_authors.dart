@@ -15,7 +15,7 @@ class ListAuthors extends StatelessWidget {
         BlocConsumer<AuthorBloc, AuthorState>(
           listener: (_, state) {
             if (state is AuthorError) {
-              AgbUiSnackBarContentError(
+              BazarSnackBarContentError(
                 context,
                 message: state.message,
               );

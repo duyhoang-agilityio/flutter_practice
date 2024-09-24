@@ -11,12 +11,13 @@ class AuthorByCategoryLoading extends AuthorState {}
 
 class AuthorLoaded extends AuthorState {
   final List<Author>? authors;
+  final bool hasReachedMax;
   final String? categoryName;
 
-  AuthorLoaded({this.authors, this.categoryName});
+  AuthorLoaded({this.authors, required this.hasReachedMax, this.categoryName});
 
   @override
-  List<Object?> get props => [authors, categoryName];
+  List<Object?> get props => [authors, hasReachedMax, categoryName];
 }
 
 class AuthorError extends AuthorState {

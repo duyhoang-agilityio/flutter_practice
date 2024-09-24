@@ -8,6 +8,11 @@ class BazarIcon {
   static Widget Function({Color? color}) icCart = _BazarCartIcon.new;
   static Widget Function({Color? color}) icProfile = _BazarProfileIcon.new;
   static Widget Function({Color? color}) icCloseBig = _BazarCloseIcon.new;
+  static Widget Function({Color? color}) icArrowBack = _BazarBackIcon.new;
+  static Widget Function({Color? color}) icSearch = _BazarSearchIcon.new;
+  static Widget Function({Color? color}) icStar = _BazarStarIcon.new;
+  static Widget Function({Color? color}) icNotification =
+      _BazarNotificationIcon.new;
 }
 
 class _BazarHomeIcon extends StatelessWidget {
@@ -52,4 +57,36 @@ class _BazarCloseIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Icon(Icons.close);
+}
+
+class _BazarBackIcon extends StatelessWidget {
+  const _BazarBackIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.arrow_back);
+}
+
+class _BazarSearchIcon extends StatelessWidget {
+  const _BazarSearchIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.search);
+}
+
+class _BazarStarIcon extends StatelessWidget {
+  const _BazarStarIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.star);
+}
+
+class _BazarNotificationIcon extends StatelessWidget {
+  const _BazarNotificationIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.notifications);
 }

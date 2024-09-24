@@ -10,12 +10,12 @@ class Product {
   static const String keyTitle = 'title';
   // static const String keyDescription = 'description';
   // static const String keyCategory = 'category';
-  // static const String keyPrice = 'price';
+  static const String keyPrice = 'price';
   // static const String keyDiscountPercentage = 'discountPercentage';
-  // static const String keyRating = 'rating';
-  // static const String keyStock = 'stock';
+  static const String keyRating = 'rating';
+  static const String keyStock = 'stock';
   // static const String keyTags = 'tags';
-  // static const String keyBrand = 'brand';
+  static const String keyBrand = 'brand';
   // static const String keySku = 'sku';
   // static const String keyDimensions = 'dimensions';
   // static const String keyDepth = 'depth';
@@ -51,6 +51,7 @@ class Product {
   late int? minimumOrderQuantity;
   late MetaData? meta;
   late String? thumbnail;
+  late int? quantity;
   late List<String> images;
 
   Product({
@@ -74,6 +75,7 @@ class Product {
     this.minimumOrderQuantity,
     this.meta,
     this.thumbnail,
+    this.quantity,
     this.images = const [],
   });
 
@@ -82,14 +84,15 @@ class Product {
     return Product(
       productId: json[keyId] ?? 0,
       title: json[keyTitle] ?? '',
+      quantity: json[keyStock] ?? 0,
       // description: json[keyDescription] ?? '',
       // category: json[keyCategory] ?? '',
-      // price: json[keyPrice] ?? 0.0,
+      price: json[keyPrice] ?? 0.0,
       // discountPercentage: json[keyDiscountPercentage] ?? 0.0,
-      // rating: json[keyRating] ?? 0.0,
+      rating: json[keyRating] ?? 0.0,
       // stock: json[keyStock] ?? 0,
       // tags: List<String>.from(json[keyTags] ?? []),
-      // brand: json[keyBrand] ?? '',
+      brand: json[keyBrand] ?? '',
       // sku: json[keySku] ?? '',
       // depth: json[keyDimensions]?[keyDepth] ?? 0.0,
       // warrantyInformation: json[keyWarrantyInformation] ?? '',

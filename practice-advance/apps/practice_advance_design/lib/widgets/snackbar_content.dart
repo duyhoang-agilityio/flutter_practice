@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/foundations/radius.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/molecules/list_tile.dart';
+import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
 ///
 /// Creates a SnackBar Content Success
 ///
 
-class AgbUiSnackBarContentSuccess extends SnackBar {
-  AgbUiSnackBarContentSuccess(
+class BazarSnackBarContentSuccess extends SnackBar {
+  BazarSnackBarContentSuccess(
     BuildContext context, {
     /// The message will default to the empty string if not supplied.
     String message = '',
@@ -35,8 +35,8 @@ class AgbUiSnackBarContentSuccess extends SnackBar {
 ///
 /// Creates a SnackBar Content Error
 ///
-class AgbUiSnackBarContentError extends SnackBar {
-  AgbUiSnackBarContentError(
+class BazarSnackBarContentError extends SnackBar {
+  BazarSnackBarContentError(
     BuildContext context, {
     /// The message will default to the empty string if not supplied.
     String message = '',

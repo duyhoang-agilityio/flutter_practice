@@ -45,7 +45,7 @@ class ListVendorsScreen extends StatelessWidget {
             child: BlocConsumer<VendorBloc, VendorState>(
               listener: (context, state) {
                 if (state is VendorError) {
-                  AgbUiSnackBarContentError(
+                  BazarSnackBarContentError(
                     context,
                     message: state.message,
                   );
@@ -148,37 +148,19 @@ class _CategoryList extends StatelessWidget {
 class _VendorGrid extends StatefulWidget {
   const _VendorGrid({
     required this.vendors,
-    // required this.hasReachedMax,
   });
 
   final List<Vendor>? vendors;
-  // final bool hasReachedMax;
 
   @override
   State<_VendorGrid> createState() => _VendorGridState();
 }
 
 class _VendorGridState extends State<_VendorGrid> {
-  // final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
-    // _scrollController.addListener(_onScroll);
   }
-
-  // void _onScroll() {
-  //   if (_isBottom && !widget.hasReachedMax) {
-  //     context.read<VendorBloc>().add(LoadMoreVendorsEvent());
-  //   }
-  // }
-
-  // bool get _isBottom {
-  //   if (!_scrollController.hasClients) return false;
-  //   final maxScroll = _scrollController.position.maxScrollExtent;
-  //   final currentScroll = _scrollController.offset;
-  //   return currentScroll >= (maxScroll * 0.9);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +169,6 @@ class _VendorGridState extends State<_VendorGrid> {
     }
 
     return GridView.builder(
-      // controller: _scrollController,
       shrinkWrap: true,
       itemCount: widget.vendors!.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -203,59 +184,65 @@ class _VendorGridState extends State<_VendorGrid> {
               context: context,
               builder: (context) => BazarScaffold(
                 backgroundColor: context.colorScheme.surface,
-                body: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 20),
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                          color: context.colorScheme.errorContainer,
+                body: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            color: context.colorScheme.errorContainer,
+                          ),
+                          width: 60,
+                          height: 5,
                         ),
-                        width: 60,
-                        height: 5,
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    BazarImage.imgOnboarding1(),
-                    const SizedBox(height: 20),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BazarBodyLargeText(text: vendor?.name ?? ''),
-                        const Icon(Icons.favorite),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-                    BazarBodyMediumText(text: vendor?.difficulty ?? ''),
-                    const SizedBox(height: 40),
-                    const BazarBodyLargeText(text: 'Review'),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        RatingWidget(rating: vendor?.rating ?? 0.0),
-                        const SizedBox(width: 5),
-                        BazarBodyLargeText(text: '(${vendor?.rating ?? 0.0})'),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    QuantitySelector(vendor: vendor),
-                    const SizedBox(height: 20),
-                    const Row(
-                      children: [
-                        Expanded(
-                          child: BazarElevatedButton(text: 'Continue shopping'),
-                        ),
-                        BazarElevatedButton(
-                          text: 'View cart',
-                          width: 120,
-                        ),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(height: 20),
+                      BazarImage.imgOnboarding1(),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          BazarBodyLargeText(text: vendor?.name ?? ''),
+                          const Icon(Icons.favorite),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      BazarBodyMediumText(text: vendor?.difficulty ?? ''),
+                      const SizedBox(height: 40),
+                      const BazarBodyLargeText(text: 'Review'),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          RatingWidget(rating: vendor?.rating ?? 0.0),
+                          const SizedBox(width: 5),
+                          BazarBodyLargeText(
+                              text: '(${vendor?.rating ?? 0.0})'),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      QuantitySelector(vendor: vendor),
+                      const SizedBox(height: 20),
+                      const Row(
+                        children: [
+                          Expanded(
+                            child:
+                                BazarElevatedButton(text: 'Continue shopping'),
+                          ),
+                          SizedBox(width: 20),
+                          BazarElevatedButton(
+                            text: 'View cart',
+                            width: 120,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -278,13 +265,6 @@ class _VendorGridState extends State<_VendorGrid> {
       },
     );
   }
-
-  // @override
-  // void dispose() {
-  //   _scrollController.removeListener(_onScroll);
-  //   _scrollController.dispose();
-  //   super.dispose();
-  // }
 }
 
 class RatingWidget extends StatelessWidget {

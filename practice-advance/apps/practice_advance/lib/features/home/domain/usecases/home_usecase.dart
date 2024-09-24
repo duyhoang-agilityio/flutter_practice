@@ -1,3 +1,4 @@
+import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:practice_advance/core/error/failures.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
@@ -9,6 +10,14 @@ class HomeUsecases {
   final HomeRepository repository;
 
   HomeUsecases(this.repository);
+
+  Future<Either<Failure, List<Product>>> getCartItems() {
+    return repository.getCartItems();
+  }
+  
+  Future<void> addToCart({Product? item}) {
+    return repository.addToCart(item: item);
+  }
 
   Future<Either<Failure, List<Product>>> getProducts({
     int? limit,
@@ -43,15 +52,13 @@ class HomeUsecases {
     return repository.getAuthors(limit: limit, ofset: ofset);
   }
 
-  Future<Either<Failure, List<Author>>> getAuthorsByCategory({
+  InfiniteQuery<List<Author>, int> getAuthorsByCategory({
     int? limit = 20,
-    int ofset = 0,
-    String? name = 'Asian',
+    int? page,
   }) {
     return repository.getAuthorsByCategory(
       limit: limit,
-      ofset: ofset,
-      name: name,
+      page: page,
     );
   }
 }

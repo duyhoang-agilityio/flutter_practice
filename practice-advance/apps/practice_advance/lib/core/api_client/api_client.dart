@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:practice_advance/core/api_client/dio_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
@@ -9,9 +8,17 @@ class ApiClient {
   final Dio _dio;
   final FlutterSecureStorage _storage;
 
-  ApiClient(this._dio, this._storage) {
+  final String primaryBaseUrl;
+  final String secondaryBaseUrl;
+
+  ApiClient(
+    this._dio,
+    this._storage, {
+    required this.primaryBaseUrl,
+    required this.secondaryBaseUrl,
+  }) {
     _dio.options = BaseOptions(
-      baseUrl: dotenv.env['API_ENDPOINT'] ?? '',
+      baseUrl: primaryBaseUrl, // Set the default base URL
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
       headers: {
@@ -76,11 +83,23 @@ class ApiClient {
     ));
   }
 
+  // Generalized function to change the base URL dynamically
+  void setBaseUrl(String baseUrl) {
+    _dio.options.baseUrl = baseUrl;
+  }
+
   Future<Response> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Options? options,
+    bool useSecondaryUrl =
+        false, // Optional parameter to choose which base URL to use
   }) async {
+    if (useSecondaryUrl) {
+      setBaseUrl(secondaryBaseUrl);
+    } else {
+      setBaseUrl(primaryBaseUrl);
+    }
     try {
       final response = await _dio.get(
         path,
@@ -93,7 +112,13 @@ class ApiClient {
     }
   }
 
-  Future<Response> post(String path, {dynamic data, Options? options}) async {
+  Future<Response> post(String path,
+      {dynamic data, Options? options, bool useSecondaryUrl = false}) async {
+    if (useSecondaryUrl) {
+      setBaseUrl(secondaryBaseUrl);
+    } else {
+      setBaseUrl(primaryBaseUrl);
+    }
     try {
       final response = await _dio.post(path, data: data, options: options);
       return response;
@@ -102,7 +127,13 @@ class ApiClient {
     }
   }
 
-  Future<Response> update(String path, {dynamic data, Options? options}) async {
+  Future<Response> update(String path,
+      {dynamic data, Options? options, bool useSecondaryUrl = false}) async {
+    if (useSecondaryUrl) {
+      setBaseUrl(secondaryBaseUrl);
+    } else {
+      setBaseUrl(primaryBaseUrl);
+    }
     try {
       final response = await _dio.patch(path, data: data, options: options);
       return response;
@@ -111,7 +142,13 @@ class ApiClient {
     }
   }
 
-  Future<Response> delete(String path, {dynamic data, Options? options}) async {
+  Future<Response> delete(String path,
+      {dynamic data, Options? options, bool useSecondaryUrl = false}) async {
+    if (useSecondaryUrl) {
+      setBaseUrl(secondaryBaseUrl);
+    } else {
+      setBaseUrl(primaryBaseUrl);
+    }
     try {
       final response = await _dio.delete(path, data: data, options: options);
       return response;
@@ -123,7 +160,7 @@ class ApiClient {
   // Helper method to refresh JWT tokens
   Future<String> _refreshToken(String refreshToken) async {
     final response = await _dio.post(
-      '${dotenv.env['API_ENDPOINT']}/auth/refresh-token',
+      '$primaryBaseUrl/auth/refresh-token', // Assuming auth is on the primary base URL
       options: Options(headers: {'Refresh-Token': refreshToken}),
     );
 

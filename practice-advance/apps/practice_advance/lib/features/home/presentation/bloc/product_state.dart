@@ -6,11 +6,21 @@ class ProductState extends Equatable {
 }
 
 class ProductInitial extends ProductState {}
+class CartLoading extends ProductState {}
 
 class ProductLoaded extends ProductState {
   final List<Product> products;
 
   ProductLoaded(this.products);
+
+  @override
+  List<Object?> get props => [products];
+}
+
+class GetListCartSuccess extends ProductState {
+  final List<Product> products;
+
+  GetListCartSuccess(this.products);
 
   @override
   List<Object?> get props => [products];
@@ -24,3 +34,4 @@ class ProductError extends ProductState {
   @override
   List<Object?> get props => [message];
 }
+

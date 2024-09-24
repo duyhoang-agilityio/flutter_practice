@@ -115,6 +115,7 @@ class BazarBodyLargeText extends StatelessWidget {
     this.textAlign,
     this.overflow,
     this.fontWeight,
+    this.maxLines,
   });
 
   final String text;
@@ -122,13 +123,15 @@ class BazarBodyLargeText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return _BazarText(
       text: text,
+      maxLines: maxLines,
       textAlign: textAlign,
-      style: context.textTheme.headlineSmall?.copyWith(
+      style: context.textTheme.bodyLarge?.copyWith(
         color: color,
       ),
     );
@@ -143,6 +146,7 @@ class BazarBodyMediumText extends StatelessWidget {
     this.textAlign,
     this.overflow,
     this.fontWeight,
+    this.maxLines,
   });
 
   final String text;
@@ -150,13 +154,15 @@ class BazarBodyMediumText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return _BazarText(
       text: text,
       textAlign: textAlign,
-      style: context.textTheme.headlineSmall?.copyWith(
+      maxLines: maxLines,
+      style: context.textTheme.bodyMedium?.copyWith(
         color: color,
       ),
     );
@@ -184,7 +190,7 @@ class BazarBodySmallText extends StatelessWidget {
     return _BazarText(
       text: text,
       textAlign: textAlign,
-      style: context.textTheme.headlineSmall?.copyWith(
+      style: context.textTheme.bodySmall?.copyWith(
         color: color,
       ),
     );

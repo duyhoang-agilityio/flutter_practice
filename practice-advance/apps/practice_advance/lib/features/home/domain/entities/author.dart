@@ -13,23 +13,21 @@ class Author {
   Author({required this.id, this.name, this.image, this.desc});
 
   // Factory constructor to parse from JSON
-  factory Author.fromJson(Map<String, dynamic> json) {
+  factory Author.fromJson(Map<String, dynamic>? json) {
     return Author(
-      id: json['id'] ?? Isar.autoIncrement,
-      name: json['author'] ?? '',
-      desc: json['quote'] ?? '',
-      image: json['image'] ?? '',
+      id: json?['id'] ?? Isar.autoIncrement,
+      name: json?['title'] ?? '',
+      desc: json?['body'] ?? '',
+      image: json?['image'] ?? '',
     );
   }
 
   // Static method to parse a list of Authors
-  static List<Author> fromJsonList(Map<String, dynamic> json) {
+  static List<Author> fromJsonList(List<dynamic> json) {
     if (json.isEmpty) return [];
 
-    var jsonList = json['quotes'] as List<dynamic>;
-
-    return jsonList
-        .map((json) => Author.fromJson(json as Map<String, dynamic>))
+    return json
+        .map((item) => Author.fromJson(item as Map<String, dynamic>))
         .toList();
   }
 }

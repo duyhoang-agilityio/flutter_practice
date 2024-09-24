@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => AuthorBloc(locator<HomeUsecases>())
-            ..add(GetListAuthorsEvent(limit: 5)),
+            ..add(GetListAuthorsByCategoryEvent()),
         ),
       ],
       child: Scaffold(

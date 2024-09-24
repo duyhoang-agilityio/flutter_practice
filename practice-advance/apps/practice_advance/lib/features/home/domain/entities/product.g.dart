@@ -73,54 +73,59 @@ const ProductSchema = CollectionSchema(
       name: r'productId',
       type: IsarType.long,
     ),
-    r'rating': PropertySchema(
+    r'quantity': PropertySchema(
       id: 11,
+      name: r'quantity',
+      type: IsarType.long,
+    ),
+    r'rating': PropertySchema(
+      id: 12,
       name: r'rating',
       type: IsarType.double,
     ),
     r'returnPolicy': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'returnPolicy',
       type: IsarType.string,
     ),
     r'reviews': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'reviews',
       type: IsarType.objectList,
       target: r'Review',
     ),
     r'shippingInformation': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'shippingInformation',
       type: IsarType.string,
     ),
     r'sku': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'sku',
       type: IsarType.string,
     ),
     r'stock': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'stock',
       type: IsarType.long,
     ),
     r'tags': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'tags',
       type: IsarType.stringList,
     ),
     r'thumbnail': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'thumbnail',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 19,
+      id: 20,
       name: r'title',
       type: IsarType.string,
     ),
     r'warrantyInformation': PropertySchema(
-      id: 20,
+      id: 21,
       name: r'warrantyInformation',
       type: IsarType.string,
     )
@@ -259,21 +264,22 @@ void _productSerialize(
   writer.writeLong(offsets[8], object.minimumOrderQuantity);
   writer.writeDouble(offsets[9], object.price);
   writer.writeLong(offsets[10], object.productId);
-  writer.writeDouble(offsets[11], object.rating);
-  writer.writeString(offsets[12], object.returnPolicy);
+  writer.writeLong(offsets[11], object.quantity);
+  writer.writeDouble(offsets[12], object.rating);
+  writer.writeString(offsets[13], object.returnPolicy);
   writer.writeObjectList<Review>(
-    offsets[13],
+    offsets[14],
     allOffsets,
     ReviewSchema.serialize,
     object.reviews,
   );
-  writer.writeString(offsets[14], object.shippingInformation);
-  writer.writeString(offsets[15], object.sku);
-  writer.writeLong(offsets[16], object.stock);
-  writer.writeStringList(offsets[17], object.tags);
-  writer.writeString(offsets[18], object.thumbnail);
-  writer.writeString(offsets[19], object.title);
-  writer.writeString(offsets[20], object.warrantyInformation);
+  writer.writeString(offsets[15], object.shippingInformation);
+  writer.writeString(offsets[16], object.sku);
+  writer.writeLong(offsets[17], object.stock);
+  writer.writeStringList(offsets[18], object.tags);
+  writer.writeString(offsets[19], object.thumbnail);
+  writer.writeString(offsets[20], object.title);
+  writer.writeString(offsets[21], object.warrantyInformation);
 }
 
 Product _productDeserialize(
@@ -298,22 +304,23 @@ Product _productDeserialize(
     minimumOrderQuantity: reader.readLongOrNull(offsets[8]),
     price: reader.readDoubleOrNull(offsets[9]),
     productId: reader.readLong(offsets[10]),
-    rating: reader.readDoubleOrNull(offsets[11]),
-    returnPolicy: reader.readStringOrNull(offsets[12]),
+    quantity: reader.readLongOrNull(offsets[11]),
+    rating: reader.readDoubleOrNull(offsets[12]),
+    returnPolicy: reader.readStringOrNull(offsets[13]),
     reviews: reader.readObjectList<Review>(
-          offsets[13],
+          offsets[14],
           ReviewSchema.deserialize,
           allOffsets,
           Review(),
         ) ??
         const [],
-    shippingInformation: reader.readStringOrNull(offsets[14]),
-    sku: reader.readStringOrNull(offsets[15]),
-    stock: reader.readLongOrNull(offsets[16]),
-    tags: reader.readStringList(offsets[17]) ?? const [],
-    thumbnail: reader.readStringOrNull(offsets[18]),
-    title: reader.readStringOrNull(offsets[19]),
-    warrantyInformation: reader.readStringOrNull(offsets[20]),
+    shippingInformation: reader.readStringOrNull(offsets[15]),
+    sku: reader.readStringOrNull(offsets[16]),
+    stock: reader.readLongOrNull(offsets[17]),
+    tags: reader.readStringList(offsets[18]) ?? const [],
+    thumbnail: reader.readStringOrNull(offsets[19]),
+    title: reader.readStringOrNull(offsets[20]),
+    warrantyInformation: reader.readStringOrNull(offsets[21]),
   );
   object.id = id;
   return object;
@@ -353,10 +360,12 @@ P _productDeserializeProp<P>(
     case 10:
       return (reader.readLong(offset)) as P;
     case 11:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 13:
+      return (reader.readStringOrNull(offset)) as P;
+    case 14:
       return (reader.readObjectList<Review>(
             offset,
             ReviewSchema.deserialize,
@@ -364,19 +373,19 @@ P _productDeserializeProp<P>(
             Review(),
           ) ??
           const []) as P;
-    case 14:
-      return (reader.readStringOrNull(offset)) as P;
     case 15:
       return (reader.readStringOrNull(offset)) as P;
     case 16:
-      return (reader.readLongOrNull(offset)) as P;
-    case 17:
-      return (reader.readStringList(offset) ?? const []) as P;
-    case 18:
       return (reader.readStringOrNull(offset)) as P;
+    case 17:
+      return (reader.readLongOrNull(offset)) as P;
+    case 18:
+      return (reader.readStringList(offset) ?? const []) as P;
     case 19:
       return (reader.readStringOrNull(offset)) as P;
     case 20:
+      return (reader.readStringOrNull(offset)) as P;
+    case 21:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1708,6 +1717,75 @@ extension ProductQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'productId',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'quantity',
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'quantity',
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'quantity',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'quantity',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'quantity',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterFilterCondition> quantityBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'quantity',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -3188,6 +3266,18 @@ extension ProductQuerySortBy on QueryBuilder<Product, Product, QSortBy> {
     });
   }
 
+  QueryBuilder<Product, Product, QAfterSortBy> sortByQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'quantity', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterSortBy> sortByQuantityDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'quantity', Sort.desc);
+    });
+  }
+
   QueryBuilder<Product, Product, QAfterSortBy> sortByRating() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rating', Sort.asc);
@@ -3408,6 +3498,18 @@ extension ProductQuerySortThenBy
     });
   }
 
+  QueryBuilder<Product, Product, QAfterSortBy> thenByQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'quantity', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Product, Product, QAfterSortBy> thenByQuantityDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'quantity', Sort.desc);
+    });
+  }
+
   QueryBuilder<Product, Product, QAfterSortBy> thenByRating() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'rating', Sort.asc);
@@ -3572,6 +3674,12 @@ extension ProductQueryWhereDistinct
     });
   }
 
+  QueryBuilder<Product, Product, QDistinct> distinctByQuantity() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'quantity');
+    });
+  }
+
   QueryBuilder<Product, Product, QDistinct> distinctByRating() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'rating');
@@ -3708,6 +3816,12 @@ extension ProductQueryProperty
   QueryBuilder<Product, int, QQueryOperations> productIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'productId');
+    });
+  }
+
+  QueryBuilder<Product, int?, QQueryOperations> quantityProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'quantity');
     });
   }
 

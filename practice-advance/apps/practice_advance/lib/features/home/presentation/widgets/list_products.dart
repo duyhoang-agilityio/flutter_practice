@@ -13,7 +13,7 @@ class ListProducts extends StatelessWidget {
     return BlocConsumer<ProductBloc, ProductState>(
       listener: (_, state) {
         if (state is ProductError) {
-          AgbUiSnackBarContentError(
+          BazarSnackBarContentError(
             context,
             message: state.message,
           );

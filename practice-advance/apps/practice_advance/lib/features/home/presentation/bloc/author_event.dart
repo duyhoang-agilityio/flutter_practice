@@ -13,3 +13,7 @@ class GetListAuthorsByCategoryEvent extends AuthorEvent {
 
   GetListAuthorsByCategoryEvent({this.categoryName});
 }
+
+class AuthorsNextPage extends AuthorEvent {
+  AuthorsNextPage();
+}

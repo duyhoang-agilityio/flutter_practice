@@ -17,54 +17,54 @@ const VendorSchema = CollectionSchema(
   name: r'Vendor',
   id: -5715217668496658661,
   properties: {
-    r'caloriesPerServing': PropertySchema(
-      id: 0,
-      name: r'caloriesPerServing',
-      type: IsarType.long,
-    ),
     r'cookTimeMinutes': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'cookTimeMinutes',
       type: IsarType.long,
     ),
     r'cuisine': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'cuisine',
       type: IsarType.string,
     ),
     r'difficulty': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'difficulty',
       type: IsarType.string,
     ),
     r'image': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'image',
       type: IsarType.string,
     ),
     r'ingredients': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'ingredients',
       type: IsarType.stringList,
     ),
     r'instructions': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'instructions',
       type: IsarType.stringList,
     ),
     r'mealType': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'mealType',
       type: IsarType.stringList,
     ),
     r'name': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'name',
       type: IsarType.string,
     ),
     r'prepTimeMinutes': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'prepTimeMinutes',
+      type: IsarType.long,
+    ),
+    r'price': PropertySchema(
+      id: 9,
+      name: r'price',
       type: IsarType.long,
     ),
     r'quantity': PropertySchema(
@@ -204,16 +204,16 @@ void _vendorSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.price);
-  writer.writeLong(offsets[1], object.cookTimeMinutes);
-  writer.writeString(offsets[2], object.cuisine);
-  writer.writeString(offsets[3], object.difficulty);
-  writer.writeString(offsets[4], object.image);
-  writer.writeStringList(offsets[5], object.ingredients);
-  writer.writeStringList(offsets[6], object.instructions);
-  writer.writeStringList(offsets[7], object.mealType);
-  writer.writeString(offsets[8], object.name);
-  writer.writeLong(offsets[9], object.prepTimeMinutes);
+  writer.writeLong(offsets[0], object.cookTimeMinutes);
+  writer.writeString(offsets[1], object.cuisine);
+  writer.writeString(offsets[2], object.difficulty);
+  writer.writeString(offsets[3], object.image);
+  writer.writeStringList(offsets[4], object.ingredients);
+  writer.writeStringList(offsets[5], object.instructions);
+  writer.writeStringList(offsets[6], object.mealType);
+  writer.writeString(offsets[7], object.name);
+  writer.writeLong(offsets[8], object.prepTimeMinutes);
+  writer.writeLong(offsets[9], object.price);
   writer.writeLong(offsets[10], object.quantity);
   writer.writeDouble(offsets[11], object.rating);
   writer.writeLong(offsets[12], object.reviewCount);
@@ -230,16 +230,16 @@ Vendor _vendorDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Vendor(
-    price: reader.readLongOrNull(offsets[0]),
-    cookTimeMinutes: reader.readLongOrNull(offsets[1]),
-    cuisine: reader.readStringOrNull(offsets[2]),
-    difficulty: reader.readStringOrNull(offsets[3]),
-    image: reader.readStringOrNull(offsets[4]),
-    ingredients: reader.readStringList(offsets[5]),
-    instructions: reader.readStringList(offsets[6]),
-    mealType: reader.readStringList(offsets[7]),
-    name: reader.readStringOrNull(offsets[8]),
-    prepTimeMinutes: reader.readLongOrNull(offsets[9]),
+    cookTimeMinutes: reader.readLongOrNull(offsets[0]),
+    cuisine: reader.readStringOrNull(offsets[1]),
+    difficulty: reader.readStringOrNull(offsets[2]),
+    image: reader.readStringOrNull(offsets[3]),
+    ingredients: reader.readStringList(offsets[4]),
+    instructions: reader.readStringList(offsets[5]),
+    mealType: reader.readStringList(offsets[6]),
+    name: reader.readStringOrNull(offsets[7]),
+    prepTimeMinutes: reader.readLongOrNull(offsets[8]),
+    price: reader.readLongOrNull(offsets[9]),
     quantity: reader.readLongOrNull(offsets[10]),
     rating: reader.readDoubleOrNull(offsets[11]),
     reviewCount: reader.readLongOrNull(offsets[12]),
@@ -262,21 +262,21 @@ P _vendorDeserializeProp<P>(
     case 0:
       return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 5:
       return (reader.readStringList(offset)) as P;
     case 6:
       return (reader.readStringList(offset)) as P;
     case 7:
-      return (reader.readStringList(offset)) as P;
-    case 8:
       return (reader.readStringOrNull(offset)) as P;
+    case 8:
+      return (reader.readLongOrNull(offset)) as P;
     case 9:
       return (reader.readLongOrNull(offset)) as P;
     case 10:
@@ -386,79 +386,6 @@ extension VendorQueryWhere on QueryBuilder<Vendor, Vendor, QWhereClause> {
 }
 
 extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition>
-      caloriesPerServingIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caloriesPerServing',
-      ));
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition>
-      caloriesPerServingIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caloriesPerServing',
-      ));
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> caloriesPerServingEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caloriesPerServing',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition>
-      caloriesPerServingGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'caloriesPerServing',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition>
-      caloriesPerServingLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'caloriesPerServing',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> caloriesPerServingBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'caloriesPerServing',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<Vendor, Vendor, QAfterFilterCondition> cookTimeMinutesIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -1942,6 +1869,74 @@ extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'price',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'price',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'price',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'price',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'price',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'price',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QAfterFilterCondition> quantityIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -2585,18 +2580,6 @@ extension VendorQueryObject on QueryBuilder<Vendor, Vendor, QFilterCondition> {}
 extension VendorQueryLinks on QueryBuilder<Vendor, Vendor, QFilterCondition> {}
 
 extension VendorQuerySortBy on QueryBuilder<Vendor, Vendor, QSortBy> {
-  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByCaloriesPerServing() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caloriesPerServing', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByCaloriesPerServingDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caloriesPerServing', Sort.desc);
-    });
-  }
-
   QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByCookTimeMinutes() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cookTimeMinutes', Sort.asc);
@@ -2666,6 +2649,18 @@ extension VendorQuerySortBy on QueryBuilder<Vendor, Vendor, QSortBy> {
   QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByPrepTimeMinutesDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'prepTimeMinutes', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.desc);
     });
   }
 
@@ -2743,18 +2738,6 @@ extension VendorQuerySortBy on QueryBuilder<Vendor, Vendor, QSortBy> {
 }
 
 extension VendorQuerySortThenBy on QueryBuilder<Vendor, Vendor, QSortThenBy> {
-  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByCaloriesPerServing() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caloriesPerServing', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByCaloriesPerServingDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caloriesPerServing', Sort.desc);
-    });
-  }
-
   QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByCookTimeMinutes() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'cookTimeMinutes', Sort.asc);
@@ -2839,6 +2822,18 @@ extension VendorQuerySortThenBy on QueryBuilder<Vendor, Vendor, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByPriceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'price', Sort.desc);
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'quantity', Sort.asc);
@@ -2913,12 +2908,6 @@ extension VendorQuerySortThenBy on QueryBuilder<Vendor, Vendor, QSortThenBy> {
 }
 
 extension VendorQueryWhereDistinct on QueryBuilder<Vendor, Vendor, QDistinct> {
-  QueryBuilder<Vendor, Vendor, QDistinct> distinctByCaloriesPerServing() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caloriesPerServing');
-    });
-  }
-
   QueryBuilder<Vendor, Vendor, QDistinct> distinctByCookTimeMinutes() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'cookTimeMinutes');
@@ -2977,6 +2966,12 @@ extension VendorQueryWhereDistinct on QueryBuilder<Vendor, Vendor, QDistinct> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QDistinct> distinctByPrice() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'price');
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QDistinct> distinctByQuantity() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'quantity');
@@ -3024,12 +3019,6 @@ extension VendorQueryProperty on QueryBuilder<Vendor, Vendor, QQueryProperty> {
   QueryBuilder<Vendor, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
-    });
-  }
-
-  QueryBuilder<Vendor, int?, QQueryOperations> caloriesPerServingProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caloriesPerServing');
     });
   }
 
@@ -3084,6 +3073,12 @@ extension VendorQueryProperty on QueryBuilder<Vendor, Vendor, QQueryProperty> {
   QueryBuilder<Vendor, int?, QQueryOperations> prepTimeMinutesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'prepTimeMinutes');
+    });
+  }
+
+  QueryBuilder<Vendor, int?, QQueryOperations> priceProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'price');
     });
   }
 

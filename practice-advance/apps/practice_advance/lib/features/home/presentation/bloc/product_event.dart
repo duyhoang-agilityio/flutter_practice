@@ -7,3 +7,12 @@ class GetListProductsEvent extends ProductEvent {
 
   GetListProductsEvent({this.limit = 5});
 }
+
+class AddToCartEvent extends ProductEvent {
+  final Product item;
+  AddToCartEvent(this.item);
+}
+
+class GetListCartsEvent extends ProductEvent {
+  GetListCartsEvent();
+}
