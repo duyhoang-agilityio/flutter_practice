@@ -10,23 +10,9 @@ part 'author_state.dart';
 class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   final HomeUsecases homeUsecases;
   AuthorBloc(this.homeUsecases) : super(AuthorInitial()) {
-    // Fetch activity transactions
-    // on<GetListAuthorsEvent>(_fetch);
     on<GetListAuthorsByCategoryEvent>(_fetchAuthorsByCategory);
     on<AuthorsNextPage>(_onPostsNextPage);
   }
-
-  // Future<void> _fetch(
-  //   GetListAuthorsEvent event,
-  //   Emitter<AuthorState> emit,
-  // ) async {
-  //   final result = await homeUsecases.getAuthors(limit: event.limit);
-
-  //   result.fold(
-  //     (l) => emit(AuthorError(l.message)),
-  //     (r) => emit(AuthorLoaded(authors: r, hasReachedMax: true)),
-  //   );
-  // }
 
   Future<void> _fetchAuthorsByCategory(
     GetListAuthorsByCategoryEvent event,
@@ -40,15 +26,15 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
         query.stream,
         onData: (queryState) {
           if (queryState.status == QueryStatus.error) {
-            return AuthorError('Failed to load posts');
-          }
+            return AuthorError(queryState.error ?? 'Failed to load posts');
+          } 
           return AuthorLoaded(
             authors: queryState.data?.expand((page) => page).toList() ?? [],
             hasReachedMax: queryState.hasReachedMax,
           );
         },
         onError: (error, stackTrace) {
-          return AuthorError('Failed to load posts');
+          return AuthorError(error as String);
         },
       );
     } catch (e) {

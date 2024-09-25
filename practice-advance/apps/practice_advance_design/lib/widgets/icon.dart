@@ -68,11 +68,14 @@ class _BazarBackIcon extends StatelessWidget {
 }
 
 class _BazarSearchIcon extends StatelessWidget {
-  const _BazarSearchIcon({this.color});
+  const _BazarSearchIcon({this.color = Colors.black});
   final Color? color;
 
   @override
-  Widget build(BuildContext context) => const Icon(Icons.search);
+  Widget build(BuildContext context) => Icon(
+        Icons.search,
+        color: color,
+      );
 }
 
 class _BazarStarIcon extends StatelessWidget {

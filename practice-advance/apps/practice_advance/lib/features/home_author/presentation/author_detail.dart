@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
@@ -27,7 +28,7 @@ class AuthorDetail extends StatelessWidget {
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
         title: const Text('Authors'),
-        leading: AgbUiIconButtons(
+        leading: BazarIconButtons(
           icon: BazarIcon.icArrowBack(),
           onPressed: () => context.pop(),
         ),
@@ -66,8 +67,10 @@ class AuthorDetail extends StatelessWidget {
               // List Products
               const BazarBodyMediumText(text: 'Product'),
               BlocProvider(
-                create: (_) => ProductBloc(locator<HomeUsecases>())
-                  ..add(GetListProductsEvent()),
+                create: (_) => ProductBloc(
+                  locator<HomeUsecases>(),
+                  locator<HomeBox>(),
+                )..add(GetListProductsEvent()),
                 child: BlocConsumer<ProductBloc, ProductState>(
                   listener: (context, state) {
                     if (state is ProductError) {

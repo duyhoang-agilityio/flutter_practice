@@ -1,56 +1,64 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:practice_advance/features/cart/data/cart_repository_impl.dart';
-import 'package:practice_advance/features/cart/domain/entities/cart_item.dart';
+import 'package:practice_advance/features/cart/data/cart_box_impl.dart';
+import 'package:practice_advance/features/cart/domain/usecases/cart_usecase.dart';
+import 'package:practice_advance/features/home/domain/entities/product.dart';
 
-abstract class CartEvent {}
-
-class AddToCartEvent extends CartEvent {
-  final CartItem item;
-  AddToCartEvent(this.item);
-}
-
-class LoadCartEvent extends CartEvent {}
-
-abstract class CartState {}
-
-class CartInitial extends CartState {}
-
-class CartLoading extends CartState {}
-
-class CartLoaded extends CartState {
-  final List<CartItem> items;
-  CartLoaded(this.items);
-}
-
-class CartError extends CartState {
-  final String error;
-  CartError(this.error);
-}
+part 'cart_event.dart';
+part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final CartService cartService;
+  final CartUsecase cartUsecase;
+  final CartBox box;
 
-  CartBloc(this.cartService) : super(CartInitial()) {
+  CartBloc(this.cartUsecase, this.box) : super(CartInitial()) {
     // Load the cart items initially
-    on<LoadCartEvent>((event, emit) async {
-      emit(CartLoading());
-      try {
-        final items = await cartService.getCartItems();
-        emit(CartLoaded(items));
-      } catch (e) {
-        emit(CartError(e.toString()));
-      }
-    });
+    on<LoadCartEvent>(_onLoadedCarts);
+    on<CheckoutCartEvent>(_onCheckoutCart);
+    on<RemoveProductEvent>(_onRemoveProduct);
+  }
 
-    // Add a product to the cart
-    on<AddToCartEvent>((event, emit) async {
-      emit(CartLoading());
-      try {
-        await addToCartMutation.mutate(event.item); // Call the mutation
-        add(LoadCartEvent()); // Reload the cart after adding an item
-      } catch (e) {
-        emit(CartError(e.toString()));
-      }
-    });
+  Future<void> _onLoadedCarts(
+    LoadCartEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    emit(GetCartItemsLoading());
+
+    final result = await box.getCartItems();
+
+    result.fold(
+      (l) => emit(CartError(l.message)),
+      (r) => r.isNotEmpty
+          ? emit(GetCartItemdLoaded(r))
+          : emit(
+              EmptyCartLoaded(),
+            ),
+    );
+  }
+
+  Future<void> _onRemoveProduct(
+    RemoveProductEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    emit(GetCartItemsLoading());
+
+    await box.deleteItem(productId: event.productId);
+
+    add(LoadCartEvent());
+  }
+
+  Future<void> _onCheckoutCart(
+    CheckoutCartEvent event,
+    Emitter<CartState> emit,
+  ) async {
+    emit(CartCheckoutLoading());
+    await box.clearCart();
+    final result = await cartUsecase.checkoutProducts(
+      products: event.products,
+    );
+
+    result.fold(
+      (l) => emit(CartError(l.message)),
+      (r) => emit(SuccessCheckoutCartState()),
+    );
   }
 }

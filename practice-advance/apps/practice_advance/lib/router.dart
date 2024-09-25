@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/core/router/page_names.dart';
+import 'package:practice_advance/features/cart/presentation/cart_screen.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
@@ -174,7 +175,7 @@ final GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage<void>(
             // child: CartPage(),
-            child: HomePage(),
+            child: CartScreen(),
           ),
         ),
         GoRoute(

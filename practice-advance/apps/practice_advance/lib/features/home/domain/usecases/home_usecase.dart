@@ -11,14 +11,6 @@ class HomeUsecases {
 
   HomeUsecases(this.repository);
 
-  Future<Either<Failure, List<Product>>> getCartItems() {
-    return repository.getCartItems();
-  }
-  
-  Future<void> addToCart({Product? item}) {
-    return repository.addToCart(item: item);
-  }
-
   Future<Either<Failure, List<Product>>> getProducts({
     int? limit,
     int ofset = 0,

@@ -3,6 +3,7 @@
   "txtCategory": "Category",
   "txtCart": "Cart",
   "txtProfile": "Profile",
+  "txtDefault": "Default",
   "numOfWorkers": "{count, plural, =1{1 worker} other{{count} workers}}",
   "@numOfWorkers": {
       "description": "Number of workers",

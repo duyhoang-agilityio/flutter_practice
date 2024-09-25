@@ -45,11 +45,12 @@ class BazarCachedNetworkImage extends StatelessWidget {
   const BazarCachedNetworkImage({
     required this.imagePath,
     this.package = 'banking_design',
-    this.width = 40,
-    this.height = 40,
+    this.width,
+    this.height,
     this.boxFit = BoxFit.contain,
     this.errorBuilder,
     this.color,
+    this.radius,
     super.key,
   });
 
@@ -60,6 +61,7 @@ class BazarCachedNetworkImage extends StatelessWidget {
   final double? height;
   final BoxFit? boxFit;
   final Color? color;
+  final BorderRadius? radius;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,7 @@ class BazarCachedNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       color: color,
+      radius: radius,
     );
   }
 }

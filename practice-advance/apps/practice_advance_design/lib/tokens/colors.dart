@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 class BazarLightThemeColors {
   BazarLightThemeColors();
 
-  // Amber
-  Color get amberA400 => const Color(0XFFF5BE00);
-
   // Black
   Color get black900 => const Color(0XFF121212);
 
@@ -38,7 +35,7 @@ class BazarLightThemeColors {
   Color get gray700 => const Color(0XFFA6A6A6);
   Color get gray900 => const Color(0XFFB8B8B8);
   Color get gray90002 => const Color(0XFF7A7A7A);
-  
+
   // White
   Color get white => const Color(0XFFFFFFFf);
 
@@ -47,10 +44,6 @@ class BazarLightThemeColors {
 
   // Indigo
   Color get indigo300 => const Color(0XFF8C84F0);
-
-  // Orange
-  Color get orange200 => const Color(0XFFF5BE00);
-  Color get orange400 => const Color(0XFFFFB300);
 
   // Red
   Color get red100 => const Color(0XFFFFE5E5);

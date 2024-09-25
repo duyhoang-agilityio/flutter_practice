@@ -27,11 +27,11 @@ class ListAuthorsScreen extends StatelessWidget {
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
         title: const Text('Home'),
-        leading: AgbUiIconButtons(
+        leading: BazarIconButtons(
           icon: BazarIcon.icCart(),
           onPressed: () => context.pop(),
         ),
-        trailing: AgbUiIconButtons(
+        trailing: BazarIconButtons(
           icon: BazarIcon.icCart(),
           onPressed: () {
             // TODO: Implement notification function

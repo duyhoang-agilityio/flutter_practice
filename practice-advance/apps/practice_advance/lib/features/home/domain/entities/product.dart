@@ -26,7 +26,7 @@ class Product {
   // static const String keyReturnPolicy = 'returnPolicy';
   // static const String keyMinimumOrderQuantity = 'minimumOrderQuantity';
   // static const String keyMeta = 'meta';
-  // static const String keyThumbnail = 'thumbnail';
+  static const String keyThumbnail = 'thumbnail';
   static const String keyImages = 'images';
 
   Id id = Isar.autoIncrement; // Auto-generate id
@@ -104,7 +104,7 @@ class Product {
       // returnPolicy: json[keyReturnPolicy] ?? '',
       // minimumOrderQuantity: json[keyMinimumOrderQuantity] ?? 0,
       // meta: MetaData.fromJson(json[keyMeta] ?? {}),
-      // thumbnail: json[keyThumbnail] ?? '',
+      thumbnail: json[keyThumbnail] ?? '',
       images: List<String>.from(json[keyImages] ?? []),
     );
   }

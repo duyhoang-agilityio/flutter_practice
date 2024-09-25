@@ -1,6 +1,5 @@
 import 'package:cached_query_flutter/cached_query_flutter.dart';
 import 'package:dartz/dartz.dart';
-import 'package:isar/isar.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';
@@ -11,38 +10,34 @@ import 'package:practice_advance/features/home/domain/repositories/home_reposito
 
 class HomeRepositoryImpl implements HomeRepository {
   final ApiClient apiClient;
-  final Isar isar;
 
-  HomeRepositoryImpl(this.apiClient, this.isar);
+  HomeRepositoryImpl(this.apiClient);
 
   @override
   Future<Either<Failure, List<Product>>> getProducts({
     int? limit,
     int ofset = 0,
   }) async {
+    // Using Query to cache the product data
+    final query = Query<List<Product>>(
+      key: 'products_$limit',
+      queryFn: () async {
+        // Fetch products from the API
+        final response = await apiClient.get(
+          '/products',
+          queryParameters: {
+            if (limit != null) 'limit': limit,
+          },
+        );
+        // Parse and return products
+        return Product.fromJsonList(response.data);
+      },
+    );
+
     try {
-      // Check if the product exists in the cache (Isar)
-      // final cachedProduct =
-      //     await isar.products.where().filter().productIdEqualTo(id).findFirst();
-      // if (cachedProduct != null) {
-      //   return Right(cachedProduct);
-      // }
-
-      final response = await apiClient.get(
-        '/products',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-        },
-      );
-
-      // final product = Product.fromJson(response.data);
-
-      // // Save the product to the Isar cache
-      // await isar.writeTxn(() async {
-      //   await isar.products.put(product);
-      // });
-
-      return Right(Product.fromJsonList(response.data));
+      // Fetch the data using the cached query
+      final queryState = await query.result;
+      return Right(queryState.data ?? []);
     } catch (e) {
       return Left(ErrorMapper.mapError(e));
     }
@@ -53,15 +48,24 @@ class HomeRepositoryImpl implements HomeRepository {
     int? limit,
     int ofset = 0,
   }) async {
-    try {
-      final response = await apiClient.get(
-        '/quotes',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-        },
-      );
+    final query = Query<List<Author>>(
+      key: 'authors_$limit',
+      queryFn: () async {
+        // Fetch authors from the API
+        final response = await apiClient.get(
+          '/quotes',
+          queryParameters: {
+            if (limit != null) 'limit': limit,
+          },
+        );
+        // Parse and return authors
+        return Author.fromJsonList(response.data);
+      },
+    );
 
-      return Right(Author.fromJsonList(response.data));
+    try {
+      final queryState = await query.result;
+      return Right(queryState.data ?? []);
     } catch (e) {
       return Left(ErrorMapper.mapError(e));
     }
@@ -72,35 +76,24 @@ class HomeRepositoryImpl implements HomeRepository {
     int? limit,
     int ofset = 0,
   }) async {
+    final query = Query<List<Vendor>>(
+      key: 'vendors_$limit',
+      queryFn: () async {
+        // Fetch vendors from the API
+        final response = await apiClient.get(
+          '/recipes',
+          queryParameters: {
+            if (limit != null) 'limit': limit,
+          },
+        );
+        // Parse and return vendors
+        return Vendor.fromJsonList(response.data);
+      },
+    );
+
     try {
-      final response = await apiClient.get(
-        '/recipes',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-        },
-      );
-
-      return Right(Vendor.fromJsonList(response.data));
-    } catch (e) {
-      return Left(ErrorMapper.mapError(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
-    int? limit,
-    String? name = 'Asian',
-    int ofset = 0,
-  }) async {
-    try {
-      final response = await apiClient.get(
-        '/recipes/tag/$name',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-        },
-      );
-
-      return Right(Vendor.fromJsonList(response.data));
+      final queryState = await query.result;
+      return Right(queryState.data ?? []);
     } catch (e) {
       return Left(ErrorMapper.mapError(e));
     }
@@ -147,60 +140,32 @@ class HomeRepositoryImpl implements HomeRepository {
     }
   }
 
-  Future<void> updateItemQuantity(int productId, int newQuantity) async {
-    final item =
-        await isar.products.filter().productIdEqualTo(productId).findFirst();
-    if (item != null) {
-      item.quantity = newQuantity;
-      await isar.writeTxn(() async {
-        await isar.products.put(item);
-      });
-    }
-  }
-
-  Future<void> deleteItem(int productId) async {
-    await isar.writeTxn(() async {
-      await isar.products.filter().productIdEqualTo(productId).deleteFirst();
-    });
-  }
-
-  Future<void> addItemToCart(Product item) async {
-    await isar.writeTxn(() async {
-      await isar.products.put(item); // Adds or updates item
-    });
-  }
-
   @override
-  Future<Either<Failure, List<Product>>> getCartItems() async {
-    try {
-      // Retrieves all cart items
-      final listProducts = await isar.products.where().findAll();
+  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+    int? limit,
+    String? name = 'Asian',
+    int ofset = 0,
+  }) async {
+    // Using Query to cache vendors by category
+    final query = Query<List<Vendor>>(
+      key: 'vendors_category_$name',
+      queryFn: () async {
+        final response = await apiClient.get(
+          '/recipes/tag/$name',
+          queryParameters: {
+            if (limit != null) 'limit': limit,
+          },
+        );
+        return Vendor.fromJsonList(response.data);
+      },
+    );
 
-      return Right(listProducts);
+    try {
+      final queryState = await query.result;
+
+      return Right(queryState.data ?? []);
     } catch (e) {
       return Left(ErrorMapper.mapError(e));
     }
-  }
-
-  @override
-  Future<void> addToCart({Product? item}) async {
-    Mutation<Product, Product>(
-      // function that will be called when the mutation is triggered
-      queryFn: (cartItem) async {
-        await addItemToCart(cartItem); // Add item to Isar DB
-        return cartItem;
-      },
-      // Invalidate all queries that are related to the cart to ensure the data stays fresh
-      invalidateQueries: ['cartItems'],
-      // Refetch queries to update the cart data in real time
-      refetchQueries: ['cartItems'],
-    ).mutate(item);
-  }
-
-  // Method to clear all cart items
-  Future<void> clearCart() async {
-    await isar.writeTxn(() async {
-      await isar.products.clear(); // This clears all cart items
-    });
   }
 }

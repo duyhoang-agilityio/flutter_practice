@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:practice_advance/features/home/data/home_box_impl.dart';
+import 'package:practice_advance/features/home/domain/entities/product.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
+import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
+import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
+import 'package:practice_advance/injection.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
 import 'package:practice_advance_design/widgets/app_bar.dart';
@@ -25,61 +30,61 @@ class ListVendorsScreen extends StatelessWidget {
     return BazarScaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
-        title: const Text('Home'),
-        leading: AgbUiIconButtons(
-          icon: BazarIcon.icCart(),
+        title: const BazarHeadlineLargeTitle(text: 'Vandors'),
+        leading: BazarIconButtons(
+          icon: BazarIcon.icArrowBack(),
           onPressed: () => context.pop(),
         ),
-        trailing: AgbUiIconButtons(
-          icon: BazarIcon.icCart(),
+        trailing: BazarIconButtons(
+          icon: BazarIcon.icSearch(),
           onPressed: () {
             // TODO: Implement notification function
           },
         ),
       ),
       body: BlocProvider<VendorBloc>.value(
-        value: bloc..add(GetListVendorsByCategoryEvent(name: 'Pizza')),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: BlocConsumer<VendorBloc, VendorState>(
-              listener: (context, state) {
-                if (state is VendorError) {
-                  BazarSnackBarContentError(
-                    context,
-                    message: state.message,
-                  );
-                }
-              },
-              builder: (context, state) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Titles
-                    const _VendorsHeader(),
-                    const SizedBox(height: 20),
+        value: bloc..add(GetListVendorsByCategoryEvent(name: tags.first)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: BlocConsumer<VendorBloc, VendorState>(
+            listener: (context, state) {
+              if (state is VendorError) {
+                BazarSnackBarContentError(
+                  context,
+                  message: state.message,
+                );
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Titles
+                  const _VendorsHeader(),
+                  const SizedBox(height: 20),
 
-                    // Category list
-                    _CategoryList(
-                      state: state,
-                      onCategoryTap: (category) => bloc
-                          .add(GetListVendorsByCategoryEvent(name: category)),
-                    ),
+                  // Category list
+                  _CategoryList(
+                    state: state,
+                    onCategoryTap: (category) =>
+                        bloc.add(GetListVendorsByCategoryEvent(name: category)),
+                  ),
 
-                    // Vendor list based on state
-                    if (state is VendorByCategoryLoading)
-                      const Center(child: BazarCircularProgressIndicator())
-                    else if (state is VendorLoaded)
-                      _VendorGrid(
+                  // Vendor list based on state
+                  if (state is VendorByCategoryLoading)
+                    const Center(child: BazarCircularProgressIndicator())
+                  else if (state is VendorLoaded)
+                    Expanded(
+                      child: _VendorGrid(
                         vendors: state.vendors,
                         // hasReachedMax: state.hasReachedMax ?? false,
-                      )
-                    else
-                      const SizedBox.shrink(),
-                  ],
-                );
-              },
-            ),
+                      ),
+                    )
+                  else
+                    const SizedBox.shrink(),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -117,7 +122,7 @@ class _CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 70,
+      height: 50,
       child: ListView.builder(
         itemCount: tags.length,
         scrollDirection: Axis.horizontal,
@@ -170,11 +175,15 @@ class _VendorGridState extends State<_VendorGrid> {
 
     return GridView.builder(
       shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const ClampingScrollPhysics(),
       itemCount: widget.vendors!.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
+        crossAxisSpacing: 15,
+        childAspectRatio: 0.6,
       ),
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (_, index) {
         if (index < widget.vendors!.length) {
           final vendor = widget.vendors?[index];
 
@@ -193,8 +202,9 @@ class _VendorGridState extends State<_VendorGrid> {
                       Center(
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
                             color: context.colorScheme.errorContainer,
                           ),
                           width: 60,
@@ -222,22 +232,36 @@ class _VendorGridState extends State<_VendorGrid> {
                           RatingWidget(rating: vendor?.rating ?? 0.0),
                           const SizedBox(width: 5),
                           BazarBodyLargeText(
-                              text: '(${vendor?.rating ?? 0.0})'),
+                            text: '(${vendor?.rating ?? 0.0})',
+                          ),
                         ],
                       ),
                       const SizedBox(height: 30),
                       QuantitySelector(vendor: vendor),
                       const SizedBox(height: 20),
-                      const Row(
+                      Row(
                         children: [
                           Expanded(
-                            child:
-                                BazarElevatedButton(text: 'Continue shopping'),
+                            child: BazarElevatedButton(
+                              text: 'Continue shopping',
+                              onPressed: () => context.pop(),
+                            ),
                           ),
-                          SizedBox(width: 20),
+                          const SizedBox(width: 20),
                           BazarElevatedButton(
-                            text: 'View cart',
+                            text: 'Add to Cart',
                             width: 120,
+                            onPressed: () => ProductBloc(
+                              locator<HomeUsecases>(),
+                              locator<HomeBox>(),
+                            ).add(
+                              AddToCartEvent(
+                                Product(
+                                  productId: 1,
+                                  title: 'Product 1',
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -246,12 +270,7 @@ class _VendorGridState extends State<_VendorGrid> {
                 ),
               ),
             ),
-            child: Card(
-              child: GridTile(
-                footer: Text(vendor?.name ?? ''),
-                child: Text(vendor?.rating.toString() ?? 'No rating'),
-              ),
-            ),
+            child: VendorTile(vendor: vendor),
           );
         } else {
           return const Center(
@@ -263,6 +282,38 @@ class _VendorGridState extends State<_VendorGrid> {
           );
         }
       },
+    );
+  }
+}
+
+class VendorTile extends StatelessWidget {
+  final Vendor? vendor;
+
+  const VendorTile({super.key, this.vendor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Vendor logo image
+        BazarCachedNetworkImage(
+          imagePath: vendor?.image ?? '',
+          boxFit: BoxFit.fill,
+          radius: BorderRadius.circular(7),
+        ),
+        const SizedBox(height: 8),
+
+        // Vendor name
+        BazarBodyMediumText(
+          text: vendor?.name ?? '',
+          maxLines: 1,
+          textAlign: TextAlign.center,
+        ),
+
+        // Rating stars
+        RatingWidget(rating: vendor?.rating ?? 1),
+      ],
     );
   }
 }
@@ -280,13 +331,14 @@ class RatingWidget extends StatelessWidget {
 
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(5, (index) {
         if (index < fullStars) {
-          return const Icon(Icons.star, color: Colors.yellow);
+          return const Icon(Icons.star, color: Colors.yellow, size: 18);
         } else if (index == fullStars && hasHalfStar) {
-          return const Icon(Icons.star_half, color: Colors.yellow);
+          return const Icon(Icons.star_half, color: Colors.yellow, size: 18);
         } else {
-          return const Icon(Icons.star_border, color: Colors.yellow);
+          return const Icon(Icons.star_outlined, color: Colors.black, size: 18);
         }
       }),
     );

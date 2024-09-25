@@ -4,6 +4,7 @@ import 'package:isar/isar.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/feature/feature.dart';
 import 'package:practice_advance/core/feature/feature_config.dart';
+import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/data/home_repository_impl.dart';
 import 'package:practice_advance/features/home/domain/repositories/home_repository.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
@@ -31,6 +32,10 @@ class BazarHomeFeature extends BazarFeature<BaZarHomeFeatureConfig> {
           locator<ApiClient>(
             instanceName: dotenv.env['API_ENDPOINT'],
           ),
+        ),
+      )
+      ..registerLazySingleton<HomeBox>(
+        () => HomeBoxImpl(
           locator<Isar>(),
         ),
       )

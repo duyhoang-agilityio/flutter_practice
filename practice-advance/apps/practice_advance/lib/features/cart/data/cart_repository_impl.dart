@@ -1,58 +1,34 @@
 import 'package:cached_query_flutter/cached_query_flutter.dart';
-import 'package:isar/isar.dart';
-import 'package:practice_advance/features/cart/domain/entities/cart_item.dart';
+import 'package:dartz/dartz.dart';
+import 'package:practice_advance/core/api_client/api_client.dart';
+import 'package:practice_advance/core/error/error_mapper.dart';
+import 'package:practice_advance/core/error/failures.dart';
+import 'package:practice_advance/features/cart/domain/repositories/cart_repository.dart';
+import 'package:practice_advance/features/home/domain/entities/product.dart';
 
-class CartService {
-  late Isar isar;
+class CartRepositoryImpl implements CartRepository {
+  final ApiClient apiClient;
 
-  CartService() {
-    _initIsar();
-  }
+  CartRepositoryImpl(this.apiClient);
 
-  Future<void> _initIsar() async {
-    isar = await Isar.open([CartItemSchema], directory: '');
-  }
+  @override
+  Future<Either<Failure, void>> checkoutProducts({
+    required List<Product> products,
+  }) async {
+    // Using Query to cache vendors by category
+    Query<void>(
+      key: 'checkout_products',
+      queryFn: () async {
+        await apiClient.get(
+          '/recipes/tag/',
+        );
+      },
+    );
 
-  Future<void> addItemToCart(CartItem item) async {
-    await isar.writeTxn(() async {
-      await isar.cartItems.put(item); // Adds or updates item
-    });
-  }
-
-  Future<List<CartItem>> getCartItems() async {
-    return await isar.cartItems.where().findAll(); // Retrieves all cart items
-  }
-
-  Future<void> updateItemQuantity(int productId, int newQuantity) async {
-    final item = await isar.cartItems.filter().productIdEqualTo(productId).findFirst();
-    if (item != null) {
-      item.quantity = newQuantity;
-      await isar.writeTxn(() async {
-        await isar.cartItems.put(item);
-      });
+    try {
+      return const Right(null);
+    } catch (e) {
+      return Left(ErrorMapper.mapError(e));
     }
   }
-
-  Future<void> deleteItem(int productId) async {
-    await isar.writeTxn(() async {
-      await isar.cartItems.filter().productIdEqualTo(productId).deleteFirst();
-    });
-  }
 }
-
-
-// Create an instance of CartService for managing Isar operations
-final CartService cartService = CartService();
-
-// Define a mutation to add a product to the cart
-final addToCartMutation = Mutation<CartItem, CartItem>(
-  // This is the function that will be called when the mutation is triggered
-  queryFn: (cartItem) async {
-    await cartService.addItemToCart(cartItem); // Add item to Isar DB
-    return cartItem;
-  },
-  // Invalidate all queries that are related to the cart to ensure the data stays fresh
-  invalidateQueries: ['cartItems'],
-  // Refetch queries to update the cart data in real time
-  refetchQueries: ['cartItems'],
-);

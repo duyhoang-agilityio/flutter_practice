@@ -6,9 +6,7 @@ import 'package:practice_advance/features/home/domain/entities/product.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 
 abstract class HomeRepository {
-  Future<Either<Failure, List<Product>>> getCartItems();
   
-  Future<void> addToCart({Product? item});
 
   Future<Either<Failure, List<Product>>> getProducts({
     int? limit,

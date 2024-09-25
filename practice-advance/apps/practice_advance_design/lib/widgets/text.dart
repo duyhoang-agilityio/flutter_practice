@@ -177,6 +177,7 @@ class BazarBodySmallText extends StatelessWidget {
     this.textAlign,
     this.overflow,
     this.fontWeight,
+    this.maxLines,
   });
 
   final String text;
@@ -184,12 +185,14 @@ class BazarBodySmallText extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final FontWeight? fontWeight;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return _BazarText(
       text: text,
       textAlign: textAlign,
+      maxLines: maxLines,
       style: context.textTheme.bodySmall?.copyWith(
         color: color,
       ),

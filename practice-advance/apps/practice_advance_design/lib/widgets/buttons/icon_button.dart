@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 ///
 /// This widget is useful when you want to use an [Icon] in an [IconButton] with
 /// zero padding and without any highlight or splash colors.
-class AgbUiIconButtons extends StatelessWidget {
-  /// Creates a [AgbUiIconButtons] with the given [icon] and [onPressed] callback.
+class BazarIconButtons extends StatelessWidget {
+  /// Creates a [BazarIconButtons] with the given [icon] and [onPressed] callback.
   ///
   /// The [key] argument is ignored.
-  const AgbUiIconButtons({
+  const BazarIconButtons({
     required this.icon,
     this.onPressed,
     this.semanticValue,
@@ -152,7 +152,7 @@ class AgbUiCircleIconButton extends StatelessWidget {
         ),
         child: Center(
           /// The icon to display inside the button.
-          child: AgbUiIconButtons(
+          child: BazarIconButtons(
             icon: icon,
             style: style ??
                 ButtonStyle(
