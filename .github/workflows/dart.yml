@@ -32,6 +32,12 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
+      # Create .env file
+      - name: Create .env file
+        run: |
+          echo "API_ENDPOINT=https://dummyjson.com" >> practice-advance/.env
+          echo "API_ENDPOINT2=https://jsonplaceholder.typicode.com" >> practice-advance/.env
+
       # Install melos
       - name: Install Melos
         run: flutter pub global activate melos
