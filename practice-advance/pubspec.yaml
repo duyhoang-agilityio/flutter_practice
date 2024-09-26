@@ -40,7 +40,7 @@ flavorizr:
       dev:
         app:
           # App name for the development flavor.
-          name: "Practice Advance Dev"
+          name: "practiceAdvance-dev"
         
         android:
           # Android application ID for the development flavor.
@@ -57,7 +57,7 @@ flavorizr:
       prod:
         app:
           # App name for the production flavor.
-          name: "Practice Advance"
+          name: "practiceAdvance"
         
         android:
           # Android application ID for the production flavor.
@@ -70,5 +70,3 @@ flavorizr:
         ios:
           # iOS bundle ID for the production flavor.
           bundleId: "com.example.practice_advance"
-dependencies:
-  fpdart: ^1.1.0

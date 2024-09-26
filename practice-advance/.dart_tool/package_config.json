@@ -104,12 +104,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "fpdart",
-      "rootUri": "file:///Users/hoangduy/.pub-cache/hosted/pub.dev/fpdart-1.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "glob",
       "rootUri": "file:///Users/hoangduy/.pub-cache/hosted/pub.dev/glob-2.1.2",
       "packageUri": "lib/",
@@ -315,7 +309,7 @@
     },
     {
       "name": "web",
-      "rootUri": "file:///Users/hoangduy/.pub-cache/hosted/pub.dev/web-1.0.0",
+      "rootUri": "file:///Users/hoangduy/.pub-cache/hosted/pub.dev/web-1.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -344,7 +338,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-09-26T03:51:15.342192Z",
+  "generated": "2024-09-26T08:45:11.598926Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/hoangduy/flutter",
