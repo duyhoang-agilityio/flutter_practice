@@ -55,6 +55,30 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
       
-      - name: Run a script
+      # Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+
+        # Set up JDK to Java 17
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      # Install melos
+      - name: Install Melos
+        run: flutter pub global activate melos
+
+      # Build the APK for the prod flavor
+      - name: Build Android APK
         run: |
-          echo "I am running a job in the PROD environment"
+          cd practice-advance
+          melos exec --scope=practice_advance -- flutter build apk --debug --flavor prod
+      # Build the iOS app for the prod flavor
+      - name: Build iOS IPA
+        run: |
+          cd practice-advance
+          melos exec --scope=practice_advance -- flutter build ios --debug --flavor prod --no-codesign
