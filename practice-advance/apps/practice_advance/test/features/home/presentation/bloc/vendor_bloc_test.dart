@@ -18,16 +18,16 @@ void main() {
         description: 'GetListVendorsEvent',
         scenarios: [
           VendorBlocFetchSuccessScenario(usecases: usecases),
-          // VendorBlocFetchFailureScenario(usecases: usecases),
+          VendorBlocFetchFailureScenario(usecases: usecases),
         ],
       ),
-      // AgbBlocTestFeature(
-      //   description: 'GetListVendorsByCategoryEvent',
-      //   scenarios: [
-      //     VendorBlocFetchByCategorySuccessScenario(usecases: usecases),
-      //     VendorBlocFetchByCategoryFailureScenario(usecases: usecases),
-      //   ],
-      // ),
+      AgbBlocTestFeature(
+        description: 'GetListVendorsByCategoryEvent',
+        scenarios: [
+          VendorBlocFetchByCategorySuccessScenario(usecases: usecases),
+          VendorBlocFetchByCategoryFailureScenario(usecases: usecases),
+        ],
+      ),
     ],
   ).test();
 }

@@ -34,96 +34,94 @@ class VendorBlocFetchSuccessScenario
   late HomeUsecases usecases;
 }
 
-// class VendorBlocFetchFailureScenario
-//     extends AgbBlocTestScenario<VendorBloc, VendorState> {
-//   VendorBlocFetchFailureScenario({
-//     required this.usecases,
-//   }) : super(
-//           description: '''
-//             Scenario: Test VendorBloc when fetching vendors fails
-//               Given an instance of HomeUsecases and VendorBloc bloc
-//               When fetching vendors data fails
-//               Then Emit [VendorError] state
-//           ''',
-//           setUp: () {
-//             when(usecases.getVendors(limit: anyNamed('limit')).call).thenThrow(
-//               (_) async => const Right(VendorMock.apiFailureMock),
-//             ); // Mock failure response
-//           },
-//           build: () => VendorBloc(usecases),
-//           act: (bloc) async {
-//             bloc.add(GetListVendorsEvent(limit: 10));
-//           },
-//           expect: () => [
-//             VendorError(VendorMock.apiFailureMock.message), // Expected state
-//           ],
-//         );
+class VendorBlocFetchFailureScenario
+    extends AgbBlocTestScenario<VendorBloc, VendorState> {
+  VendorBlocFetchFailureScenario({
+    required this.usecases,
+  }) : super(
+          description: '''
+            Scenario: Test VendorBloc when fetching vendors fails
+              Given an instance of HomeUsecases and VendorBloc bloc
+              When fetching vendors data fails
+              Then Emit [VendorError] state
+          ''',
+          setUp: () {
+            when(() => usecases.getVendors()).thenAnswerFailureValue(
+              VendorMock.apiFailureMock,
+            ); // Mock failure response
+          },
+          build: () => VendorBloc(homeUsecases: usecases),
+          act: (bloc) async {
+            bloc.add(GetListVendorsEvent(limit: 10));
+          },
+          expect: () => [
+            VendorError(VendorMock.apiFailureMock.message), // Expected state
+          ],
+        );
 
-//   late HomeUsecases usecases;
-// }
+  late HomeUsecases usecases;
+}
 
-// class VendorBlocFetchByCategorySuccessScenario
-//     extends AgbBlocTestScenario<VendorBloc, VendorState> {
-//   VendorBlocFetchByCategorySuccessScenario({
-//     required this.usecases,
-//   }) : super(
-//           description: '''
-//             Scenario: Test VendorBloc when fetching vendors by category is successful
-//               Given an instance of HomeUsecases and VendorBloc bloc
-//               When fetching vendors data by category is successful
-//               Then Emit [VendorLoaded] state with category name
-//           ''',
-//           setUp: () {
-//             when(usecases.getVendorsByCategory(name: anyNamed('name')).call)
-//                 .thenAnswer(
-//               (_) async => Right(VendorMock.vendorsList),
-//             ); // Mock successful response
-//           },
-//           build: () => VendorBloc(usecases),
-//           act: (bloc) async => bloc.add(
-//             GetListVendorsByCategoryEvent(name: 'Category1'),
-//           ),
-//           expect: () => [
-//             VendorByCategoryLoading(),
-//             VendorLoaded(
-//               vendors: VendorMock.vendorsList,
-//               categoryName: 'Category1',
-//             ),
-//           ],
-//         );
+class VendorBlocFetchByCategorySuccessScenario
+    extends AgbBlocTestScenario<VendorBloc, VendorState> {
+  VendorBlocFetchByCategorySuccessScenario({
+    required this.usecases,
+  }) : super(
+          description: '''
+            Scenario: Test VendorBloc when fetching vendors by category is successful
+              Given an instance of HomeUsecases and VendorBloc bloc
+              When fetching vendors data by category is successful
+              Then Emit [VendorLoaded] state with category name
+          ''',
+          setUp: () {
+            when(() => usecases.getVendorsByCategory()).thenAnswerValue(
+              VendorMock.vendorsList,
+            ); // Mock successful response
+          },
+          build: () => VendorBloc(homeUsecases: usecases),
+          act: (bloc) async => bloc.add(
+            GetListVendorsByCategoryEvent(name: 'Category1'),
+          ),
+          expect: () => [
+            VendorByCategoryLoading(),
+            VendorLoaded(
+              vendors: VendorMock.vendorsList,
+              categoryName: 'Category1',
+            ),
+          ],
+        );
 
-//   late HomeUsecases usecases;
-// }
+  late HomeUsecases usecases;
+}
 
-// class VendorBlocFetchByCategoryFailureScenario
-//     extends AgbBlocTestScenario<VendorBloc, VendorState> {
-//   VendorBlocFetchByCategoryFailureScenario({
-//     required this.usecases,
-//   }) : super(
-//           description: '''
-//             Scenario: Test VendorBloc when fetching vendors by category fails
-//               Given an instance of HomeUsecases and VendorBloc bloc
-//               When fetching vendors data by category fails
-//               Then Emit [VendorError] state
-//           ''',
-//           setUp: () {
-//             when(usecases.getVendorsByCategory(name: anyNamed('name')).call)
-//                 .thenAnswer(
-//               (_) async => const Left(VendorMock.apiFailureMock),
-//             ); // Mock failure response
-//           },
-//           build: () => VendorBloc(usecases),
-//           act: (bloc) async {
-//             bloc.add(GetListVendorsByCategoryEvent(name: 'Category1'));
-//           },
-//           expect: () => [
-//             VendorByCategoryLoading(),
-//             VendorError(VendorMock.apiFailureMock.message),
-//           ],
-//         );
+class VendorBlocFetchByCategoryFailureScenario
+    extends AgbBlocTestScenario<VendorBloc, VendorState> {
+  VendorBlocFetchByCategoryFailureScenario({
+    required this.usecases,
+  }) : super(
+          description: '''
+            Scenario: Test VendorBloc when fetching vendors by category fails
+              Given an instance of HomeUsecases and VendorBloc bloc
+              When fetching vendors data by category fails
+              Then Emit [VendorError] state
+          ''',
+          setUp: () {
+            when(() => usecases.getVendorsByCategory()).thenAnswerFailureValue(
+              VendorMock.apiFailureMock,
+            ); // Mock failure response
+          },
+          build: () => VendorBloc(homeUsecases: usecases),
+          act: (bloc) async {
+            bloc.add(GetListVendorsByCategoryEvent(name: 'Category1'));
+          },
+          expect: () => [
+            VendorByCategoryLoading(),
+            VendorError(VendorMock.apiFailureMock.message),
+          ],
+        );
 
-//   late HomeUsecases usecases;
-// }
+  late HomeUsecases usecases;
+}
 
 class VendorMock {
   static List<Vendor> vendorsList = [
