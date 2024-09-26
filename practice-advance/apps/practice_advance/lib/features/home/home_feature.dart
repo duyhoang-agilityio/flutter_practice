@@ -41,7 +41,7 @@ class BazarHomeFeature extends BazarFeature<BaZarHomeFeatureConfig> {
       )
       ..registerLazySingleton(
         () => HomeUsecases(
-          locator<HomeRepository>(),
+          repository: locator<HomeRepository>(),
         ),
       );
   }

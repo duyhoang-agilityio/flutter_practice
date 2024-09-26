@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:practice_advance/core/api_client/dio_interceptor.dart';
+import 'package:practice_advance/core/error/error_mapper.dart';
+import 'package:practice_advance/core/error/failures.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 
@@ -172,5 +175,25 @@ class ApiClient {
         requestOptions: RequestOptions(path: '/auth/refresh-token'),
       );
     }
+  }
+}
+
+class ApiTaskEither {
+  static TaskEither<Failure, R> tryCatch<R>(
+    Future<R> Function() run,
+  ) {
+    return TaskEither.tryCatch(
+      () => run(),
+      (error, stackTrace) => ErrorMapper.mapError(error),
+    );
+  }
+
+  static TaskEither<Failure, R> shortTryCatch<R>(
+    Future<R> Function() run,
+  ) {
+    return TaskEither.tryCatch(
+      () => run(),
+      (error, stackTrace) => ErrorMapper.mapError(error),
+    );
   }
 }

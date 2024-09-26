@@ -26,12 +26,13 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) =>
-              ProductBloc(locator<HomeUsecases>(), locator<HomeBox>())
-                ..add(GetListProductsEvent(limit: 5)),
+          create: (_) => ProductBloc(
+            homeUsecases: locator<HomeUsecases>(),
+            box: locator<HomeBox>(),
+          )..add(GetListProductsEvent(limit: 5)),
         ),
         BlocProvider(
-          create: (_) => VendorBloc(locator<HomeUsecases>())
+          create: (_) => VendorBloc(homeUsecases: locator<HomeUsecases>())
             ..add(GetListVendorsEvent(limit: 5)),
         ),
         BlocProvider(
@@ -70,8 +71,8 @@ class HomePage extends StatelessWidget {
                   onPressed: () => context.pushNamed(
                     AppRouteNames.productList.name,
                     extra: ProductBloc(
-                      locator<HomeUsecases>(),
-                      locator<HomeBox>(),
+                      homeUsecases: locator<HomeUsecases>(),
+                      box: locator<HomeBox>(),
                     ),
                   ),
                 ),
@@ -83,7 +84,7 @@ class HomePage extends StatelessWidget {
                   text: 'Vendors',
                   onPressed: () => context.pushNamed(
                     AppRouteNames.vendorList.name,
-                    extra: VendorBloc(locator<HomeUsecases>()),
+                    extra: VendorBloc(homeUsecases: locator<HomeUsecases>()),
                   ),
                 ),
                 const ListVendor(),

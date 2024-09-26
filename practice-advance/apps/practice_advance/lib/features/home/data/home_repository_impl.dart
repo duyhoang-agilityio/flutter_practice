@@ -1,5 +1,5 @@
 import 'package:cached_query_flutter/cached_query_flutter.dart';
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';
@@ -14,10 +14,10 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl(this.apiClient);
 
   @override
-  Future<Either<Failure, List<Product>>> getProducts({
+  TaskEither<Failure, List<Product>> getProducts({
     int? limit,
     int ofset = 0,
-  }) async {
+  }) {
     // Using Query to cache the product data
     final query = Query<List<Product>>(
       key: 'products_$limit',
@@ -27,6 +27,7 @@ class HomeRepositoryImpl implements HomeRepository {
           '/products',
           queryParameters: {
             if (limit != null) 'limit': limit,
+            'offset': ofset,
           },
         );
         // Parse and return products
@@ -34,20 +35,22 @@ class HomeRepositoryImpl implements HomeRepository {
       },
     );
 
-    try {
-      // Fetch the data using the cached query
-      final queryState = await query.result;
-      return Right(queryState.data ?? []);
-    } catch (e) {
-      return Left(ErrorMapper.mapError(e));
-    }
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        final queryState = await query.result;
+        // Explicitly casting the data to List<Product>
+        return queryState.data?.cast<Product>() ?? [] as List<Product>;
+      },
+    ).mapLeft(
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 
   @override
-  Future<Either<Failure, List<Author>>> getAuthors({
+  TaskEither<Failure, List<Author>> getAuthors({
     int? limit,
     int ofset = 0,
-  }) async {
+  }) {
     final query = Query<List<Author>>(
       key: 'authors_$limit',
       queryFn: () async {
@@ -63,19 +66,22 @@ class HomeRepositoryImpl implements HomeRepository {
       },
     );
 
-    try {
-      final queryState = await query.result;
-      return Right(queryState.data ?? []);
-    } catch (e) {
-      return Left(ErrorMapper.mapError(e));
-    }
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        final queryState = await query.result;
+        // Explicitly casting the data to List<Product>
+        return queryState.data ?? [] as List<Author>;
+      },
+    ).mapLeft(
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 
   @override
-  Future<Either<Failure, List<Vendor>>> getVendors({
+  TaskEither<Failure, List<Vendor>> getVendors({
     int? limit,
     int ofset = 0,
-  }) async {
+  }) {
     final query = Query<List<Vendor>>(
       key: 'vendors_$limit',
       queryFn: () async {
@@ -91,12 +97,15 @@ class HomeRepositoryImpl implements HomeRepository {
       },
     );
 
-    try {
-      final queryState = await query.result;
-      return Right(queryState.data ?? []);
-    } catch (e) {
-      return Left(ErrorMapper.mapError(e));
-    }
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        final queryState = await query.result;
+        // Explicitly casting the data to List<Product>
+        return queryState.data ?? [] as List<Vendor>;
+      },
+    ).mapLeft(
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 
   @override
@@ -141,11 +150,11 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+  TaskEither<Failure, List<Vendor>> getVendorsByCategory({
     int? limit,
     String? name = 'Asian',
     int ofset = 0,
-  }) async {
+  }) {
     // Using Query to cache vendors by category
     final query = Query<List<Vendor>>(
       key: 'vendors_category_$name',
@@ -160,12 +169,14 @@ class HomeRepositoryImpl implements HomeRepository {
       },
     );
 
-    try {
-      final queryState = await query.result;
-
-      return Right(queryState.data ?? []);
-    } catch (e) {
-      return Left(ErrorMapper.mapError(e));
-    }
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        final queryState = await query.result;
+        // Explicitly casting the data to List<Product>
+        return queryState.data ?? [] as List<Vendor>;
+      },
+    ).mapLeft(
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 }

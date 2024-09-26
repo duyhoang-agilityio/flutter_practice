@@ -11,7 +11,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final HomeUsecases homeUsecases;
   final HomeBox box;
 
-  ProductBloc(this.homeUsecases, this.box) : super(ProductInitial()) {
+  ProductBloc({required this.homeUsecases, required this.box}) : super(ProductInitial()) {
     on<GetListProductsEvent>(_fetch);
     on<AddToCartEvent>(_onAddProductToCart);
   }
@@ -20,7 +20,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     GetListProductsEvent event,
     Emitter<ProductState> emit,
   ) async {
-    final result = await homeUsecases.getProducts(limit: event.limit);
+    final result = await homeUsecases.getProducts(limit: event.limit).run();
 
     result.fold(
       (l) => emit(ProductError(l.message)),

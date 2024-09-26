@@ -5,29 +5,36 @@ import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dar
 import 'package:practice_advance_design/widgets/empty.dart';
 import 'package:practice_advance_design/widgets/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
+import 'package:practice_advance_design/widgets/snackbar_content.dart';
 
 class ListVendor extends StatelessWidget {
   const ListVendor({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<VendorBloc, VendorState>(
-      buildWhen: (_, current) =>
-          current is VendorLoaded || current is VendorInitial,
-      builder: (_, state) {
-        if (state is VendorInitial) {
-          return const BazarSkeletonize(enabled: true, child: ListVendors());
-        } else if (state is VendorLoaded) {
-          return (state.vendors?.isEmpty ?? true)
-              ? const EmptyData(
-                  message: 'No Vendors available',
-                )
-              : ListVendors(vendors: state.vendors);
-        }
-        return const SizedBox.shrink();
-      },
-    );
-  }
+  Widget build(BuildContext context) => BlocConsumer<VendorBloc, VendorState>(
+        listener: (_, state) {
+          if (state is VendorError) {
+            BazarSnackBarContentError(
+              context,
+              message: state.message,
+            );
+          }
+        },
+        buildWhen: (_, current) =>
+            current is VendorLoaded || current is VendorInitial,
+        builder: (_, state) {
+          if (state is VendorInitial) {
+            return const BazarSkeletonize(enabled: true, child: ListVendors());
+          } else if (state is VendorLoaded) {
+            return (state.vendors?.isEmpty ?? true)
+                ? const EmptyData(
+                    message: 'No Vendors available',
+                  )
+                : ListVendors(vendors: state.vendors);
+          }
+          return const SizedBox.shrink();
+        },
+      );
 }
 
 class ListVendors extends StatelessWidget {
@@ -39,27 +46,25 @@ class ListVendors extends StatelessWidget {
   final List<Vendor>? vendors;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const ClampingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemCount: vendors?.length ?? 4,
-        itemBuilder: (BuildContext context, int index) {
-          final item = vendors?[index] ?? Vendor(vendorId: 1);
+  Widget build(BuildContext context) => SizedBox(
+        height: 80,
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemCount: vendors?.length ?? 4,
+          itemBuilder: (BuildContext context, int index) {
+            final item = vendors?[index] ?? Vendor(vendorId: 1);
 
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: BazarCachedNetworkImage(
-              height: 80,
-              radius: BorderRadius.circular(10),
-              imagePath: item.image ?? '',
-            ),
-          );
-        },
-      ),
-    );
-  }
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: BazarCachedNetworkImage(
+                height: 80,
+                radius: BorderRadius.circular(10),
+                imagePath: item.image ?? '',
+              ),
+            );
+          },
+        ),
+      );
 }

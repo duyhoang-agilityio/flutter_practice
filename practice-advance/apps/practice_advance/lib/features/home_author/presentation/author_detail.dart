@@ -68,8 +68,8 @@ class AuthorDetail extends StatelessWidget {
               const BazarBodyMediumText(text: 'Product'),
               BlocProvider(
                 create: (_) => ProductBloc(
-                  locator<HomeUsecases>(),
-                  locator<HomeBox>(),
+                  homeUsecases: locator<HomeUsecases>(),
+                  box: locator<HomeBox>(),
                 )..add(GetListProductsEvent()),
                 child: BlocConsumer<ProductBloc, ProductState>(
                   listener: (context, state) {

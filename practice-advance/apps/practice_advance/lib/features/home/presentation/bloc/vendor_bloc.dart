@@ -8,7 +8,8 @@ part 'vendor_state.dart';
 
 class VendorBloc extends Bloc<VendorEvent, VendorState> {
   final HomeUsecases homeUsecases;
-  VendorBloc(this.homeUsecases) : super(VendorInitial()) {
+
+  VendorBloc({required this.homeUsecases}) : super(VendorInitial()) {
     // Fetch activity transactions
     on<GetListVendorsEvent>(_fetch);
     on<GetListVendorsByCategoryEvent>(_fetchVendorsByCategory);
@@ -18,7 +19,7 @@ class VendorBloc extends Bloc<VendorEvent, VendorState> {
     GetListVendorsEvent event,
     Emitter<VendorState> emit,
   ) async {
-    final result = await homeUsecases.getVendors(limit: event.limit);
+    final result = await homeUsecases.getVendorsByCategory(name: 'Pizza').run();
 
     result.fold(
       (l) => emit(VendorError(l.message)),
@@ -32,7 +33,8 @@ class VendorBloc extends Bloc<VendorEvent, VendorState> {
   ) async {
     emit(VendorByCategoryLoading());
 
-    final result = await homeUsecases.getVendorsByCategory(name: event.name);
+    final result =
+        await homeUsecases.getVendorsByCategory(name: event.name).run();
 
     result.fold(
       (l) => emit(VendorError(l.message)),

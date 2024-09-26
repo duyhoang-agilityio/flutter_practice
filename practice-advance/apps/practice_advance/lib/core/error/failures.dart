@@ -42,5 +42,3 @@ class ParsingFailure extends Failure {
 class ValidationFailure extends Failure {
   const ValidationFailure(super.message);
 }
-
-

@@ -252,8 +252,8 @@ class _VendorGridState extends State<_VendorGrid> {
                             text: 'Add to Cart',
                             width: 120,
                             onPressed: () => ProductBloc(
-                              locator<HomeUsecases>(),
-                              locator<HomeBox>(),
+                              homeUsecases: locator<HomeUsecases>(),
+                              box: locator<HomeBox>(),
                             ).add(
                               AddToCartEvent(
                                 Product(

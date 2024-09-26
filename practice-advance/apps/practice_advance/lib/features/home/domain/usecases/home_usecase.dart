@@ -1,5 +1,5 @@
 import 'package:cached_query_flutter/cached_query_flutter.dart';
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:practice_advance/core/error/failures.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
@@ -9,23 +9,23 @@ import 'package:practice_advance/features/home/domain/repositories/home_reposito
 class HomeUsecases {
   final HomeRepository repository;
 
-  HomeUsecases(this.repository);
+  HomeUsecases({required this.repository});
 
-  Future<Either<Failure, List<Product>>> getProducts({
+  TaskEither<Failure, List<Product>> getProducts({
     int? limit,
     int ofset = 0,
   }) {
     return repository.getProducts(limit: limit, ofset: ofset);
   }
 
-  Future<Either<Failure, List<Vendor>>> getVendors({
+  TaskEither<Failure, List<Vendor>> getVendors({
     int? limit,
     int ofset = 0,
   }) {
     return repository.getVendors(limit: limit, ofset: ofset);
   }
 
-  Future<Either<Failure, List<Vendor>>> getVendorsByCategory({
+  TaskEither<Failure, List<Vendor>> getVendorsByCategory({
     int? limit,
     int ofset = 0,
     String? name = 'Asian',
@@ -37,7 +37,7 @@ class HomeUsecases {
     );
   }
 
-  Future<Either<Failure, List<Author>>> getAuthors({
+  TaskEither<Failure, List<Author>> getAuthors({
     int? limit,
     int ofset = 0,
   }) {
