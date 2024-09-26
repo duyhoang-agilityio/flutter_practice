@@ -80,7 +80,7 @@ class VendorBlocFetchByCategorySuccessScenario
           },
           build: () => VendorBloc(homeUsecases: usecases),
           act: (bloc) async => bloc.add(
-            GetListVendorsByCategoryEvent(name: 'Category1'),
+            GetListVendorsByCategoryEvent(name: 'Category'),
           ),
           expect: () => [
             VendorByCategoryLoading(),
