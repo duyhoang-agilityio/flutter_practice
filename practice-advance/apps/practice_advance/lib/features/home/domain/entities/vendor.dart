@@ -68,14 +68,10 @@ class Vendor {
   }
 
   // Static method to parse a list of Vendors
-  static List<Vendor> fromJsonList(Map<String, dynamic> json) {
+  static List<Vendor> fromJsonList(List<dynamic> json) {
     if (json.isEmpty) return [];
 
-    var jsonList = json['recipes'] as List<dynamic>;
-
-    return jsonList
-        .map((json) => Vendor.fromJson(json as Map<String, dynamic>))
-        .toList();
+    return json.map((json) => Vendor.fromJson(json)).toList();
   }
 
   String productPrice(int price) => '\$${(price - 0.01).toStringAsFixed(2)}';

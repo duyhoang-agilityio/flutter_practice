@@ -37,13 +37,6 @@ class HomeUsecases {
     );
   }
 
-  TaskEither<Failure, List<Author>> getAuthors({
-    int? limit,
-    int ofset = 0,
-  }) {
-    return repository.getAuthors(limit: limit, ofset: ofset);
-  }
-
   InfiniteQuery<List<Author>, int> getAuthorsByCategory({
     int? limit = 20,
     int? page,

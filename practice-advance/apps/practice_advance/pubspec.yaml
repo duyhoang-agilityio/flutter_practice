@@ -140,7 +140,7 @@ flutter:
   assets:
   # Specifies the .env file for loading environment variables
   - ../practice_advance_design/assets/images/
-  # - .env    
+  - .env    
 
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.

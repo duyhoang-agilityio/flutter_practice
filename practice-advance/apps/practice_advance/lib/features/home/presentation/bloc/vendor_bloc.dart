@@ -19,7 +19,7 @@ class VendorBloc extends Bloc<VendorEvent, VendorState> {
     GetListVendorsEvent event,
     Emitter<VendorState> emit,
   ) async {
-    final result = await homeUsecases.getVendorsByCategory(name: 'Pizza').run();
+    final result = await homeUsecases.getVendors().run();
 
     result.fold(
       (l) => emit(VendorError(l.message)),

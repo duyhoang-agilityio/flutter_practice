@@ -3937,9 +3937,24 @@ int _reviewEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.comment.length * 3;
-  bytesCount += 3 + object.reviewerEmail.length * 3;
-  bytesCount += 3 + object.reviewerName.length * 3;
+  {
+    final value = object.comment;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.reviewerEmail;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.reviewerName;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -3963,11 +3978,11 @@ Review _reviewDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Review();
-  object.comment = reader.readString(offsets[0]);
-  object.date = reader.readDateTime(offsets[1]);
-  object.rating = reader.readLong(offsets[2]);
-  object.reviewerEmail = reader.readString(offsets[3]);
-  object.reviewerName = reader.readString(offsets[4]);
+  object.comment = reader.readStringOrNull(offsets[0]);
+  object.date = reader.readDateTimeOrNull(offsets[1]);
+  object.rating = reader.readLongOrNull(offsets[2]);
+  object.reviewerEmail = reader.readStringOrNull(offsets[3]);
+  object.reviewerName = reader.readStringOrNull(offsets[4]);
   return object;
 }
 
@@ -3979,23 +3994,39 @@ P _reviewDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
 extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
+  QueryBuilder<Review, Review, QAfterFilterCondition> commentIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'comment',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> commentIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'comment',
+      ));
+    });
+  }
+
   QueryBuilder<Review, Review, QAfterFilterCondition> commentEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4008,7 +4039,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> commentGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4023,7 +4054,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> commentLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4038,8 +4069,8 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> commentBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4124,8 +4155,24 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Review, Review, QAfterFilterCondition> dateIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'date',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> dateIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'date',
+      ));
+    });
+  }
+
   QueryBuilder<Review, Review, QAfterFilterCondition> dateEqualTo(
-      DateTime value) {
+      DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'date',
@@ -4135,7 +4182,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> dateGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4148,7 +4195,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> dateLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4161,8 +4208,8 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> dateBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -4177,7 +4224,24 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Review, Review, QAfterFilterCondition> ratingEqualTo(int value) {
+  QueryBuilder<Review, Review, QAfterFilterCondition> ratingIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'rating',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> ratingIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'rating',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> ratingEqualTo(
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'rating',
@@ -4187,7 +4251,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> ratingGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4200,7 +4264,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> ratingLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4213,8 +4277,8 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> ratingBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -4229,8 +4293,24 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'reviewerEmail',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'reviewerEmail',
+      ));
+    });
+  }
+
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4243,7 +4323,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4258,7 +4338,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4273,8 +4353,8 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerEmailBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4360,8 +4440,24 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'reviewerName',
+      ));
+    });
+  }
+
+  QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'reviewerName',
+      ));
+    });
+  }
+
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4374,7 +4470,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4389,7 +4485,7 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4404,8 +4500,8 @@ extension ReviewQueryFilter on QueryBuilder<Review, Review, QFilterCondition> {
   }
 
   QueryBuilder<Review, Review, QAfterFilterCondition> reviewerNameBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4533,8 +4629,18 @@ int _metaDataEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.barcode.length * 3;
-  bytesCount += 3 + object.qrCode.length * 3;
+  {
+    final value = object.barcode;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.qrCode;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -4557,10 +4663,10 @@ MetaData _metaDataDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = MetaData();
-  object.barcode = reader.readString(offsets[0]);
-  object.createdAt = reader.readDateTime(offsets[1]);
-  object.qrCode = reader.readString(offsets[2]);
-  object.updatedAt = reader.readDateTime(offsets[3]);
+  object.barcode = reader.readStringOrNull(offsets[0]);
+  object.createdAt = reader.readDateTimeOrNull(offsets[1]);
+  object.qrCode = reader.readStringOrNull(offsets[2]);
+  object.updatedAt = reader.readDateTimeOrNull(offsets[3]);
   return object;
 }
 
@@ -4572,13 +4678,13 @@ P _metaDataDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -4586,8 +4692,24 @@ P _metaDataDeserializeProp<P>(
 
 extension MetaDataQueryFilter
     on QueryBuilder<MetaData, MetaData, QFilterCondition> {
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'barcode',
+      ));
+    });
+  }
+
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'barcode',
+      ));
+    });
+  }
+
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4600,7 +4722,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4615,7 +4737,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4630,8 +4752,8 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> barcodeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4716,8 +4838,24 @@ extension MetaDataQueryFilter
     });
   }
 
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'createdAt',
+      ));
+    });
+  }
+
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'createdAt',
+      ));
+    });
+  }
+
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtEqualTo(
-      DateTime value) {
+      DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'createdAt',
@@ -4727,7 +4865,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4740,7 +4878,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4753,8 +4891,8 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> createdAtBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -4769,8 +4907,24 @@ extension MetaDataQueryFilter
     });
   }
 
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'qrCode',
+      ));
+    });
+  }
+
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'qrCode',
+      ));
+    });
+  }
+
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4783,7 +4937,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4798,7 +4952,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4813,8 +4967,8 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> qrCodeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4899,8 +5053,24 @@ extension MetaDataQueryFilter
     });
   }
 
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'updatedAt',
+      ));
+    });
+  }
+
+  QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'updatedAt',
+      ));
+    });
+  }
+
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtEqualTo(
-      DateTime value) {
+      DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'updatedAt',
@@ -4910,7 +5080,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4923,7 +5093,7 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4936,8 +5106,8 @@ extension MetaDataQueryFilter
   }
 
   QueryBuilder<MetaData, MetaData, QAfterFilterCondition> updatedAtBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

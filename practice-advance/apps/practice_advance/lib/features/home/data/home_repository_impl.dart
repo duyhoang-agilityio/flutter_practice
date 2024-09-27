@@ -31,46 +31,18 @@ class HomeRepositoryImpl implements HomeRepository {
           },
         );
         // Parse and return products
-        return Product.fromJsonList(response.data);
+        return Product.fromJsonList(response.data['products']);
       },
     );
 
     return ApiTaskEither.shortTryCatch(
       () async {
         final queryState = await query.result;
-        // Explicitly casting the data to List<Product>
-        return queryState.data?.cast<Product>() ?? [] as List<Product>;
-      },
-    ).mapLeft(
-      (error) => ErrorMapper.mapError(error),
-    );
-  }
+        final data = queryState.data;
+        // Return an empty list if data is null or empty
+        if (data == null || data.isEmpty) return <Product>[];
 
-  @override
-  TaskEither<Failure, List<Author>> getAuthors({
-    int? limit,
-    int ofset = 0,
-  }) {
-    final query = Query<List<Author>>(
-      key: 'authors_$limit',
-      queryFn: () async {
-        // Fetch authors from the API
-        final response = await apiClient.get(
-          '/quotes',
-          queryParameters: {
-            if (limit != null) 'limit': limit,
-          },
-        );
-        // Parse and return authors
-        return Author.fromJsonList(response.data);
-      },
-    );
-
-    return ApiTaskEither.shortTryCatch(
-      () async {
-        final queryState = await query.result;
-        // Explicitly casting the data to List<Product>
-        return queryState.data ?? [] as List<Author>;
+        return data;
       },
     ).mapLeft(
       (error) => ErrorMapper.mapError(error),
@@ -90,18 +62,22 @@ class HomeRepositoryImpl implements HomeRepository {
           '/recipes',
           queryParameters: {
             if (limit != null) 'limit': limit,
+            'offset': ofset,
           },
         );
         // Parse and return vendors
-        return Vendor.fromJsonList(response.data);
+        return Vendor.fromJsonList(response.data['recipes']);
       },
     );
 
     return ApiTaskEither.shortTryCatch(
       () async {
         final queryState = await query.result;
-        // Explicitly casting the data to List<Product>
-        return queryState.data ?? [] as List<Vendor>;
+        final data = queryState.data;
+        // Return an empty list if data is null or empty
+        if (data == null || data.isEmpty) return <Vendor>[];
+
+        return data;
       },
     ).mapLeft(
       (error) => ErrorMapper.mapError(error),
@@ -122,11 +98,11 @@ class HomeRepositoryImpl implements HomeRepository {
         if (state.lastPage?.isEmpty ?? false) return null;
         return state.length + 1;
       },
-      queryFn: (page) async => _getVendors(page: page, limit: 30),
+      queryFn: (page) async => _getAuthors(page: page, limit: 30),
     );
   }
 
-  Future<List<Author>> _getVendors({
+  Future<List<Author>> _getAuthors({
     required int page,
     int? limit = 20,
   }) async {
@@ -163,17 +139,21 @@ class HomeRepositoryImpl implements HomeRepository {
           '/recipes/tag/$name',
           queryParameters: {
             if (limit != null) 'limit': limit,
+            'offset': ofset,
           },
         );
-        return Vendor.fromJsonList(response.data);
+        return Vendor.fromJsonList(response.data['recipes']);
       },
     );
 
     return ApiTaskEither.shortTryCatch(
       () async {
         final queryState = await query.result;
-        // Explicitly casting the data to List<Product>
-        return queryState.data ?? [] as List<Vendor>;
+        final data = queryState.data;
+        // Return an empty list if data is null or empty
+        if (data == null || data.isEmpty) return <Vendor>[];
+
+        return data;
       },
     ).mapLeft(
       (error) => ErrorMapper.mapError(error),

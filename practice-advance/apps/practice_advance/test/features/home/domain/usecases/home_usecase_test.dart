@@ -1,67 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../helper/utils.dart';
+import 'home_usecase.feature.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  const AgbUnitTest(
+  AgbUnitTest(
     description: 'HomeUseCases test',
     features: [
-      // AgbUTFeature(
-      //   description: 'fetchAll test',
-      //   scenarios: [
-      //     HomeUseCasesFetchAllFromRepositoryScenario(),
-      //     HomeUseCasesFetchAllThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'registerDeviceToken test',
-      //   scenarios: [
-      //     HomeUseCasesRegisterDeviceTokenFromRepositoryScenario(),
-      //     HomeUseCasesRegisterDeviceTokenThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'showNotificationSetting test',
-      //   scenarios: [
-      //     HomeUseCasesShowNotificationSettingFromRepositoryScenario(),
-      //     HomeUseCasesShowNotificationSettingThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'enableNotificationStatus test',
-      //   scenarios: [
-      //     HomeUseCasesEnableNotificationStatusFromRepositoryScenario(),
-      //     HomeUseCasesEnableNotificationStatusThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'removeBadgeContent test',
-      //   scenarios: [
-      //     HomeUseCasesRemoveBadgeContentFromRepositoryScenario(),
-      //     HomeUseCasesRemoveBadgeContentThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'simulateErrorMapping test',
-      //   scenarios: [
-      //     HomeUseCasesSimulateErrorMappingFromRepositoryScenario(),
-      //     HomeUseCasesSimulateErrorMappingThrowErrorFromRepositoryScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'GetArticlesByCategoryInput test',
-      //   scenarios: [
-      //     GetArticlesByCategoryInputFromHomeUseCasesScenario(),
-      //   ],
-      // ),
-      // AgbUTFeature(
-      //   description: 'SearchArticlesInput test',
-      //   scenarios: [
-      //     SearchArticlesInputFromHomeUseCasesScenario(),
-      //   ],
-      // ),
+      AgbUTFeature(
+        description: 'getVendors test',
+        scenarios: [
+          HomeGetVendorsFromRepositoryScenario(),
+        ],
+      ),
+      AgbUTFeature(
+        description: 'getProducts test',
+        scenarios: [
+          HomeGetProductsFromRepositoryScenario(),
+        ],
+      ),
+      AgbUTFeature(
+        description: 'getVendorsByCategory test',
+        scenarios: [
+          HomeGetVendorsByCategoryFromRepositoryScenario(),
+        ],
+      ),
+      AgbUTFeature(
+        description: 'getAuthors test',
+        scenarios: [
+          HomeGetAuthorsByCategoryScenario(),
+        ],
+      ),
     ],
   ).test();
 }

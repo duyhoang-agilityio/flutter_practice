@@ -10,18 +10,17 @@ abstract class HomeRepository {
     int? limit,
     int ofset = 0,
   });
+
   TaskEither<Failure, List<Vendor>> getVendors({
     int? limit,
     int ofset = 0,
   });
-  TaskEither<Failure, List<Author>> getAuthors({
-    int? limit,
-    int ofset = 0,
-  });
+
   InfiniteQuery<List<Author>, int> getAuthorsByCategory({
     int? limit = 20,
     int? page,
   });
+
   TaskEither<Failure, List<Vendor>> getVendorsByCategory({
     int? limit,
     int ofset = 0,
