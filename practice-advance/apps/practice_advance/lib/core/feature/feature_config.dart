@@ -3,4 +3,4 @@
 /// Provide feature flag the functionalities for the module
 ///   and configuration for the feature/module.
 ///
-abstract class AgbConsumerFeatureConfig {}
+abstract class BazarFeatureConfig {}

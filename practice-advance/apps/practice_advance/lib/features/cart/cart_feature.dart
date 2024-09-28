@@ -12,7 +12,7 @@ import 'package:practice_advance/features/cart/domain/usecases/cart_usecase.dart
 ///
 /// Includes Feature Flags/Configuration for module
 ///
-class BaZarCartFeatureConfig extends AgbConsumerFeatureConfig {
+class BaZarCartFeatureConfig extends BazarFeatureConfig {
   BaZarCartFeatureConfig();
 }
 

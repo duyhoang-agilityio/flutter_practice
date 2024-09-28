@@ -12,7 +12,7 @@ import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart
 ///
 /// Includes Feature Flags/Configuration for module
 ///
-class BaZarHomeFeatureConfig extends AgbConsumerFeatureConfig {
+class BaZarHomeFeatureConfig extends BazarFeatureConfig {
   BaZarHomeFeatureConfig();
 }
 
