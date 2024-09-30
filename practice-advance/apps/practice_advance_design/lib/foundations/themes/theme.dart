@@ -38,6 +38,7 @@ class BazarThemeHelper {
             vertical: -4,
             horizontal: -4,
           ),
+          textStyle: BazarTextThemes.textTheme.headlineSmall,
           padding: EdgeInsets.zero,
         ),
       ),
@@ -56,6 +57,32 @@ class BazarThemeHelper {
             horizontal: -4,
           ),
           padding: EdgeInsets.zero,
+        ),
+      ),
+      dividerColor: BazarLightThemeColors().gray800,
+      dividerTheme: DividerThemeData(color: BazarLightThemeColors().gray800),
+
+      /// ---------- Input Decoration Theme ----------
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.primary),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.outline),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.outline),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.error),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        labelStyle: BazarTextThemes.textTheme.bodyMedium,
+        hintStyle: BazarTextThemes.textTheme.displayMedium?.copyWith(
+          color: colorScheme.outline,
         ),
       ),
     );

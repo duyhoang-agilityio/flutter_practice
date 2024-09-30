@@ -36,8 +36,10 @@ Future<void> setupLocator() async {
 
   // Register Isar async
   locator.registerSingletonAsync<Isar>(() async {
-    final isar = await Isar.open([ProductSchema, CartItemSchema, UserSchema],
-        directory: dir.path);
+    final isar = await Isar.open(
+      [ProductSchema, CartItemSchema, UserSchema],
+      directory: dir.path,
+    );
     return isar;
   });
 

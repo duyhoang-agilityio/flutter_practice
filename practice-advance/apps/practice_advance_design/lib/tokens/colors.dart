@@ -20,7 +20,7 @@ class BazarLightThemeColors {
   // DeepOrange
   Color get deepOrange200 => const Color(0XFFFFA8A7);
   Color get deepOrange400 => const Color(0XFFFF8C39);
-  Color get deepOrange700 => const Color(0XFFE95220);
+  Color get deepOrange700 => const Color(0XFFF5BE00);
 
   // DeepPurple
   Color get deepPurple100 => const Color(0XFF54408C);
@@ -33,8 +33,8 @@ class BazarLightThemeColors {
   Color get gray300 => const Color(0XFFCACACA);
   Color get gray500 => const Color(0XFF9E9E9E);
   Color get gray700 => const Color(0XFFA6A6A6);
-  Color get gray900 => const Color(0XFFB8B8B8);
-  Color get gray90002 => const Color(0XFF7A7A7A);
+  Color get gray900 => const Color(0XFFFAFAFA);
+  Color get gray800 => const Color(0XFFE8E8E8);
 
   // White
   Color get white => const Color(0XFFFFFFFf);

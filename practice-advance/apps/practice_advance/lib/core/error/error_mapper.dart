@@ -129,8 +129,9 @@ class ErrorMapper {
       );
     } else {
       return UnknownFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!
-            .errorUnknownErrorOccurred,
+        AppLocalizations.of(GlobalKey().currentContext!)
+                ?.errorUnknownErrorOccurred ??
+            '',
       );
     }
   }

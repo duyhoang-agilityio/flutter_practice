@@ -50,6 +50,7 @@ class BazarHeadlineLargeTitle extends StatelessWidget {
       textAlign: textAlign,
       style: context.textTheme.headlineLarge?.copyWith(
         color: color,
+        fontWeight: fontWeight,
       ),
     );
   }

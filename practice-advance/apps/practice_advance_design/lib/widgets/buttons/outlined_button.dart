@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 
-class AgbUiOutLinedButton extends StatefulWidget {
+class BazarOutLinedButton extends StatefulWidget {
   /// Returns a Agility Bank style [OutlinedButton]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiOutLinedButton({
+  const BazarOutLinedButton({
     required this.text,
     this.isLoading = false,
     this.isDisabled = false,
@@ -30,7 +30,7 @@ class AgbUiOutLinedButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiOutLinedButton] which is defined in Theme is
+  /// The padding of [BazarOutLinedButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -40,7 +40,7 @@ class AgbUiOutLinedButton extends StatefulWidget {
 
   /// The width of Button
   ///
-  /// The padding of [AgbUiOutLinedButton] is
+  /// The padding of [BazarOutLinedButton] is
   /// * vertical: 10
   /// * horizontal: 24
   final double? width;
@@ -49,10 +49,10 @@ class AgbUiOutLinedButton extends StatefulWidget {
   final VoidCallback? onPressed;
 
   @override
-  State<AgbUiOutLinedButton> createState() => _AgbUiOutLinedButtonState();
+  State<BazarOutLinedButton> createState() => _BazarOutLinedButtonState();
 }
 
-class _AgbUiOutLinedButtonState extends State<AgbUiOutLinedButton> {
+class _BazarOutLinedButtonState extends State<BazarOutLinedButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,14 +92,14 @@ class _AgbUiOutLinedButtonState extends State<AgbUiOutLinedButton> {
   }
 }
 
-class AgbUiOutLinedIconButton extends StatefulWidget {
+class BazarOutLinedIconButton extends StatefulWidget {
   /// Returns a Agility Bank style [OutlinedButton.icon]
   ///
   /// This style is defined in [agbUiLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiOutLinedIconButton({
+  const BazarOutLinedIconButton({
     required this.icon,
     required this.text,
     this.isLoading = false,
@@ -124,7 +124,7 @@ class AgbUiOutLinedIconButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiOutLinedIconButton] which is defined in Theme is
+  /// The padding of [BazarOutLinedIconButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -134,7 +134,7 @@ class AgbUiOutLinedIconButton extends StatefulWidget {
 
   /// The width of Button
   ///
-  /// The padding of [AgbUiOutLinedIconButton] is
+  /// The padding of [BazarOutLinedIconButton] is
   /// * vertical: 10
   /// * horizontal: 24
   final double? width;
@@ -143,11 +143,11 @@ class AgbUiOutLinedIconButton extends StatefulWidget {
   final VoidCallback? onPressed;
 
   @override
-  State<AgbUiOutLinedIconButton> createState() =>
-      _AgbUiOutLinedIconButtonState();
+  State<BazarOutLinedIconButton> createState() =>
+      _BazarOutLinedIconButtonState();
 }
 
-class _AgbUiOutLinedIconButtonState extends State<AgbUiOutLinedIconButton> {
+class _BazarOutLinedIconButtonState extends State<BazarOutLinedIconButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -155,15 +155,18 @@ class _AgbUiOutLinedIconButtonState extends State<AgbUiOutLinedIconButton> {
       width: widget.width,
       child: OutlinedButton.icon(
         style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all<Color?>(Colors.transparent),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
             const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 24,
+              vertical: 30,
             ),
           ),
         ),
         onPressed: widget.isDisabled ? null : widget.onPressed,
-        label: Text(widget.text),
+        label: Text(
+          widget.text,
+          style: const TextStyle(color: Colors.black),
+        ),
         icon: SizedBox(
           width: 24,
           height: 24,

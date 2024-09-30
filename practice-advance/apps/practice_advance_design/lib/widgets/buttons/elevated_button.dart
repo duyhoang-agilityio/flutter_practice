@@ -21,6 +21,7 @@ class BazarElevatedButton extends StatefulWidget {
     this.foregroundColor,
     this.contentPadding,
     this.semanticValue,
+    this.textColor,
     super.key,
   });
 
@@ -72,6 +73,8 @@ class BazarElevatedButton extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
 
   final String? semanticValue;
+
+  final Color? textColor;
 
   @override
   State<BazarElevatedButton> createState() => _BazarElevatedButtonState();
@@ -141,8 +144,9 @@ class _BazarElevatedButtonState extends State<BazarElevatedButton> {
                 )
               : FittedBox(
                   fit: BoxFit.contain,
-                  child: BazarBodyMediumText(
+                  child: BazarHeadlineMediumTitle(
                     text: widget.text,
+                    color: widget.textColor,
                   ),
                 ),
         ),

@@ -99,6 +99,8 @@ class Vendor {
 
   // Method to format product price and format price as a string
   String productPrice(int price) => '\$${(price - 0.01).toStringAsFixed(2)}';
+
+  String get desc => '${instructions?[4] ?? ''} ${instructions?[3] ?? ''}';
 }
 
 // List of tags related to vendors

@@ -105,9 +105,6 @@ class HomeRepositoryImpl implements HomeRepository {
     int? page,
   }) {
     return InfiniteQuery<List<Author>, int>(
-      config: QueryConfig(
-        refetchDuration: const Duration(seconds: 2),
-      ),
       key: ApiConstants.authorsKey,
       getNextArg: (state) {
         if (state.lastPage?.isEmpty ?? false) return null;
@@ -128,7 +125,6 @@ class HomeRepositoryImpl implements HomeRepository {
         ApiConstants.postsPath,
         useSecondaryUrl: true,
         queryParameters: {
-          AuthorJsonKeys.pageKey: page,
           AuthorJsonKeys.limitKey: limit,
         },
       );
@@ -149,6 +145,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }) {
     // Using Query to cache vendors by category.
     final query = Query<List<Vendor>>(
+      config: QueryConfig(storageDuration: const Duration(minutes: 5)),
       key: '${ApiConstants.vendorsCategoryKey}$name',
       queryFn: () async {
         final response = await apiClient.get(

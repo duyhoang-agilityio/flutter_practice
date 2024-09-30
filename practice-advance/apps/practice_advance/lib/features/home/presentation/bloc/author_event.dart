@@ -18,9 +18,10 @@ class GetListAuthorsEvent extends AuthorEvent {
 /// [categoryName] is the name of the category to filter authors.
 class GetListAuthorsByCategoryEvent extends AuthorEvent {
   final String? categoryName;
+  final int? limit;
 
   /// Constructor for [GetListAuthorsByCategoryEvent].
-  GetListAuthorsByCategoryEvent({this.categoryName});
+  GetListAuthorsByCategoryEvent({this.categoryName, this.limit = 5});
 }
 
 /// Event to load the next page of authors in a paginated list.

@@ -38,7 +38,7 @@ class ListProducts extends StatelessWidget {
           else if (state is ProductLoaded) {
             return state.products.isEmpty
                 // Show empty data widget if there are no products.
-                ? const EmptyData()
+                ? const BazarEmptyData()
                 // Show product items.
                 : ProductItem(products: state.products);
           }

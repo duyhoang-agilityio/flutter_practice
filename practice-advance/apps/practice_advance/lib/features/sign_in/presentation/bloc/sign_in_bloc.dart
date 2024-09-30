@@ -1,6 +1,7 @@
 // login_bloc.dart
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/sign_in/data/sign_in_box_impl.dart';
 import 'package:practice_advance/features/sign_in/domain/entities/user.dart';
@@ -30,12 +31,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         .run();
 
     result.fold(
-      (l) => LoginFailure(l.message),
-      (r) async {
-        // Store user data in Isar
-        await isarService.saveUser(user: r);
-        LoginSuccess(r);
-      },
+      (l) => emit(LoginFailure(l.message)),
+      (r) =>
+          // Store user data in Isar
+          emit(LoginSuccess(r)),
     );
   }
 }

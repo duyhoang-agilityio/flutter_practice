@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
+import 'package:practice_advance/features/home_vendor/presentation/detail_vendor_screen.dart';
 import 'package:practice_advance_design/tokens/sizes.dart';
 import 'package:practice_advance_design/widgets/empty.dart';
 import 'package:practice_advance_design/widgets/image.dart';
@@ -37,7 +38,7 @@ class ListVendor extends StatelessWidget {
           // Display the loaded vendors or an empty state if no vendors are found.
           else if (state is VendorLoaded) {
             return (state.vendors?.isEmpty ?? true)
-                ? EmptyData(
+                ? BazarEmptyData(
                     message:
                         AppLocalizations.of(context)!.txtNoVendorsAvailable,
                   )
@@ -71,12 +72,18 @@ class ListVendors extends StatelessWidget {
             // Get the vendor item or create a placeholder vendor.
             final item = vendors?[index] ?? Vendor(vendorId: 1);
 
-            return Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: BazarCachedNetworkImage(
-                height: BazarSizingTokens.vendorItemHeight,
-                radius: BorderRadius.circular(10),
-                imagePath: item.image ?? '',
+            return GestureDetector(
+              onTap: () => BazarBottomSheet.show(
+                context,
+                child: DetailVendor(vendor: item),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: BazarCachedNetworkImage(
+                  height: BazarSizingTokens.vendorItemHeight,
+                  radius: BorderRadius.circular(10),
+                  imagePath: item.image ?? '',
+                ),
               ),
             );
           },

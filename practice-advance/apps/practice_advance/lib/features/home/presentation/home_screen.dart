@@ -72,6 +72,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         body: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -81,17 +82,9 @@ class HomePage extends StatelessWidget {
                 const SpecialOfferCard(),
 
                 // Section for Top of the Week products
-                BazarSection(
-                  text: i18n.txtTopOfWeek,
-                  onPressed: () => context.pushNamed(
-                    AppRouteNames.productList.name,
-                    extra: ProductBloc(
-                      homeUsecases: locator<HomeUsecases>(),
-                      box: locator<HomeBox>(),
-                    ),
-                  ),
-                ),
+                BazarSection(text: i18n.txtTopOfWeek),
                 // List of products
+                const SizedBox(height: 15),
                 const ListProducts(),
                 const SizedBox(height: 20),
 
@@ -140,10 +133,12 @@ class BazarSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(child: Text(text)),
-        BazarTextButton(
-          onPressed: onPressed ?? () {},
-          text: AppLocalizations.of(context)!.txtSeeAll,
-        ),
+        (onPressed == null || onPressed == () {})
+            ? const SizedBox.shrink()
+            : BazarTextButton(
+                onPressed: onPressed,
+                text: AppLocalizations.of(context)!.txtSeeAll,
+              ),
       ],
     );
   }
