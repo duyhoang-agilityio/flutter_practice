@@ -2,6 +2,26 @@ import 'package:isar/isar.dart';
 
 part 'vendor.g.dart'; // Required for code generation
 
+// Constants for JSON keys related to Vendor
+class VendorJsonKeys {
+  static const String idKey = 'id';
+  static const String nameKey = 'name';
+  static const String ingredientsKey = 'ingredients';
+  static const String instructionsKey = 'instructions';
+  static const String prepTimeMinutesKey = 'prepTimeMinutes';
+  static const String cookTimeMinutesKey = 'cookTimeMinutes';
+  static const String servingsKey = 'servings';
+  static const String difficultyKey = 'difficulty';
+  static const String cuisineKey = 'cuisine';
+  static const String caloriesPerServingKey = 'caloriesPerServing';
+  static const String tagsKey = 'tags';
+  static const String userIdKey = 'userId';
+  static const String imageKey = 'image';
+  static const String ratingKey = 'rating';
+  static const String reviewCountKey = 'reviewCount';
+  static const String mealTypeKey = 'mealType';
+}
+
 @collection
 class Vendor {
   Id id = Isar.autoIncrement; // Primary key with auto increment
@@ -47,37 +67,42 @@ class Vendor {
   // Factory constructor to parse from JSON
   factory Vendor.fromJson(Map<String, dynamic> json) {
     return Vendor(
-      vendorId: json['id'] ?? Isar.autoIncrement,
-      name: json['name'] ?? '',
-      ingredients: List<String>.from(json['ingredients'] ?? []),
-      instructions: List<String>.from(json['instructions'] ?? []),
-      prepTimeMinutes: json['prepTimeMinutes'] ?? 0,
-      cookTimeMinutes: json['cookTimeMinutes'] ?? 0,
-      servings: json['servings'] ?? 0,
-      difficulty: json['difficulty'] ?? '',
-      cuisine: json['cuisine'] ?? '',
-      price: json['caloriesPerServing'] ?? 0,
-      tags: List<String>.from(json['tags'] ?? []),
-      userId: json['userId'] ?? 0,
-      image: json['image'] ?? '',
-      rating: double.tryParse(json['rating'].toString()) ?? 0.0,
-      reviewCount: json['reviewCount'] ?? 0,
-      mealType: List<String>.from(json['mealType'] ?? []),
+      vendorId: json[VendorJsonKeys.idKey] ?? Isar.autoIncrement, //
+      name: json[VendorJsonKeys.nameKey] ?? '',
+      ingredients: List<String>.from(json[VendorJsonKeys.ingredientsKey] ?? []),
+      instructions:
+          List<String>.from(json[VendorJsonKeys.instructionsKey] ?? []),
+      prepTimeMinutes: json[VendorJsonKeys.prepTimeMinutesKey] ?? 0,
+      cookTimeMinutes: json[VendorJsonKeys.cookTimeMinutesKey] ?? 0,
+      servings: json[VendorJsonKeys.servingsKey] ?? 0,
+      difficulty: json[VendorJsonKeys.difficultyKey] ?? '',
+      cuisine: json[VendorJsonKeys.cuisineKey] ?? '',
+      price: json[VendorJsonKeys.caloriesPerServingKey] ?? 0,
+      tags: List<String>.from(json[VendorJsonKeys.tagsKey] ?? []),
+      userId: json[VendorJsonKeys.userIdKey] ?? 0,
+      image: json[VendorJsonKeys.imageKey] ?? '',
+      rating: double.tryParse(json[VendorJsonKeys.ratingKey].toString()) ?? 0.0,
+      reviewCount: json[VendorJsonKeys.reviewCountKey] ?? 0,
+      mealType: List<String>.from(json[VendorJsonKeys.mealTypeKey] ?? []),
       quantity: 5,
     );
   }
 
   // Static method to parse a list of Vendors
   static List<Vendor> fromJsonList(List<dynamic> json) {
+    // Return an empty list if input is empty
     if (json.isEmpty) return [];
 
+    // Map each item to a Vendor
     return json.map((json) => Vendor.fromJson(json)).toList();
   }
 
+  // Method to format product price and format price as a string
   String productPrice(int price) => '\$${(price - 0.01).toStringAsFixed(2)}';
 }
 
-final tags = [
+// List of tags related to vendors
+final List<String> tags = [
   "Pizza",
   "Italian",
   "Vegetarian",

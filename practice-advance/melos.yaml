@@ -41,7 +41,7 @@ scripts:
   # Run the app with the DEV flavor
   run_dev:
     run: |
-      melos exec --scope=practice_advance -- flutter run --flavor dev -t lib/main_dev.dart
+      melos exec --scope=practice_advance -- flutter run --flavor dev -t lib/main.dart
     description: "Run the app with the DEV flavor."
 
   # Run the app with the PROD flavor

@@ -8,30 +8,45 @@ import 'package:practice_advance/features/home/domain/entities/product.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/domain/repositories/home_repository.dart';
 
+/// Constants for string keys used in the API requests and caching.
+class ApiConstants {
+  static const String productsPath = '/products';
+  static const String recipesPath = '/recipes';
+  static const String postsPath = '/posts';
+  static const String tagPath = '/recipes/tag/';
+  static const String vendorsKey = 'vendors';
+  static const String productsKey = 'products';
+  static const String authorsKey = 'authors';
+  static const String vendorsCategoryKey = 'vendors_category_';
+}
+
+/// Implementation of the HomeRepository interface for managing products, vendors, and authors.
 class HomeRepositoryImpl implements HomeRepository {
+  /// The ApiClient instance for making API requests.
   final ApiClient apiClient;
 
+  /// Constructor that initializes HomeRepositoryImpl with an ApiClient.
   HomeRepositoryImpl(this.apiClient);
 
   @override
   TaskEither<Failure, List<Product>> getProducts({
     int? limit,
-    int ofset = 0,
+    int offset = 0,
   }) {
-    // Using Query to cache the product data
+    // Using Query to cache the product data.
     final query = Query<List<Product>>(
       key: 'products_$limit',
       queryFn: () async {
-        // Fetch products from the API
+        // Fetch products from the API.
         final response = await apiClient.get(
-          '/products',
+          ApiConstants.productsPath,
           queryParameters: {
-            if (limit != null) 'limit': limit,
-            'offset': ofset,
+            if (limit != null) Product.keyLimit: limit,
+            Product.keyOffset: offset,
           },
         );
-        // Parse and return products
-        return Product.fromJsonList(response.data['products']);
+        // Parse and return products.
+        return Product.fromJsonList(response.data[ApiConstants.productsKey]);
       },
     );
 
@@ -39,7 +54,7 @@ class HomeRepositoryImpl implements HomeRepository {
       () async {
         final queryState = await query.result;
         final data = queryState.data;
-        // Return an empty list if data is null or empty
+        // Return an empty list if data is null or empty.
         if (data == null || data.isEmpty) return <Product>[];
 
         return data;
@@ -52,20 +67,20 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   TaskEither<Failure, List<Vendor>> getVendors({
     int? limit,
-    int ofset = 0,
+    int offset = 0,
   }) {
     final query = Query<List<Vendor>>(
       key: 'vendors_$limit',
       queryFn: () async {
-        // Fetch vendors from the API
+        // Fetch vendors from the API.
         final response = await apiClient.get(
-          '/recipes',
+          ApiConstants.recipesPath,
           queryParameters: {
-            if (limit != null) 'limit': limit,
-            'offset': ofset,
+            if (limit != null) Product.keyLimit: limit,
+            Product.keyOffset: offset,
           },
         );
-        // Parse and return vendors
+        // Parse and return vendors.
         return Vendor.fromJsonList(response.data['recipes']);
       },
     );
@@ -74,7 +89,7 @@ class HomeRepositoryImpl implements HomeRepository {
       () async {
         final queryState = await query.result;
         final data = queryState.data;
-        // Return an empty list if data is null or empty
+        // Return an empty list if data is null or empty.
         if (data == null || data.isEmpty) return <Vendor>[];
 
         return data;
@@ -93,55 +108,57 @@ class HomeRepositoryImpl implements HomeRepository {
       config: QueryConfig(
         refetchDuration: const Duration(seconds: 2),
       ),
-      key: 'authors',
+      key: ApiConstants.authorsKey,
       getNextArg: (state) {
         if (state.lastPage?.isEmpty ?? false) return null;
-        return state.length + 1;
+        return state.length + 1; // Get the next page number.
       },
-      queryFn: (page) async => _getAuthors(page: page, limit: 30),
+      queryFn: (page) async => _getAuthors(page: page, limit: limit),
     );
   }
 
+  /// Fetches authors based on the provided page and limit.
   Future<List<Author>> _getAuthors({
     required int page,
     int? limit = 20,
   }) async {
     try {
-      // Fetch new vendors from API
+      // Fetch authors from the API.
       final response = await apiClient.get(
-        '/posts',
+        ApiConstants.postsPath,
         useSecondaryUrl: true,
         queryParameters: {
-          '_page': page,
-          '_limit': limit,
+          AuthorJsonKeys.pageKey: page,
+          AuthorJsonKeys.limitKey: limit,
         },
       );
 
-      final vendors = Author.fromJsonList(response.data);
+      final authors = Author.fromJsonList(response.data);
 
-      return vendors;
+      return authors; // Return the list of authors.
     } catch (e) {
-      rethrow;
+      rethrow; // Rethrow the exception for handling at a higher level.
     }
   }
 
   @override
   TaskEither<Failure, List<Vendor>> getVendorsByCategory({
     int? limit,
-    String? name = 'Asian',
-    int ofset = 0,
+    String? name = 'Asian', // Default category name.
+    int offset = 0,
   }) {
-    // Using Query to cache vendors by category
+    // Using Query to cache vendors by category.
     final query = Query<List<Vendor>>(
-      key: 'vendors_category_$name',
+      key: '${ApiConstants.vendorsCategoryKey}$name',
       queryFn: () async {
         final response = await apiClient.get(
-          '/recipes/tag/$name',
+          '${ApiConstants.tagPath}$name',
           queryParameters: {
-            if (limit != null) 'limit': limit,
-            'offset': ofset,
+            if (limit != null) Product.keyLimit: limit,
+            Product.keyOffset: offset,
           },
         );
+        // Parse and return vendors.
         return Vendor.fromJsonList(response.data['recipes']);
       },
     );
@@ -150,10 +167,10 @@ class HomeRepositoryImpl implements HomeRepository {
       () async {
         final queryState = await query.result;
         final data = queryState.data;
-        // Return an empty list if data is null or empty
+        // Return an empty list if data is null or empty.
         if (data == null || data.isEmpty) return <Vendor>[];
 
-        return data;
+        return data; // Return the list of vendors.
       },
     ).mapLeft(
       (error) => ErrorMapper.mapError(error),

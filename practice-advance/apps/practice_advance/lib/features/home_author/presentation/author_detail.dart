@@ -7,6 +7,7 @@ import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/vendors_list.dart';
 import 'package:practice_advance/injection.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
 import 'package:practice_advance_design/widgets/app_bar.dart';
@@ -17,6 +18,7 @@ import 'package:practice_advance_design/widgets/indicators/circle_progress_indic
 import 'package:practice_advance_design/widgets/snackbar_content.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
+/// A stateless widget that displays the details of an author.
 class AuthorDetail extends StatelessWidget {
   const AuthorDetail({super.key, required this.author});
 
@@ -24,10 +26,11 @@ class AuthorDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
     return BazarScaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
-        title: const Text('Authors'),
+        title: Text(localizations.txtAuthors),
         leading: BazarIconButtons(
           icon: BazarIcon.icArrowBack(),
           onPressed: () => context.pop(),
@@ -48,10 +51,8 @@ class AuthorDetail extends StatelessWidget {
                       maxRadius: 70,
                       child: BazarImage.imgOnboarding1(),
                     ),
-                    // Category Name
+                    // Author Name
                     BazarBodySmallText(text: author.name ?? ''),
-
-                    // Name
                     BazarBodyLargeText(text: author.name ?? ''),
 
                     // Rating
@@ -60,20 +61,21 @@ class AuthorDetail extends StatelessWidget {
                 ),
               ),
 
-              // About
-              const BazarBodyMediumText(text: 'About'),
+              // About Section
+               BazarBodyMediumText(text: localizations.txtAbout),
               BazarBodyMediumText(text: author.desc ?? ''),
 
-              // List Products
-              const BazarBodyMediumText(text: 'Product'),
+              // List of Products
+               BazarBodyMediumText(text: localizations.txtProducts),
               BlocProvider(
                 create: (_) => ProductBloc(
                   homeUsecases: locator<HomeUsecases>(),
                   box: locator<HomeBox>(),
-                )..add(GetListProductsEvent()),
+                )..add(GetListProductsEvent()), // Fetch the list of products
                 child: BlocConsumer<ProductBloc, ProductState>(
                   listener: (context, state) {
                     if (state is ProductError) {
+                      // Show error message if there's an error
                       BazarSnackBarContentError(
                         context,
                         message: state.message,
@@ -82,6 +84,7 @@ class AuthorDetail extends StatelessWidget {
                   },
                   builder: (context, state) {
                     if (state is ProductInitial) {
+                      // Show loading indicator
                       return const BazarCircularProgressIndicator();
                     } else if (state is ProductLoaded) {
                       return ListView.builder(
@@ -89,15 +92,15 @@ class AuthorDetail extends StatelessWidget {
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (_, index) {
-                          return BazarBodyMediumText(
-                            text: state.products[index].title ?? '',
-                          );
-                        },
+                        itemBuilder: (_, index) => BazarBodyMediumText(
+                          text: state.products[index].title ?? '',
+                        ),
                       );
                     }
-                    return const BazarBodyMediumText(
-                      text: 'No Product available',
+
+                    // Message when no products are found
+                    return BazarBodyMediumText(
+                      text: localizations.txtNoProductsAvailable,
                     );
                   },
                 ),

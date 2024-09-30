@@ -17,17 +17,18 @@ import 'package:practice_advance_design/widgets/image.dart';
 import 'package:practice_advance_design/widgets/snackbar_content.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
+/// Screen displaying the cart and allowing users to manage their cart items.
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartBloc>(
-      create: (_) => CartBloc(locator<CartUsecase>(), locator<CartBox>())
-        ..add(LoadCartEvent()),
+      create: (_) => CartBloc(locator<CartUsecase>(), locator<CartDataSource>())
+        ..add(LoadCartItemsEvent()), // Load cart items when the screen is built
       child: BazarScaffold(
         appBar: BazarAppBar(
-          title: const Text('My Cart'),
+          title: const Text('My Cart'), // AppBar title
           trailing: BazarIconButtons(
             icon: BazarIcon.icNotification(),
             onPressed: () {
@@ -37,20 +38,24 @@ class CartScreen extends StatelessWidget {
         ),
         body: BlocConsumer<CartBloc, CartState>(
           listener: (context, state) {
-            if (state is CartError) {
+            // Listening for state changes
+            if (state is CartErrorState) {
               BazarSnackBarContentError(context, message: state.error);
-            } else if (state is SuccessCheckoutCartState) {
+            } else if (state is CartCheckoutSuccessState) {
+              // Navigate to cart if checkout is successful
               context.pushNamed(AppRouteNames.cart.name);
             }
           },
           builder: (context, state) {
-            if (state is GetCartItemsLoading) {
-              return const CircularProgressIndicator();
-            } else if (state is EmptyCartLoaded) {
+            if (state is CartItemsLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is CartEmptyState) {
               return const Center(
-                child: BazarBodyMediumText(text: 'There is no products'),
+                child: BazarBodyMediumText(
+                  text: 'There are no products in your cart',
+                ),
               );
-            } else if (state is GetCartItemdLoaded) {
+            } else if (state is CartItemsLoadedState) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -77,7 +82,7 @@ class CartScreen extends StatelessWidget {
                               ),
                             ),
                             title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 BazarBodyMediumText(
                                   text: item.title ?? '',
@@ -93,7 +98,7 @@ class CartScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: BazarBodyMediumText(
-                                      text: (item.price ?? 111.1).toCurrency(),
+                                      text: (item.price ?? 0.0).toCurrency(),
                                       textAlign: TextAlign.right,
                                     ),
                                   ),
@@ -104,7 +109,7 @@ class CartScreen extends StatelessWidget {
                                       color: Colors.amber,
                                     ),
                                     onTap: () => context.read<CartBloc>().add(
-                                          RemoveProductEvent(
+                                          RemoveProductFromCartEvent(
                                             productId: item.productId,
                                           ),
                                         ),
@@ -129,7 +134,9 @@ class CartScreen extends StatelessWidget {
                 ),
               );
             }
-            return Container();
+
+            // Return an empty widget if no relevant state is found
+            return const SizedBox.shrink();
           },
         ),
       ),

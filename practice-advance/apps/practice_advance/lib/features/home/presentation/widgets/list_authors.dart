@@ -6,6 +6,7 @@ import 'package:practice_advance_design/widgets/indicators/circle_progress_indic
 import 'package:practice_advance_design/widgets/snackbar_content.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
+/// A stateless widget that displays a list of authors.
 class ListAuthors extends StatelessWidget {
   const ListAuthors({super.key});
 
@@ -13,8 +14,10 @@ class ListAuthors extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           BlocConsumer<AuthorBloc, AuthorState>(
+            /// Listens for changes in the AuthorBloc state.
             listener: (_, state) {
               if (state is AuthorError) {
+                // Show error message in case of an error state.
                 BazarSnackBarContentError(
                   context,
                   message: state.message,
@@ -22,9 +25,12 @@ class ListAuthors extends StatelessWidget {
               }
             },
             builder: (_, state) {
+              // Show loading indicator while the state is initial.
               if (state is AuthorInitial) {
                 return const BazarCircularProgressIndicator();
-              } else if (state is AuthorLoaded) {
+              }
+              // Display authors when the state is loaded.
+              else if (state is AuthorLoaded) {
                 return SizedBox(
                   height: 180,
                   child: ListView.builder(
@@ -41,16 +47,19 @@ class ListAuthors extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              // Display author's image
                               CircleAvatar(
                                 radius: 50,
                                 child: BazarImage.imgOnboarding1(),
                               ),
                               const SizedBox(height: 8),
+                              // Display author's name
                               BazarBodyMediumText(
                                 text: item?.name ?? '',
                                 maxLines: 1,
                               ),
                               const SizedBox(height: 8),
+                              // Display author's description
                               BazarBodySmallText(
                                 text: item?.desc ?? '',
                                 maxLines: 1,
@@ -63,6 +72,7 @@ class ListAuthors extends StatelessWidget {
                   ),
                 );
               }
+              // Return an empty widget if no state matches.
               return const SizedBox.shrink();
             },
           ),

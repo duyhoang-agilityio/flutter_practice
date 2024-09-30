@@ -1,27 +1,33 @@
 part of 'cart_bloc.dart';
 
+/// Abstract base class for cart states.
 abstract class CartState {}
 
-class CartInitial extends CartState {}
+/// Initial state of the cart.
+class CartInitialState extends CartState {}
 
-class GetCartItemsLoading extends CartState {}
+/// State indicating that cart items are being loaded.
+class CartItemsLoadingState extends CartState {}
 
-class CartCheckoutLoading extends CartState {}
+/// State indicating that checkout is in progress.
+class CartCheckoutLoadingState extends CartState {}
 
-class GetCartItemdLoaded extends CartState {
+/// State indicating that cart items have been successfully loaded.
+class CartItemsLoadedState extends CartState {
   final List<Product> items;
-  GetCartItemdLoaded(this.items);
+
+  CartItemsLoadedState(this.items);
 }
 
-class EmptyCartLoaded extends CartState {
-  EmptyCartLoaded();
-}
+/// State indicating that the cart is empty.
+class CartEmptyState extends CartState {}
 
-class SuccessCheckoutCartState extends CartState {
-  SuccessCheckoutCartState();
-}
+/// State indicating a successful checkout.
+class CartCheckoutSuccessState extends CartState {}
 
-class CartError extends CartState {
+/// State indicating an error occurred in the cart.
+class CartErrorState extends CartState {
   final String error;
-  CartError(this.error);
+
+  CartErrorState(this.error);
 }

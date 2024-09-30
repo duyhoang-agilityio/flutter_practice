@@ -9,6 +9,8 @@ import 'package:practice_advance/features/cart/cart_feature.dart';
 import 'package:practice_advance/features/cart/domain/entities/cart_item.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
 import 'package:practice_advance/features/home/home_feature.dart';
+import 'package:practice_advance/features/sign_in/domain/entities/user.dart';
+import 'package:practice_advance/features/sign_in/sign_in_feature.dart';
 
 final locator = GetIt.instance;
 
@@ -34,12 +36,13 @@ Future<void> setupLocator() async {
 
   // Register Isar async
   locator.registerSingletonAsync<Isar>(() async {
-    final isar =
-        await Isar.open([ProductSchema, CartItemSchema], directory: dir.path);
+    final isar = await Isar.open([ProductSchema, CartItemSchema, UserSchema],
+        directory: dir.path);
     return isar;
   });
 
   // Initialize features
+  await bazarSignInFeature.initialize(locator);
   await bazarHomeFeature.initialize(locator);
   await bazarCartFeature.initialize(locator);
 

@@ -12,6 +12,7 @@ import 'package:practice_advance/features/home_author/presentation/author_detail
 import 'package:practice_advance/features/home_author/presentation/authors_list.dart';
 import 'package:practice_advance/features/home_product/presentation/products_list.dart';
 import 'package:practice_advance/features/onboarding/onboarding_screen.dart';
+import 'package:practice_advance/features/sign_in/presentation/sign_in_screen.dart';
 import 'package:practice_advance_design/foundations/models.dart';
 import 'package:practice_advance_design/molecules/main_navigator.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
@@ -28,6 +29,10 @@ class AppRouteNames {
   static AgbUiRoute splash = AgbUiRoute(
     '/splash',
     AgbPageNames.splash,
+  );
+  static AgbUiRoute login = AgbUiRoute(
+    '/login',
+    AgbPageNames.login,
   );
   static AgbUiRoute detailAuthor = AgbUiRoute(
     '/detailAuthor',
@@ -72,8 +77,13 @@ class AppRouteNames {
 final GoRouter router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRouteNames.home.path,
+  initialLocation: AppRouteNames.login.path,
   routes: <RouteBase>[
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: AppRouteNames.login.path,
+      builder: (BuildContext context, GoRouterState state) => LoginScreen(),
+    ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
       path: AppRouteNames.onboarding.path,

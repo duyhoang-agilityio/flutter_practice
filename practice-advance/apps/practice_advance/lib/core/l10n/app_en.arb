@@ -4,13 +4,45 @@
   "txtCart": "Cart",
   "txtProfile": "Profile",
   "txtDefault": "Default",
-  "numOfWorkers": "{count, plural, =1{1 worker} other{{count} workers}}",
-  "@numOfWorkers": {
-      "description": "Number of workers",
-      "placeholders": {
-      "count": {
-          "example": "1"
-      }
-      }
-  }
+  "txtNoVendorsAvailable": "No Vendors available",
+  "txtSpecialOffer": "Special Offer",
+  "txtDiscount": "Discount 25%",
+  "txtOrderNow": "Order Now",
+  "txtTopOfWeek": "Top of Week",
+  "txtVendors": "Vendors",
+  "txtAuthors": "Authors",
+  "txtProducts": "Products",
+  "txtSeeAll": "See all",
+  "txtAbout": "About",
+  "txtNoProductsAvailable": "No Products available",
+  "txtOurVendors": "Our Vendors",
+  "txtNoAuthorsAvailable": "No authors available",
+  "txtCheckTheAuthor": "Check the authors",
+  "txtReview": "Review",
+  "txtContinueShopping": "Continue shopping",
+  "txtAddToCart": "Add to cart",
+  
+  "errorInternalServer": "Internal server error.",
+  "errorCacheError": "Cache error occurred.",
+  "errorNoInternet": "No internet connection.",
+  "errorConnectionTimeOut": "Connection timed out. Please try again.",
+  "errorRequestSendTimeout": "Request send timeout. Please check your connection.",
+  "errorRequestTimeout": "Response timeout. Please try again later.",
+  "errorBadRequest": "Bad request. Please check the data sent.",
+  "errorUnauthorizedAccess": "Unauthorized access. Please log in again.",
+  "errorForbidden": "Forbidden. You do not have the necessary permissions.",
+  "errorResourceNotFound": "Resource not found. Please try again.",
+  "errorInternalServe": "Internal server error. Please try again later.",
+  "errorReceiveInvalid": "Received invalid status code:",
+  "errorRequestWasCanceled": "Request was canceled.",
+  "errorBadCertificate": "Bad certificate. Connection could not be established securely.",
+  "errorConnection": "Connection error. Unable to reach the server.",
+  "errorNoInternetConnection": "No internet connection. Please check your network.",
+  "errorAnunknownNetwork": "An unknown network error occurred.",
+  "errorAnunknownDio": "An unknown Dio error occurred.",
+  "errorDataFormatIncorrect": "Data format is incorrect. Unable to parse the response.",
+  "errorNotAuthorized": "You are not authorized. Please log in again.",
+  "errorConnectionHasTimedOut": "'The connection has timed out. Please try again.",
+  "errorValidationFailed": "Validation failed. Please check the input data.",
+  "errorUnknownErrorOccurred": "An unknown error occurred."
 }

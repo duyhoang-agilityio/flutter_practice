@@ -13,6 +13,8 @@ class BazarIcon {
   static Widget Function({Color? color}) icStar = _BazarStarIcon.new;
   static Widget Function({Color? color}) icNotification =
       _BazarNotificationIcon.new;
+  static Widget Function({Color? color}) icRemove = _BazarRemoveIcon.new;
+  static Widget Function({Color? color}) icAdd = _BazarAddIcon.new;
 }
 
 class _BazarHomeIcon extends StatelessWidget {
@@ -92,4 +94,20 @@ class _BazarNotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Icon(Icons.notifications);
+}
+
+class _BazarRemoveIcon extends StatelessWidget {
+  const _BazarRemoveIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.remove);
+}
+
+class _BazarAddIcon extends StatelessWidget {
+  const _BazarAddIcon({this.color});
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => const Icon(Icons.add);
 }

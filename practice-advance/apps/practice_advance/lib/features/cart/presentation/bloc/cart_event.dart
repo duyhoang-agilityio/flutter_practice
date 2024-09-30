@@ -1,17 +1,21 @@
 part of 'cart_bloc.dart';
 
+/// Abstract base class for cart events.
 abstract class CartEvent {}
 
-class LoadCartEvent extends CartEvent {}
+/// Event to load cart items.
+class LoadCartItemsEvent extends CartEvent {}
 
+/// Event to initiate checkout with selected products.
 class CheckoutCartEvent extends CartEvent {
   final List<Product> products;
 
   CheckoutCartEvent({required this.products});
 }
 
-class RemoveProductEvent extends CartEvent {
+/// Event to remove a product from the cart.
+class RemoveProductFromCartEvent extends CartEvent {
   final int productId;
 
-  RemoveProductEvent({required this.productId});
+  RemoveProductFromCartEvent({required this.productId});
 }

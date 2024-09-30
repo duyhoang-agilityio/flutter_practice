@@ -34,8 +34,8 @@ class BazarCartFeature extends BazarFeature<BaZarCartFeatureConfig> {
           ),
         ),
       )
-      ..registerLazySingleton<CartBox>(
-        () => CartBoxImpl(
+      ..registerLazySingleton<CartDataSource>(
+        () => CartDataSourceImpl(
           locator<Isar>(),
         ),
       )

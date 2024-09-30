@@ -28,6 +28,8 @@ class Product {
   static const String keyMeta = 'meta';
   static const String keyThumbnail = 'thumbnail';
   static const String keyImages = 'images';
+  static const String keyLimit = 'limit';
+  static const String keyOffset = 'offset';
 
   Id id = Isar.autoIncrement; // Auto-generate id
 

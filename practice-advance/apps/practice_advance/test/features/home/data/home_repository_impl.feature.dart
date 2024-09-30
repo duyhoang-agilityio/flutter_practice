@@ -45,7 +45,7 @@ class HomeRepositoryGetProductsNoErrorScenario
           },
           act: (HomeRepositoryImpl repository) async {
             final result =
-                await repository.getProducts(limit: 2, ofset: 0).run();
+                await repository.getProducts(limit: 2, offset: 0).run();
 
             return result.getRight().toNullable() ?? [];
           },
@@ -82,7 +82,7 @@ class HomeRepositoryGetProductsServerErrorScenario
           act: (HomeRepositoryImpl repository) async {
             // Call the getProducts method
             final result =
-                await repository.getProducts(limit: 2, ofset: 0).run();
+                await repository.getProducts(limit: 2, offset: 0).run();
             // Return the Failure instance
             return result.getLeft().toNullable(); // Expecting a Failure here
           },
@@ -127,7 +127,7 @@ class HomeRepositoryGetVendorsNoErrorScenario
           },
           act: (HomeRepositoryImpl repository) async {
             final result =
-                await repository.getVendors(limit: 2, ofset: 0).run();
+                await repository.getVendors(limit: 2, offset: 0).run();
 
             return result.getRight().toNullable() ?? [];
           },
@@ -174,7 +174,7 @@ class HomeRepositoryGetVendorbyCategoriyNoErrorScenario
             final result = await repository
                 .getVendorsByCategory(
                   limit: 1,
-                  ofset: 0,
+                  offset: 0,
                   name: 'Asian',
                 )
                 .run();

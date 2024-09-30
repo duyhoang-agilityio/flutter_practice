@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
@@ -18,31 +19,45 @@ import 'package:practice_advance_design/widgets/buttons/text_button.dart';
 import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
+/// A stateless widget that serves as the home page of the application.
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations i18n = AppLocalizations.of(context)!;
+
     return MultiBlocProvider(
       providers: [
+        // Provide ProductBloc for managing product-related events and state
         BlocProvider(
           create: (_) => ProductBloc(
             homeUsecases: locator<HomeUsecases>(),
             box: locator<HomeBox>(),
-          )..add(GetListProductsEvent(limit: 5)),
+          )..add(
+              GetListProductsEvent(limit: 5),
+            ), // Fetch initial product list
         ),
+        // Provide VendorBloc for managing vendor-related events and state
         BlocProvider(
           create: (_) => VendorBloc(homeUsecases: locator<HomeUsecases>())
-            ..add(GetListVendorsEvent(limit: 5)),
+            ..add(
+              GetListVendorsEvent(limit: 5),
+            ), // Fetch initial vendor list
         ),
+        // Provide AuthorBloc for managing author-related events and state
         BlocProvider(
           create: (_) => AuthorBloc(locator<HomeUsecases>())
-            ..add(GetListAuthorsByCategoryEvent()),
+            ..add(
+              GetListAuthorsByCategoryEvent(),
+            ), // Fetch authors by category
         ),
       ],
       child: Scaffold(
         appBar: BazarAppBar(
-          title: const BazarHeadlineLargeTitle(text: 'Home'),
+          title: BazarHeadlineLargeTitle(
+            text: i18n.txtHome,
+          ),
           leading: BazarIconButtons(
             icon: BazarIcon.icSearch(),
             onPressed: () {
@@ -62,12 +77,12 @@ class HomePage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Special Offer
+                // Special Offer Card
                 const SpecialOfferCard(),
 
-                // Top of Week
+                // Section for Top of the Week products
                 BazarSection(
-                  text: 'Top of Week',
+                  text: i18n.txtTopOfWeek,
                   onPressed: () => context.pushNamed(
                     AppRouteNames.productList.name,
                     extra: ProductBloc(
@@ -76,29 +91,31 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                // List of products
                 const ListProducts(),
                 const SizedBox(height: 20),
 
-                // Best Vendors
+                // Section for Best Vendors
                 BazarSection(
-                  text: 'Vendors',
+                  text: i18n.txtVendors,
                   onPressed: () => context.pushNamed(
                     AppRouteNames.vendorList.name,
                     extra: VendorBloc(homeUsecases: locator<HomeUsecases>()),
                   ),
                 ),
+                // List of vendors
                 const ListVendor(),
                 const SizedBox(height: 20),
 
-                // Authors
-
+                // Section for Authors
                 BazarSection(
-                  text: 'Authors',
+                  text: i18n.txtAuthors,
                   onPressed: () => context.pushNamed(
                     AppRouteNames.authorList.name,
                     extra: AuthorBloc(locator<HomeUsecases>()),
                   ),
                 ),
+                // List of authors
                 const ListAuthors(),
                 const SizedBox(height: 20),
               ],
@@ -110,6 +127,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+/// A stateless widget representing a section with a title and a "See all" button.
 class BazarSection extends StatelessWidget {
   const BazarSection({super.key, this.onPressed, required this.text});
 
@@ -122,7 +140,10 @@ class BazarSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(child: Text(text)),
-        BazarTextButton(onPressed: onPressed ?? () {}, text: 'See all'),
+        BazarTextButton(
+          onPressed: onPressed ?? () {},
+          text: AppLocalizations.of(context)!.txtSeeAll,
+        ),
       ],
     );
   }

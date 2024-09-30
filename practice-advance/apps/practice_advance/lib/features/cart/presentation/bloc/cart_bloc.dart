@@ -6,59 +6,76 @@ import 'package:practice_advance/features/home/domain/entities/product.dart';
 part 'cart_event.dart';
 part 'cart_state.dart';
 
+/// The CartBloc class manages the cart's state using the BLoC pattern.
 class CartBloc extends Bloc<CartEvent, CartState> {
-  final CartUsecase cartUsecase;
-  final CartBox box;
+  final CartUsecase cartUsecase; // Use case for cart operations
+  final CartDataSource box; // Data source for cart items
 
-  CartBloc(this.cartUsecase, this.box) : super(CartInitial()) {
-    // Load the cart items initially
-    on<LoadCartEvent>(_onLoadedCarts);
+  CartBloc(this.cartUsecase, this.box) : super(CartInitialState()) {
+    // Register event handlers
+    on<LoadCartItemsEvent>(_onLoadedCarts);
     on<CheckoutCartEvent>(_onCheckoutCart);
-    on<RemoveProductEvent>(_onRemoveProduct);
+    on<RemoveProductFromCartEvent>(_onRemoveProduct);
   }
 
+  /// Loads cart items from the data source and emits the corresponding states.
   Future<void> _onLoadedCarts(
-    LoadCartEvent event,
+    LoadCartItemsEvent event,
     Emitter<CartState> emit,
   ) async {
-    emit(GetCartItemsLoading());
+    // Emit loading state
+    emit(CartItemsLoadingState());
 
-    final result = await box.getCartItems();
+    // Fetch cart items
+    final result = await box.fetchCartItems();
 
+    // Emit success or error state based on result
     result.fold(
-      (l) => emit(CartError(l.message)),
-      (r) => r.isNotEmpty
-          ? emit(GetCartItemdLoaded(r))
-          : emit(
-              EmptyCartLoaded(),
-            ),
+      // Emit error state
+      (error) => emit(CartErrorState(error.message)),
+      (items) => items.isNotEmpty
+          // Emit loaded state with items
+          ? emit(CartItemsLoadedState(items))
+          // Emit empty cart state
+          : emit(CartEmptyState()),
     );
   }
 
+  /// Removes a product from the cart and reloads the cart items.
   Future<void> _onRemoveProduct(
-    RemoveProductEvent event,
+    RemoveProductFromCartEvent event,
     Emitter<CartState> emit,
   ) async {
-    emit(GetCartItemsLoading());
+    // Emit loading state
+    emit(CartItemsLoadingState());
 
-    await box.deleteItem(productId: event.productId);
+    // Delete the item from the cart
+    await box.removeProduct(productId: event.productId);
 
-    add(LoadCartEvent());
+    // Reload cart items
+    add(LoadCartItemsEvent());
   }
 
+  /// Checks out products in the cart and emits the corresponding states.
   Future<void> _onCheckoutCart(
     CheckoutCartEvent event,
     Emitter<CartState> emit,
   ) async {
-    emit(CartCheckoutLoading());
+    // Emit checkout loading state
+    emit(CartCheckoutLoadingState());
+
+    // Clear the cart before checkout
     await box.clearCart();
+
+    // Checkout the specified products
     final result = await cartUsecase.checkoutProducts(
       products: event.products,
     );
 
+    // Emit success or error state based on checkout result
     result.fold(
-      (l) => emit(CartError(l.message)),
-      (r) => emit(SuccessCheckoutCartState()),
+      (error) => emit(CartErrorState(error.message)), // Emit error state
+      (_) => emit(CartCheckoutSuccessState()), // Emit success state
     );
   }
 }

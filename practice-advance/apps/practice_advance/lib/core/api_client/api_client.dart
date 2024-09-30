@@ -115,8 +115,12 @@ class ApiClient {
     }
   }
 
-  Future<Response> post(String path,
-      {dynamic data, Options? options, bool useSecondaryUrl = false}) async {
+  Future<Response> post(
+    String path, {
+    dynamic data,
+    Options? options,
+    bool useSecondaryUrl = false,
+  }) async {
     if (useSecondaryUrl) {
       setBaseUrl(secondaryBaseUrl);
     } else {

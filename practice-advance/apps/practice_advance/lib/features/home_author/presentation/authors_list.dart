@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
-import 'package:practice_advance/injection.dart';
 import 'package:practice_advance/router.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/molecules/list_tile.dart';
@@ -14,6 +13,7 @@ import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
+/// A stateless widget to display the list of authors.
 class ListAuthorsScreen extends StatelessWidget {
   const ListAuthorsScreen({super.key, required this.bloc});
 
@@ -24,7 +24,7 @@ class ListAuthorsScreen extends StatelessWidget {
     return BazarScaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
-        title: const Text('Home'),
+        title: Text(AppLocalizations.of(context)!.txtAuthors),
         leading: BazarIconButtons(
           icon: BazarIcon.icCart(),
           onPressed: () => context.pop(),
@@ -36,7 +36,10 @@ class ListAuthorsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: const _ListAuthors(),
+      body: BlocProvider.value(
+        value: bloc,
+        child: const _ListAuthors(),
+      ),
     );
   }
 }
@@ -49,103 +52,109 @@ class _ListAuthors extends StatefulWidget {
 }
 
 class _ListAuthorsState extends State<_ListAuthors> {
+  // Scroll controller for pagination
   final _scrollController = ScrollController();
-  late AuthorBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = AuthorBloc(locator<HomeUsecases>())
-      ..add(GetListAuthorsByCategoryEvent());
-    _scrollController.addListener(_onScroll);
+    // Fetch authors when the widget is initialized
+    context.read<AuthorBloc>().add(GetListAuthorsByCategoryEvent());
+    _scrollController.addListener(_onScroll); // Listen for scroll events
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => bloc,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const BazarBodyLargeText(text: 'Our Vendors'),
-          const SizedBox(height: 5),
-          const BazarHeadlineLargeTitle(text: 'Vendors'),
-          BlocBuilder<AuthorBloc, AuthorState>(
-            builder: (context, state) {
-              if (state is AuthorByCategoryLoading) {
-                return const Center(
-                  child: BazarCircularProgressIndicator(),
-                );
-              } else if (state is AuthorLoaded) {
-                final authors = state.authors ?? [];
+    final AppLocalizations intl = AppLocalizations.of(context)!;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BazarBodyLargeText(text: intl.txtCheckTheAuthor),
+        const SizedBox(height: 5),
+        BazarHeadlineLargeTitle(text: intl.txtAuthors),
+        BlocBuilder<AuthorBloc, AuthorState>(
+          builder: (context, state) {
+            // Handle loading state
+            if (state is AuthorByCategoryLoading) {
+              return const Center(
+                child: BazarCircularProgressIndicator(),
+              );
+            }
+            // Handle loaded state
+            else if (state is AuthorLoaded) {
+              final authors = state.authors ?? [];
 
-                return Expanded(
-                  child: ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    controller: _scrollController,
-                    shrinkWrap: true,
-                    itemCount: !state.hasReachedMax
-                        ? authors.length + 1
-                        : authors.length,
-                    itemBuilder: (context, i) {
-                      if (i < (authors.length)) {
-                        final author = authors[i];
-
-                        return GestureDetector(
-                          onTap: () => context.pushNamed(
-                            AppRouteNames.detailAuthor.name,
-                            extra: author,
+              return Expanded(
+                child: ListView.builder(
+                  physics: const ClampingScrollPhysics(),
+                  controller: _scrollController,
+                  itemCount:
+                      state.hasReachedMax ? authors.length : authors.length + 1,
+                  itemBuilder: (context, i) {
+                    // Display authors
+                    if (i < authors.length) {
+                      final author = authors[i];
+                      return GestureDetector(
+                        onTap: () => context.pushNamed(
+                          AppRouteNames.detailAuthor.name,
+                          extra: author,
+                        ),
+                        child: BazarListTile(
+                          title: BazarBodyLargeText(
+                            text: author.name ?? '',
+                            maxLines: 1,
                           ),
-                          child: BazarListTile(
-                            title: BazarBodyLargeText(
-                              text: author.name ?? '',
-                              maxLines: 1,
-                            ),
-                            subtitle: BazarBodySmallText(
-                              text: author.desc ?? '',
-                              // maxLines: 3,
-                            ),
+                          subtitle: BazarBodySmallText(
+                            text: author.desc ?? '',
                           ),
-                        );
-                      }
-
-                      return const Center(
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: CircularProgressIndicator(),
                         ),
                       );
-                    },
-                  ),
-                );
-              } else if (state is AuthorError) {
-                return Center(
-                  child: Text(state.message),
-                );
-              }
+                    }
+                    // Display loading indicator at the end
+                    return const Center(
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+            // Handle error state
+            else if (state is AuthorError) {
+              return Center(
+                child: Text(state.message),
+              );
+            }
 
-              return const Text("no posts found");
-            },
-          ),
-        ],
-      ),
+            // Default case for no authors found
+            return Center(child: Text(intl.txtNoAuthorsAvailable));
+          },
+        ),
+      ],
     );
   }
 
   void _onScroll() {
-    if (_isBottom) bloc.add(AuthorsNextPage());
+    if (_isBottom) {
+      // Load next page when scrolled to bottom
+      context.read<AuthorBloc>().add(AuthorsNextPage());
+    }
   }
 
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
+    // Trigger when 90% scrolled
     return currentScroll >= (maxScroll * 0.9);
   }
 
   @override
   void dispose() {
+    // Clean up the scroll controller
     _scrollController
       ..removeListener(_onScroll)
       ..dispose();
