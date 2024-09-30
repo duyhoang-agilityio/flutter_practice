@@ -1,7 +1,10 @@
 part of 'cart_bloc.dart';
 
 /// Abstract base class for cart states.
-abstract class CartState {}
+abstract class CartState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
 /// Initial state of the cart.
 class CartInitialState extends CartState {}

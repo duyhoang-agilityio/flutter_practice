@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
@@ -83,6 +84,7 @@ class HomePage extends StatelessWidget {
 
                 // Section for Top of the Week products
                 BazarSection(text: i18n.txtTopOfWeek),
+
                 // List of products
                 const SizedBox(height: 15),
                 const ListProducts(),
@@ -96,6 +98,7 @@ class HomePage extends StatelessWidget {
                     extra: VendorBloc(homeUsecases: locator<HomeUsecases>()),
                   ),
                 ),
+
                 // List of vendors
                 const ListVendor(),
                 const SizedBox(height: 20),
@@ -132,7 +135,7 @@ class BazarSection extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: Text(text)),
+        Expanded(child: Text(text, style: TextStyle(fontSize: 16.sp))),
         (onPressed == null || onPressed == () {})
             ? const SizedBox.shrink()
             : BazarTextButton(

@@ -20,9 +20,6 @@ dependencies:
   # Icons for iOS-style (Cupertino) widgets
   cupertino_icons: ^1.0.8  
 
-  # Functional programming library, often used for handling Either and Option types
-  dartz: ^0.10.1  
-
   # A powerful HTTP client for Dart, used for making network requests
   dio: ^5.7.0  
 
@@ -104,6 +101,8 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   skeletonizer: ^1.4.2
   fpdart: ^1.1.0
+  responsive_framework: ^0.1.4
+  collection: ^1.18.0
 
 dev_dependencies:
   # Testing framework for Flutter apps
@@ -140,7 +139,7 @@ flutter:
   assets:
   # Specifies the .env file for loading environment variables
   - ../practice_advance_design/assets/images/
-  - .env    
+  # - .env    
 
   # This package generates native code to customize Flutter's default white native splash screen
   # with background color and splash image.

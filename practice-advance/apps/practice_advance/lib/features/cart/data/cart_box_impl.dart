@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:isar/isar.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';

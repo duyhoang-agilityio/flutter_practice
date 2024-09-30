@@ -1,5 +1,5 @@
 import 'package:cached_query_flutter/cached_query_flutter.dart';
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';
@@ -21,9 +21,7 @@ class CartRepositoryImpl implements CartRepository {
   CartRepositoryImpl(this.apiClient);
 
   @override
-  Future<Either<Failure, void>> checkoutProducts({
-    required List<Product> products,
-  }) async {
+  TaskEither<Failure, bool> checkoutProducts({List<Product>? products}) {
     // Using Query to cache the checkout products
     Query<void>(
       key: CartRepositoryConstants.checkoutProductsKey,
@@ -35,12 +33,12 @@ class CartRepositoryImpl implements CartRepository {
       },
     );
 
-    try {
-      // Return success if the query completes
-      return const Right(null);
-    } catch (e) {
-      // Map the error to a Failure object and return it in Left
-      return Left(ErrorMapper.mapError(e));
-    }
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        return true;
+      },
+    ).mapLeft(
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 }

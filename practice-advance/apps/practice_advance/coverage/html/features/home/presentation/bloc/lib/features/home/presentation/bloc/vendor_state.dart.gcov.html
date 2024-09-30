@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-09-27 17:14:57</td>
+            <td class="headerValue">2024-09-30 17:42:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -62,34 +62,47 @@
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : part of 'vendor_bloc.dart';</span>
 <span id="L2"><span class="lineNum">       2</span>              : </span>
-<span id="L3"><span class="lineNum">       3</span>              : class VendorState extends Equatable {</span>
-<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC tlaBgGNC">           2 :   @override</span></span>
-<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">           2 :   List&lt;Object?&gt; get props =&gt; [];</span></span>
-<span id="L6"><span class="lineNum">       6</span>              : }</span>
-<span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span>              : class VendorInitial extends VendorState {}</span>
-<span id="L9"><span class="lineNum">       9</span>              : </span>
-<span id="L10"><span class="lineNum">      10</span>              : class VendorByCategoryLoading extends VendorState {}</span>
+<span id="L3"><span class="lineNum">       3</span>              : /// Base class for all vendor-related states.</span>
+<span id="L4"><span class="lineNum">       4</span>              : class VendorState extends Equatable {</span>
+<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC tlaBgGNC">           2 :   @override</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">           2 :   List&lt;Object?&gt; get props =&gt; [];</span></span>
+<span id="L7"><span class="lineNum">       7</span>              : }</span>
+<span id="L8"><span class="lineNum">       8</span>              : </span>
+<span id="L9"><span class="lineNum">       9</span>              : /// Initial state when the vendor feature is first loaded.</span>
+<span id="L10"><span class="lineNum">      10</span>              : class VendorInitial extends VendorState {}</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
-<span id="L12"><span class="lineNum">      12</span>              : class VendorLoaded extends VendorState {</span>
-<span id="L13"><span class="lineNum">      13</span>              :   final List&lt;Vendor&gt;? vendors;</span>
-<span id="L14"><span class="lineNum">      14</span>              :   final String? categoryName;</span>
-<span id="L15"><span class="lineNum">      15</span>              :   final bool? hasReachedMax;</span>
-<span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :   VendorLoaded({this.vendors, this.categoryName, this.hasReachedMax});</span></span>
-<span id="L18"><span class="lineNum">      18</span>              : </span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           3 :   List&lt;Object?&gt; get props =&gt; [vendors, categoryName];</span></span>
-<span id="L21"><span class="lineNum">      21</span>              : }</span>
-<span id="L22"><span class="lineNum">      22</span>              : </span>
-<span id="L23"><span class="lineNum">      23</span>              : class VendorError extends VendorState {</span>
-<span id="L24"><span class="lineNum">      24</span>              :   final String message;</span>
-<span id="L25"><span class="lineNum">      25</span>              : </span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :   VendorError(this.message);</span></span>
+<span id="L12"><span class="lineNum">      12</span>              : /// State indicating that vendors are being loaded by category.</span>
+<span id="L13"><span class="lineNum">      13</span>              : class VendorByCategoryLoading extends VendorState {}</span>
+<span id="L14"><span class="lineNum">      14</span>              : </span>
+<span id="L15"><span class="lineNum">      15</span>              : /// State representing the successful loading of vendors.</span>
+<span id="L16"><span class="lineNum">      16</span>              : class VendorLoaded extends VendorState {</span>
+<span id="L17"><span class="lineNum">      17</span>              :   final List&lt;Vendor&gt;? vendors;</span>
+<span id="L18"><span class="lineNum">      18</span>              :   final String? categoryName;</span>
+<span id="L19"><span class="lineNum">      19</span>              :   final bool? hasReachedMax;</span>
+<span id="L20"><span class="lineNum">      20</span>              : </span>
+<span id="L21"><span class="lineNum">      21</span>              :   /// Creates an instance of [VendorLoaded].</span>
+<span id="L22"><span class="lineNum">      22</span>              :   ///</span>
+<span id="L23"><span class="lineNum">      23</span>              :   /// The [vendors] parameter holds the list of loaded vendors,</span>
+<span id="L24"><span class="lineNum">      24</span>              :   /// [categoryName] specifies the category of the vendors,</span>
+<span id="L25"><span class="lineNum">      25</span>              :   /// and [hasReachedMax] indicates whether all vendors have been loaded.</span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :   VendorLoaded({this.vendors, this.categoryName, this.hasReachedMax});</span></span>
 <span id="L27"><span class="lineNum">      27</span>              : </span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           2 :   @override</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           4 :   List&lt;Object?&gt; get props =&gt; [message];</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           1 :   @override</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           4 :   List&lt;Object?&gt; get props =&gt; [vendors, categoryName, hasReachedMax];</span></span>
 <span id="L30"><span class="lineNum">      30</span>              : }</span>
+<span id="L31"><span class="lineNum">      31</span>              : </span>
+<span id="L32"><span class="lineNum">      32</span>              : /// State representing an error that occurred while fetching vendors.</span>
+<span id="L33"><span class="lineNum">      33</span>              : class VendorError extends VendorState {</span>
+<span id="L34"><span class="lineNum">      34</span>              :   final String message;</span>
+<span id="L35"><span class="lineNum">      35</span>              : </span>
+<span id="L36"><span class="lineNum">      36</span>              :   /// Creates an instance of [VendorError].</span>
+<span id="L37"><span class="lineNum">      37</span>              :   ///</span>
+<span id="L38"><span class="lineNum">      38</span>              :   /// The [message] parameter contains the error message.</span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           2 :   VendorError(this.message);</span></span>
+<span id="L40"><span class="lineNum">      40</span>              : </span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           4 :   List&lt;Object?&gt; get props =&gt; [message];</span></span>
+<span id="L43"><span class="lineNum">      43</span>              : }</span>
         </pre>
               </td>
             </tr>

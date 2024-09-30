@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:practice_advance/core/error/failures.dart';
 import 'package:practice_advance/features/cart/domain/repositories/cart_repository.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
@@ -12,8 +12,8 @@ class CartUsecase {
   /// Initiates the checkout process for the provided list of products.
   ///
   /// Returns either a [Failure] if an error occurs, or void on success.
-  Future<Either<Failure, void>> checkoutProducts({
-    required List<Product> products,
+  TaskEither<Failure, bool> checkoutProducts({
+    List<Product>? products,
   }) {
     return repository.checkoutProducts(products: products);
   }

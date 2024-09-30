@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/core/extensions/double_extension.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
 import 'package:practice_advance_design/tokens/sizes.dart';
@@ -18,8 +19,7 @@ class ProductItem extends StatelessWidget {
     final i18n = AppLocalizations.of(context)!;
 
     return SizedBox(
-      height: BazarSizingTokens
-          .productItemHeight, // Fixed height for the product list.
+      height: BazarSizingTokens.productItemHeight.h,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: const ClampingScrollPhysics(),
@@ -31,7 +31,7 @@ class ProductItem extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(right: 20),
             child: SizedBox(
-              width: 127, // Fixed width for each product item.
+              width: 127.h, // Fixed width for each product item.
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,8 +42,8 @@ class ProductItem extends StatelessWidget {
                       borderRadius: BorderRadiusDirectional.circular(10),
                     ),
                     child: BazarCachedNetworkImage(
-                      height: BazarSizingTokens.productImageHeight,
-                      width: BazarSizingTokens.productImageWidth,
+                      height: BazarSizingTokens.productImageHeight.h,
+                      width: BazarSizingTokens.productImageWidth.h,
                       imagePath: item.thumbnail ?? i18n.txtDefault,
                       boxFit: BoxFit.fill,
                       radius: BorderRadius.circular(7),

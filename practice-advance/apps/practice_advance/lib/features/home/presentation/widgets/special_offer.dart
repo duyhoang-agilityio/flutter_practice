@@ -59,7 +59,7 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -96,24 +96,23 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
 
                 // Right side with Image Carousel
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: CarouselSlider(
                       items: imageUrls.map((url) {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: BazarCachedNetworkImage(
                             imagePath: url,
-                            boxFit: BoxFit.cover,
+                            boxFit: BoxFit.contain,
                             radius: BorderRadius.circular(7),
                           ),
                         );
                       }).toList(),
                       carouselController: _carouselController,
                       options: CarouselOptions(
-                        height: BazarSizingTokens
-                            .productItemHeight, // Height of the carousel
+                        height: BazarSizingTokens.productItemHeight,
                         autoPlay: true,
                         enableInfiniteScroll: true,
                         enlargeCenterPage: true,

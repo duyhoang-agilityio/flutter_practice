@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/cart/data/cart_box_impl.dart';
 import 'package:practice_advance/features/cart/domain/usecases/cart_usecase.dart';
@@ -68,9 +69,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     await box.clearCart();
 
     // Checkout the specified products
-    final result = await cartUsecase.checkoutProducts(
-      products: event.products,
-    );
+    final result = await cartUsecase
+        .checkoutProducts(
+          products: event.products,
+        )
+        .run();
 
     // Emit success or error state based on checkout result
     result.fold(

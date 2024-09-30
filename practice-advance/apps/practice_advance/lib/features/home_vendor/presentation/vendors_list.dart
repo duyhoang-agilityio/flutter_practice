@@ -15,6 +15,7 @@ import 'package:practice_advance_design/widgets/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
 import 'package:practice_advance_design/widgets/snackbar_content.dart';
 import 'package:practice_advance_design/widgets/text.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 /// Screen for listing vendors, implementing a BLoC pattern for state management.
 class ListVendorsScreen extends StatelessWidget {
@@ -169,9 +170,10 @@ class _VendorGrid extends StatelessWidget {
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const ClampingScrollPhysics(),
-        itemCount: vendors?.length ?? 9,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+        itemCount: vendors?.length ?? 6,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3 : 4,
           crossAxisSpacing: 15,
           childAspectRatio: 0.6,
         ),
@@ -228,7 +230,7 @@ class VendorTile extends StatelessWidget {
         ),
 
         // Display rating stars
-        RatingWidget(rating: vendor?.rating ?? 1),
+        RatingWidget(rating: vendor?.rating ?? 1, size: 18),
       ],
     );
   }
