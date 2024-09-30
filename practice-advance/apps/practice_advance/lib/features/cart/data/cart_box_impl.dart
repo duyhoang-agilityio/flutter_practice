@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:isar/isar.dart';
+import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
@@ -7,7 +8,7 @@ import 'package:practice_advance/features/home/domain/entities/product.dart';
 /// Abstract class defining the operations for the cart data source.
 abstract class CartDataSource {
   /// Retrieves all cart items from the data source.
-  Future<Either<Failure, List<Product>>> fetchCartItems();
+  TaskEither<Failure, List<Product>> fetchCartItems();
 
   /// Deletes a specific product from the cart using its ID.
   Future<void> removeProduct({required int productId});
@@ -23,15 +24,18 @@ class CartDataSourceImpl extends CartDataSource {
   CartDataSourceImpl(this.isar);
 
   @override
-  Future<Either<Failure, List<Product>>> fetchCartItems() async {
-    try {
-      // Retrieves all cart items from the local database (Isar)
-      final cachedProducts = await isar.products.where().findAll();
-      return Right(cachedProducts); // Return the products wrapped in Right
-    } catch (e) {
+  TaskEither<Failure, List<Product>> fetchCartItems() {
+    return ApiTaskEither.shortTryCatch(
+      () async {
+        // Retrieves all cart items from the local database (Isar)
+        final cachedProducts = await isar.products.where().findAll();
+
+        return cachedProducts;
+      },
+    ).mapLeft(
       // Map the error to a Failure object and return it in Left
-      return Left(ErrorMapper.mapError(e));
-    }
+      (error) => ErrorMapper.mapError(error),
+    );
   }
 
   @override

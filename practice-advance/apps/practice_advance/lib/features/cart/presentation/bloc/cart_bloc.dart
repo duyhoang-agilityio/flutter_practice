@@ -28,7 +28,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     emit(CartItemsLoadingState());
 
     // Fetch cart items
-    final result = await box.fetchCartItems();
+    final result = await box.fetchCartItems().run();
 
     // Emit success or error state based on result
     result.fold(

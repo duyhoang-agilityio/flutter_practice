@@ -1,4 +1,3 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:practice_advance/core/error/failures.dart';
 import 'package:practice_advance/features/cart/data/cart_box_impl.dart';
@@ -22,8 +21,8 @@ class LoadCartItemsSuccessfulScenario
           ''',
           setUp: () {
             // Mock the data source to return a successful response
-            when(dataSource.fetchCartItems).thenAnswer(
-              (_) async => Right(VendorMock.productsList),
+            when(dataSource.fetchCartItems).thenAnswerValue(
+              VendorMock.productsList,
             );
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
@@ -50,9 +49,7 @@ class LoadCartItemsEmptyScenario
           ''',
           setUp: () {
             // Mock the data source to return an empty list
-            when(dataSource.fetchCartItems).thenAnswerValue(
-              const Right([]),
-            );
+            when(dataSource.fetchCartItems).thenAnswerValue([]);
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
           act: (bloc) => bloc.add(LoadCartItemsEvent()),
@@ -78,7 +75,9 @@ class LoadCartItemsFailureScenario
           ''',
           setUp: () {
             // Change the string to an Exception
-            when(dataSource.fetchCartItems).thenThrowException();
+            when(dataSource.fetchCartItems).thenAnswerFailureValue(
+              const ServerFailure('error'),
+            );
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
           act: (bloc) => bloc.add(LoadCartItemsEvent()),
@@ -171,7 +170,7 @@ class RemoveProductFromCartSuccessfulScenario
             when(() => dataSource.removeProduct(productId: 1))
                 .thenAnswer((_) async => {});
             when(dataSource.fetchCartItems).thenAnswerValue(
-              Right(VendorMock.productsList),
+              VendorMock.productsList,
             ); // Assume product1 was removed
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
