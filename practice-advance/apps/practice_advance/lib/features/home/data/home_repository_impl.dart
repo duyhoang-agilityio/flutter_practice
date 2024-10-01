@@ -70,6 +70,11 @@ class HomeRepositoryImpl implements HomeRepository {
     int offset = 0,
   }) {
     final query = Query<List<Vendor>>(
+      config: QueryConfig(
+        storageDuration: const Duration(minutes: 5),
+        cacheDuration: const Duration(minutes: 10),
+        refetchDuration: const Duration(minutes: 5),
+      ),
       key: 'vendors_$limit',
       queryFn: () async {
         // Fetch vendors from the API.

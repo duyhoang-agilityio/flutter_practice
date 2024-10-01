@@ -26,7 +26,7 @@ class VendorBloc extends Bloc<VendorEvent, VendorState> {
     GetListVendorsEvent event,
     Emitter<VendorState> emit,
   ) async {
-    final result = await homeUsecases.getVendors().run();
+    final result = await homeUsecases.getVendors(limit: event.limit).run();
 
     result.fold(
       // Emit error state
