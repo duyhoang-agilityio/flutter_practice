@@ -61,6 +61,35 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
       
-      - name: Run a script
+      # Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.3'
+
+        # Set up JDK to Java 17
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      # Create .env file
+      - name: Create .env file
         run: |
-          echo "I am running a job in the PROD environment"
+          echo "API_ENDPOINT=https://dummyjson.com" >> practice-advance/.env
+          echo "API_ENDPOINT2=https://jsonplaceholder.typicode.com" >> practice-advance/.env
+      # Install melos
+      - name: Install Melos
+        run: flutter pub global activate melos
+
+      # Build the APK for the prod flavor
+      - name: Build Android APK
+        run: |
+          cd practice-advance
+          melos exec --scope=practice_advance -- flutter build apk --debug --flavor prod
+      # Build the iOS app for the prod flavor
+      - name: Build iOS IPA
+        run: |
+          cd practice-advance
+          melos exec --scope=practice_advance -- flutter build ios --debug --flavor prod --no-codesign
