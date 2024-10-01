@@ -3,17 +3,17 @@ import 'package:isar/isar.dart';
 import 'package:practice_advance/core/api_client/api_client.dart';
 import 'package:practice_advance/core/error/error_mapper.dart';
 import 'package:practice_advance/core/error/failures.dart';
-import 'package:practice_advance/features/home/domain/entities/product.dart';
+import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 
 /// Abstract class defining the operations for the cart data source.
 abstract class CartDataSource {
   /// Retrieves all cart items from the data source.
-  TaskEither<Failure, List<Product>> fetchCartItems();
+  TaskEither<Failure, List<Vendor>> fetchCartItems();
 
-  /// Deletes a specific product from the cart using its ID.
-  Future<void> removeProduct({required int productId});
+  /// Deletes a specific vendor from the cart using its ID.
+  Future<void> removeVendor({required int vendorId});
 
-  /// Clears all products from the cart.
+  /// Clears all vendors from the cart.
   Future<void> clearCart();
 }
 
@@ -24,13 +24,13 @@ class CartDataSourceImpl extends CartDataSource {
   CartDataSourceImpl(this.isar);
 
   @override
-  TaskEither<Failure, List<Product>> fetchCartItems() {
+  TaskEither<Failure, List<Vendor>> fetchCartItems() {
     return ApiTaskEither.shortTryCatch(
       () async {
         // Retrieves all cart items from the local database (Isar)
-        final cachedProducts = await isar.products.where().findAll();
+        final cachedVendors = await isar.vendors.where().findAll();
 
-        return cachedProducts;
+        return cachedVendors;
       },
     ).mapLeft(
       // Map the error to a Failure object and return it in Left
@@ -39,18 +39,18 @@ class CartDataSourceImpl extends CartDataSource {
   }
 
   @override
-  Future<void> removeProduct({required int productId}) async {
-    // Deletes a specific product from the local database (Isar)
+  Future<void> removeVendor({required int vendorId}) async {
+    // Deletes a specific vendor from the local database (Isar)
     await isar.writeTxn(() async {
-      await isar.products.filter().productIdEqualTo(productId).deleteFirst();
+      await isar.vendors.filter().vendorIdEqualTo(vendorId).deleteFirst();
     });
   }
 
   @override
   Future<void> clearCart() async {
-    // Clears all products from the cart (Isar)
+    // Clears all vendors from the cart (Isar)
     await isar.writeTxn(() async {
-      await isar.products.clear();
+      await isar.vendors.clear();
     });
   }
 }

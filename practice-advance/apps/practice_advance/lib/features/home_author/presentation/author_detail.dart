@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
@@ -7,11 +9,12 @@ import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/vendors_list.dart';
 import 'package:practice_advance/injection.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
+import 'package:practice_advance_design/tokens/sizes.dart';
 import 'package:practice_advance_design/widgets/app_bar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
+import 'package:practice_advance_design/widgets/circle_avatar.dart';
 import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/widgets/image.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
@@ -30,7 +33,7 @@ class AuthorDetail extends StatelessWidget {
     return BazarScaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: BazarAppBar(
-        title: Text(localizations.txtAuthors),
+        title: BazarHeadlineLargeTitle(text: localizations.txtAuthors),
         leading: BazarIconButtons(
           icon: BazarIcon.icArrowBack(),
           onPressed: () => context.pop(),
@@ -46,13 +49,12 @@ class AuthorDetail extends StatelessWidget {
                 child: Column(
                   children: [
                     // Avatar
-                    CircleAvatar(
-                      minRadius: 40,
-                      maxRadius: 70,
+                    BazarCircleAvatar(
+                      width: BazarSizingTokens.authorImageHeight.h,
+                      height: BazarSizingTokens.authorImageHeight.h,
                       child: BazarImage.imgOnboarding1(),
                     ),
                     // Author Name
-                    BazarBodySmallText(text: author.name ?? ''),
                     BazarBodyLargeText(text: author.name ?? ''),
 
                     // Rating
@@ -62,11 +64,11 @@ class AuthorDetail extends StatelessWidget {
               ),
 
               // About Section
-               BazarBodyMediumText(text: localizations.txtAbout),
+              BazarBodyMediumText(text: localizations.txtAbout),
               BazarBodyMediumText(text: author.desc ?? ''),
 
               // List of Products
-               BazarBodyMediumText(text: localizations.txtProducts),
+              BazarBodyMediumText(text: localizations.txtProducts),
               BlocProvider(
                 create: (_) => ProductBloc(
                   homeUsecases: locator<HomeUsecases>(),

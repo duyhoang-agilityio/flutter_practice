@@ -34,6 +34,10 @@
   "txtOrWith": "Or with",
   "txtSigninWithGoogle": "Sign in with Google",
   "txtSigninWithApple": "Sign in with Apple",
+  "txtMyCart": "My Cart",
+  "txtNoProductInCart": "There are no products in your cart",
+  "txtCheckout": "Checkout",
+  
   
   "errorInternalServer": "Internal server error.",
   "errorCacheError": "Cache error occurred.",

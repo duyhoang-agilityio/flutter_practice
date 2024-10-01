@@ -41,7 +41,7 @@ class BazarCartFeature extends BazarFeature<BaZarCartFeatureConfig> {
       )
       ..registerLazySingleton(
         () => CartUsecase(
-          locator<CartRepository>(),
+          repository: locator<CartRepository>(),
         ),
       );
   }

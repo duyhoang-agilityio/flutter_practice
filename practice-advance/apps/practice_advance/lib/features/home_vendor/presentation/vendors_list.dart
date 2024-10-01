@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/detail_vendor_screen.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
+import 'package:practice_advance_design/molecules/bottom_sheet.dart';
 import 'package:practice_advance_design/templetes/scaffold.dart';
 import 'package:practice_advance_design/widgets/app_bar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
+import 'package:practice_advance_design/widgets/circle_avatar.dart';
 import 'package:practice_advance_design/widgets/empty.dart';
 import 'package:practice_advance_design/widgets/icon.dart';
 import 'package:practice_advance_design/widgets/image.dart';
@@ -37,9 +40,6 @@ class ListVendorsScreen extends StatelessWidget {
         ),
         trailing: BazarIconButtons(
           icon: BazarIcon.icSearch(),
-          onPressed: () {
-            // TODO: Implement search function
-          },
         ),
       ),
       body: BlocProvider<VendorBloc>.value(
@@ -74,9 +74,11 @@ class ListVendorsScreen extends StatelessWidget {
 
                   // Display loading indicator or vendor grid based on state
                   if (state is VendorByCategoryLoading)
-                    const BazarSkeletonize(
-                      enabled: true,
-                      child: _VendorGrid(),
+                    const SingleChildScrollView(
+                      child: BazarSkeletonize(
+                        enabled: true,
+                        child: _VendorGrid(),
+                      ),
                     )
                   else if (state is VendorLoaded)
                     (state.vendors?.isEmpty ?? true)
@@ -127,7 +129,7 @@ class _CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 50.h,
       child: ListView.builder(
         itemCount: tags.length,
         scrollDirection: Axis.horizontal,
@@ -166,41 +168,46 @@ class _VendorGrid extends StatelessWidget {
   final List<Vendor>? vendors;
 
   @override
-  Widget build(BuildContext context) => GridView.builder(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const ClampingScrollPhysics(),
-        itemCount: vendors?.length ?? 6,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount:
-              ResponsiveWrapper.of(context).isSmallerThan(TABLET) ? 3 : 4,
-          crossAxisSpacing: 15,
-          childAspectRatio: 0.6,
-        ),
-        itemBuilder: (_, index) {
-          if (index < (vendors?.length ?? 9)) {
-            // Get the vendor object
-            final vendor = vendors?[index] ?? Vendor(vendorId: 1);
+  Widget build(BuildContext context) {
+    final responsive = ResponsiveWrapper.of(context);
 
-            return GestureDetector(
-              onTap: () => BazarBottomSheet.show(
-                context,
-                child: DetailVendor(vendor: vendor),
-              ),
-              // Display vendor tile
-              child: VendorTile(vendor: vendor),
-            );
-          } else {
-            return const Center(
-              child: SizedBox(
-                height: 40,
-                width: 40,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-      );
+    return GridView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.zero,
+      physics: const ClampingScrollPhysics(),
+      itemCount: responsive.isLargerThan(TABLET)
+          ? vendors?.length ?? 4
+          : vendors?.length ?? 6,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: responsive.isSmallerThan(TABLET) ? 3 : 4,
+        crossAxisSpacing: 15,
+        childAspectRatio: 0.6,
+      ),
+      itemBuilder: (_, index) {
+        if (index < (vendors?.length ?? 9)) {
+          // Get the vendor object
+          final vendor = vendors?[index] ?? Vendor(vendorId: 1);
+
+          return GestureDetector(
+            onTap: () => BazarBottomSheet.show(
+              context,
+              child: DetailVendor(vendor: vendor),
+            ),
+            // Display vendor tile
+            child: VendorTile(vendor: vendor),
+          );
+        } else {
+          return const Center(
+            child: SizedBox(
+              height: 40,
+              width: 40,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
 }
 
 /// Widget representing a single vendor tile in the grid.
@@ -230,7 +237,7 @@ class VendorTile extends StatelessWidget {
         ),
 
         // Display rating stars
-        RatingWidget(rating: vendor?.rating ?? 1, size: 18),
+        RatingWidget(rating: vendor?.rating ?? 1, size: 18.h),
       ],
     );
   }
@@ -270,8 +277,13 @@ class RatingWidget extends StatelessWidget {
 /// Widget for selecting quantity of a vendor item.
 class QuantitySelector extends StatefulWidget {
   final Vendor? vendor; // The vendor for which quantity is selected
+  final Function(int) onQuantityChanged;
 
-  const QuantitySelector({super.key, this.vendor});
+  const QuantitySelector({
+    super.key,
+    this.vendor,
+    required this.onQuantityChanged,
+  });
 
   @override
   QuantitySelectorState createState() => QuantitySelectorState();
@@ -279,6 +291,13 @@ class QuantitySelector extends StatefulWidget {
 
 class QuantitySelectorState extends State<QuantitySelector> {
   int quantity = 1; // Default quantity
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize quantity based on the vendor's current quantity
+    quantity = widget.vendor?.quantity ?? 1;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -292,15 +311,16 @@ class QuantitySelectorState extends State<QuantitySelector> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Decrement button
-          CircleAvatar(
-            maxRadius: 20,
-            backgroundColor: (quantity <= 1)
+          BazarCircleAvatar(
+            color: (quantity <= 1)
                 ? context.colorScheme.primaryContainer
                 : context.colorScheme.primary,
             child: IconButton(
               // Decrease quantity
-              onPressed: () =>
-                  quantity <= 1 ? null : setState(() => quantity--),
+              onPressed: () {
+                quantity <= 1 ? null : setState(() => quantity--);
+                widget.onQuantityChanged(quantity);
+              },
               icon: BazarIcon.icRemove(),
             ),
           ),
@@ -311,16 +331,18 @@ class QuantitySelectorState extends State<QuantitySelector> {
 
           // Increment button
           const SizedBox(width: 20),
-          CircleAvatar(
-            maxRadius: 20,
-            backgroundColor: (quantity >= (widget.vendor?.quantity ?? 1))
+          BazarCircleAvatar(
+            color: (quantity >= (widget.vendor?.inStock ?? 1))
                 ? context.colorScheme.primaryContainer
                 : context.colorScheme.primary,
             child: IconButton(
               // Increase quantity
-              onPressed: () => (quantity >= (widget.vendor?.quantity ?? 1))
-                  ? null
-                  : setState(() => quantity++),
+              onPressed: () {
+                (quantity >= (widget.vendor?.inStock ?? 1))
+                    ? null
+                    : setState(() => quantity++);
+                widget.onQuantityChanged(quantity);
+              },
               icon: BazarIcon.icAdd(),
             ),
           ),

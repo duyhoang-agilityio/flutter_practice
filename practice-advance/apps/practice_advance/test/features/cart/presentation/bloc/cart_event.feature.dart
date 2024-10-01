@@ -33,13 +33,13 @@ class CheckoutCartEventScenario extends AgbUTScenario<CartEvent, CartEvent> {
             When the event is triggered
             Then the products should be set correctly''',
           when: () async {
-            final products = VendorMock.productsList;
-            return CheckoutCartEvent(products: products);
+            final products = VendorMock.vendorsList;
+            return CheckoutCartEvent(vendors: products);
           },
           act: (event) => event,
           expect: (CartEvent result) {
             expect(result, equals(isA<CheckoutCartEvent>()));
-            expect((result as CheckoutCartEvent).products.length, equals(2));
+            expect((result as CheckoutCartEvent).vendors.length, equals(2));
           },
         );
 }
@@ -55,12 +55,12 @@ class RemoveProductFromCartEventScenario
             When the event is triggered
             Then the productId should be set correctly''',
           when: () async {
-            return RemoveProductFromCartEvent(productId: 1);
+            return RemoveVendorFromCartEvent(vendorId: 1);
           },
           act: (event) => event,
           expect: (CartEvent result) {
-            expect(result, equals(isA<RemoveProductFromCartEvent>()));
-            expect((result as RemoveProductFromCartEvent).productId, equals(1));
+            expect(result, equals(isA<RemoveVendorFromCartEvent>()));
+            expect((result as RemoveVendorFromCartEvent).vendorId, equals(1));
           },
         );
 }

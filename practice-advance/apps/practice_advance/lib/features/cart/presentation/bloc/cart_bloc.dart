@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/cart/data/cart_box_impl.dart';
 import 'package:practice_advance/features/cart/domain/usecases/cart_usecase.dart';
-import 'package:practice_advance/features/home/domain/entities/product.dart';
+import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';
@@ -16,7 +16,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     // Register event handlers
     on<LoadCartItemsEvent>(_onLoadedCarts);
     on<CheckoutCartEvent>(_onCheckoutCart);
-    on<RemoveProductFromCartEvent>(_onRemoveProduct);
+    on<RemoveVendorFromCartEvent>(_onRemoveVendor);
   }
 
   /// Loads cart items from the data source and emits the corresponding states.
@@ -42,16 +42,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     );
   }
 
-  /// Removes a product from the cart and reloads the cart items.
-  Future<void> _onRemoveProduct(
-    RemoveProductFromCartEvent event,
+  /// Removes a vendor from the cart and reloads the cart items.
+  Future<void> _onRemoveVendor(
+    RemoveVendorFromCartEvent event,
     Emitter<CartState> emit,
   ) async {
     // Emit loading state
     emit(CartItemsLoadingState());
 
     // Delete the item from the cart
-    await box.removeProduct(productId: event.productId);
+    await box.removeVendor(vendorId: event.vendorId);
 
     // Reload cart items
     add(LoadCartItemsEvent());
@@ -70,8 +70,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     // Checkout the specified products
     final result = await cartUsecase
-        .checkoutProducts(
-          products: event.products,
+        .checkoutVendors(
+          vendors: event.vendors,
         )
         .run();
 

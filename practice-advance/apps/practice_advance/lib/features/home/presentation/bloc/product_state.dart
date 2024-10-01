@@ -24,6 +24,9 @@ class ProductLoaded extends ProductState {
   List<Object?> get props => [products];
 }
 
+/// State representing successfully add products to cart.
+class AddProductToCartSucces extends ProductState {}
+
 /// State indicating successful retrieval of the list of items in the cart.
 ///
 /// [products] is the list of products currently in the cart.
@@ -34,6 +37,18 @@ class GetListCartSuccess extends ProductState {
 
   @override
   List<Object?> get props => [products];
+}
+
+/// State indicating successful retrieval of the list of items in the cart.
+///
+/// [products] is the list of products currently in the cart.
+class UpdatedProductSuccess extends ProductState {
+  final Vendor vendor;
+
+  UpdatedProductSuccess(this.vendor);
+
+  @override
+  List<Object?> get props => [vendor];
 }
 
 /// State representing an error that occurred during product operations.

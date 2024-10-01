@@ -18,11 +18,11 @@ class CartCheckoutProductsScenario extends AgbUTScenario<CartUsecase, bool> {
             Then function should complete successfully''',
           when: () async {
             late final CartRepository repository = MockCartRepository();
-            late final usecase = CartUsecase(repository);
+            late final usecase = CartUsecase(repository: repository);
 
             // Mocking successful checkout
-            when(() => repository.checkoutProducts(
-                products: VendorMock.productsList)).thenAnswerValue(
+            when(() => repository.checkoutVendors(
+                vendors: VendorMock.vendorsList)).thenAnswerValue(
               true,
             );
 
@@ -30,8 +30,8 @@ class CartCheckoutProductsScenario extends AgbUTScenario<CartUsecase, bool> {
           },
           act: (CartUsecase entity) async {
             final res = await entity
-                .checkoutProducts(
-                  products: VendorMock.productsList,
+                .checkoutVendors(
+                  vendors: VendorMock.vendorsList,
                 )
                 .run();
 

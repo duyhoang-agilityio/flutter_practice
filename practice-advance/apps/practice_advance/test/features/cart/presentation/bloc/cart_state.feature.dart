@@ -73,7 +73,7 @@ class CartItemsLoadedStateScenario extends AgbUTScenario<CartState, CartState> {
             When cart items are loaded
             Then the state should contain the correct list of items''',
           when: () async {
-            final items = VendorMock.productsList;
+            final items = VendorMock.vendorsList;
 
             return CartItemsLoadedState(items);
           },
@@ -82,7 +82,7 @@ class CartItemsLoadedStateScenario extends AgbUTScenario<CartState, CartState> {
             expect(result, equals(isA<CartItemsLoadedState>()));
             final loadedState = result as CartItemsLoadedState;
             expect(loadedState.items.length, equals(2));
-            expect(loadedState.items[0].title, equals('Product 1'));
+            expect(loadedState.items[0].name, equals('Vendor 1'));
           },
         );
 }

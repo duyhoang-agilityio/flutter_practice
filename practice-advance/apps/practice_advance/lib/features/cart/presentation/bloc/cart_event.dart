@@ -6,16 +6,16 @@ abstract class CartEvent {}
 /// Event to load cart items.
 class LoadCartItemsEvent extends CartEvent {}
 
-/// Event to initiate checkout with selected products.
+/// Event to initiate checkout with selected vendors.
 class CheckoutCartEvent extends CartEvent {
-  final List<Product> products;
+  final List<Vendor> vendors;
 
-  CheckoutCartEvent({required this.products});
+  CheckoutCartEvent({required this.vendors});
 }
 
-/// Event to remove a product from the cart.
-class RemoveProductFromCartEvent extends CartEvent {
-  final int productId;
+/// Event to remove a vendor from the cart.
+class RemoveVendorFromCartEvent extends CartEvent {
+  final int vendorId;
 
-  RemoveProductFromCartEvent({required this.productId});
+  RemoveVendorFromCartEvent({required this.vendorId});
 }

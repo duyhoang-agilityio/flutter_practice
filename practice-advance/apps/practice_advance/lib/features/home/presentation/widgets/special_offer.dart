@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/tokens/sizes.dart';
@@ -43,6 +44,8 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
+
     return BazarSkeletonize(
       enabled: _isLoading, // Show skeleton loading while loading
       child: Column(
@@ -52,7 +55,7 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
             color: context.colorScheme.secondaryContainer,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.r), // Responsive radius
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Row(
               children: [
@@ -61,33 +64,33 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                   flex: 5,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 16.w), // Responsive padding
+                      horizontal: 16.w,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const BazarHeadlineLargeTitle(
-                          text: 'Special Offer',
+                        FittedBox(
+                          child: BazarHeadlineLargeTitle(
+                            text: localizations.txtSpecialOffer,
+                          ),
                         ),
-                        const BazarBodyLargeText(
-                          text: 'Discount 25%',
-                        ),
-                        SizedBox(height: 16.h), // Responsive SizedBox
+                        BazarBodyLargeText(text: localizations.txtDiscount),
+                        SizedBox(height: 16.h),
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: context.colorScheme.primary,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  16.r), // Responsive radius
+                              borderRadius: BorderRadius.circular(16.r),
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                              vertical: 10.h, // Responsive padding
-                              horizontal: 24.w, // Responsive padding
+                              vertical: 10.h,
+                              horizontal: 24.w,
                             ),
                             child: BazarBodyLargeText(
-                              text: 'Order Now',
+                              text: localizations.txtOrderNow,
                               color: context.colorScheme.surface,
                             ),
                           ),
@@ -101,25 +104,21 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10.w), // Responsive padding
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     child: CarouselSlider(
                       items: imageUrls.map((url) {
                         return ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(12.r), // Responsive radius
+                          borderRadius: BorderRadius.circular(12.r),
                           child: BazarCachedNetworkImage(
                             imagePath: url,
                             boxFit: BoxFit.contain,
-                            radius:
-                                BorderRadius.circular(7.r), // Responsive radius
+                            radius: BorderRadius.circular(7.r),
                           ),
                         );
                       }).toList(),
                       carouselController: _carouselController,
                       options: CarouselOptions(
-                        height: BazarSizingTokens
-                            .productItemHeight.h, // Responsive height
+                        height: BazarSizingTokens.productItemHeight.h,
                         autoPlay: true,
                         enableInfiniteScroll: true,
                         enlargeCenterPage: true,
@@ -145,11 +144,11 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 // Navigate to the tapped page
                 onTap: () => _carouselController.animateToPage(entry.key),
                 child: Container(
-                  width: isActive ? 10.0.w : 5.w, // Responsive width
-                  height: isActive ? 10.0.h : 5.h, // Responsive height
+                  width: isActive ? 10.0.w : 5.w, //
+                  height: isActive ? 10.0.h : 5.h,
                   margin: EdgeInsets.symmetric(
-                    vertical: 8.0.h, // Responsive margin
-                    horizontal: 2.0.w, // Responsive margin
+                    vertical: 8.0.h,
+                    horizontal: 2.0.w,
                   ),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

@@ -26,23 +26,24 @@ class VendorJsonKeys {
 class Vendor {
   Id id = Isar.autoIncrement; // Primary key with auto increment
 
-  final int vendorId;
-  final String? name;
-  final List<String>? ingredients;
-  final List<String>? instructions;
-  final int? prepTimeMinutes;
-  final int? cookTimeMinutes;
-  final int? servings;
-  final String? difficulty;
-  final String? cuisine;
-  final int? price;
-  final List<String>? tags;
-  final int? userId;
-  final String? image;
-  final double? rating;
-  final int? quantity;
-  final int? reviewCount;
-  final List<String>? mealType;
+  late int vendorId;
+  late String? name;
+  late List<String>? ingredients;
+  late List<String>? instructions;
+  late int? prepTimeMinutes;
+  late int? cookTimeMinutes;
+  late int? servings;
+  late String? difficulty;
+  late String? cuisine;
+  late double? price;
+  late List<String>? tags;
+  late int? userId;
+  late String? image;
+  late double? rating;
+  late int? quantity;
+  late int? reviewCount;
+  late int? inStock;
+  late List<String>? mealType;
 
   Vendor({
     required this.vendorId,
@@ -61,6 +62,7 @@ class Vendor {
     this.rating,
     this.quantity,
     this.reviewCount,
+    this.inStock,
     this.mealType,
   });
 
@@ -77,14 +79,15 @@ class Vendor {
       servings: json[VendorJsonKeys.servingsKey] ?? 0,
       difficulty: json[VendorJsonKeys.difficultyKey] ?? '',
       cuisine: json[VendorJsonKeys.cuisineKey] ?? '',
-      price: json[VendorJsonKeys.caloriesPerServingKey] ?? 0,
+      price: (json[VendorJsonKeys.caloriesPerServingKey] ?? 0).toDouble(),
       tags: List<String>.from(json[VendorJsonKeys.tagsKey] ?? []),
       userId: json[VendorJsonKeys.userIdKey] ?? 0,
       image: json[VendorJsonKeys.imageKey] ?? '',
       rating: double.tryParse(json[VendorJsonKeys.ratingKey].toString()) ?? 0.0,
       reviewCount: json[VendorJsonKeys.reviewCountKey] ?? 0,
       mealType: List<String>.from(json[VendorJsonKeys.mealTypeKey] ?? []),
-      quantity: 5,
+      quantity: 1,
+      inStock: 5,
     );
   }
 
@@ -98,9 +101,52 @@ class Vendor {
   }
 
   // Method to format product price and format price as a string
-  String productPrice(int price) => '\$${(price - 0.01).toStringAsFixed(2)}';
+  String productPrice(double price) => '\$${(price - 0.01).toStringAsFixed(2)}';
 
   String get desc => '${instructions?[4] ?? ''} ${instructions?[3] ?? ''}';
+
+  // CopyWith method
+  Vendor copyWith({
+    int? vendorId,
+    String? name,
+    List<String>? ingredients,
+    List<String>? instructions,
+    int? prepTimeMinutes,
+    int? cookTimeMinutes,
+    int? servings,
+    String? difficulty,
+    String? cuisine,
+    double? price,
+    List<String>? tags,
+    int? userId,
+    String? image,
+    double? rating,
+    int? quantity,
+    int? reviewCount,
+    int? inStock,
+    List<String>? mealType,
+  }) {
+    return Vendor(
+      vendorId: vendorId ?? this.vendorId,
+      name: name ?? this.name,
+      ingredients: ingredients ?? this.ingredients,
+      instructions: instructions ?? this.instructions,
+      prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,
+      cookTimeMinutes: cookTimeMinutes ?? this.cookTimeMinutes,
+      servings: servings ?? this.servings,
+      difficulty: difficulty ?? this.difficulty,
+      cuisine: cuisine ?? this.cuisine,
+      price: price ?? this.price,
+      tags: tags ?? this.tags,
+      userId: userId ?? this.userId,
+      image: image ?? this.image,
+      rating: rating ?? this.rating,
+      quantity: quantity ?? this.quantity,
+      inStock: inStock ?? this.inStock,
+      reviewCount: reviewCount ?? this.reviewCount,
+      mealType: mealType ?? this.mealType,
+    );
+  }
 }
 
 // List of tags related to vendors

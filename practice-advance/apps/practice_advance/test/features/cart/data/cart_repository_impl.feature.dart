@@ -43,8 +43,8 @@ class CartRepositoryCheckoutProductsNoErrorScenario
           act: (CartRepositoryImpl repository) async {
             // Call the checkoutProducts method
             return await repository
-                .checkoutProducts(
-                  products: VendorMock.productsList,
+                .checkoutVendors(
+                  vendors: VendorMock.vendorsList,
                 )
                 .run(); // Return Either<Failure, void>
           },
@@ -75,8 +75,8 @@ class CartRepositoryCheckoutProductsServerErrorScenario
           act: (CartRepositoryImpl repository) async {
             // Call the checkoutProducts method
             final result = await repository
-                .checkoutProducts(
-                  products: VendorMock.productsList,
+                .checkoutVendors(
+                  vendors: VendorMock.vendorsList,
                 )
                 .run();
 

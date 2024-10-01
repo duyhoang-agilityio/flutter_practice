@@ -132,6 +132,7 @@ class BazarBodyLargeText extends StatelessWidget {
       text: text,
       maxLines: maxLines,
       textAlign: textAlign,
+      overflow: overflow,
       style: context.textTheme.bodyLarge?.copyWith(
         color: color,
       ),
@@ -194,6 +195,7 @@ class BazarBodySmallText extends StatelessWidget {
       text: text,
       textAlign: textAlign,
       maxLines: maxLines,
+      overflow: overflow,
       style: context.textTheme.bodySmall?.copyWith(
         color: color,
       ),

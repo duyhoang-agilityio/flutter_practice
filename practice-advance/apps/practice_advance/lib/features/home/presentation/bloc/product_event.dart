@@ -17,9 +17,18 @@ class GetListProductsEvent extends ProductEvent {
 ///
 /// [item] is the product to be added to the cart.
 class AddToCartEvent extends ProductEvent {
-  final Product item;
+  final Vendor item;
 
   AddToCartEvent(this.item);
+}
+
+/// Event for adding a product to the cart.
+///
+/// [item] is the product to be added to the cart.
+class UpdateProductEvent extends ProductEvent {
+  final Vendor item;
+
+  UpdateProductEvent(this.item);
 }
 
 /// Event for fetching the list of items in the cart.

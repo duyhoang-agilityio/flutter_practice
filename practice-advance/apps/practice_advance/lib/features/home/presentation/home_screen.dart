@@ -14,6 +14,7 @@ import 'package:practice_advance/features/home/presentation/widgets/list_vendors
 import 'package:practice_advance/features/home/presentation/widgets/special_offer.dart';
 import 'package:practice_advance/injection.dart';
 import 'package:practice_advance/router.dart';
+import 'package:practice_advance_design/templetes/scaffold.dart';
 import 'package:practice_advance_design/widgets/app_bar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
 import 'package:practice_advance_design/widgets/buttons/text_button.dart';
@@ -54,7 +55,7 @@ class HomePage extends StatelessWidget {
             ), // Fetch authors by category
         ),
       ],
-      child: Scaffold(
+      child: BazarScaffold(
         appBar: BazarAppBar(
           title: BazarHeadlineLargeTitle(
             text: i18n.txtHome,
@@ -62,59 +63,60 @@ class HomePage extends StatelessWidget {
           leading: BazarIconButtons(
             icon: BazarIcon.icSearch(),
             onPressed: () {
-              // TODO: Implement search function
+              // FIXED: Implement search function
             },
           ),
           trailing: BazarIconButtons(
             icon: BazarIcon.icCart(),
             onPressed: () {
-              // TODO: Implement notification function
+              // FIXED: Implement notification function
             },
           ),
         ),
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Special Offer Card
-                const SpecialOfferCard(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20).r,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Special Offer Card
+                  const SpecialOfferCard(),
 
-                // Section for Top of the Week products
-                BazarSection(text: i18n.txtTopOfWeek),
+                  // Section for Top of the Week products
+                  BazarSection(text: i18n.txtTopOfWeek),
 
-                // List of products
-                const SizedBox(height: 15),
-                const ListProducts(),
-                const SizedBox(height: 20),
+                  // List of products
+                  SizedBox(height: 15.h),
+                  const ListProducts(),
+                  SizedBox(height: 10.h),
 
-                // Section for Best Vendors
-                BazarSection(
-                  text: i18n.txtVendors,
-                  onPressed: () => context.pushNamed(
-                    AppRouteNames.vendorList.name,
-                    extra: VendorBloc(homeUsecases: locator<HomeUsecases>()),
+                  // Section for Best Vendors
+                  BazarSection(
+                    text: i18n.txtVendors,
+                    onPressed: () => context.pushNamed(
+                      AppRouteNames.vendorList.name,
+                      extra: VendorBloc(homeUsecases: locator<HomeUsecases>()),
+                    ),
                   ),
-                ),
 
-                // List of vendors
-                const ListVendor(),
-                const SizedBox(height: 20),
+                  // List of vendors
+                  const ListVendor(),
+                  SizedBox(height: 20.h),
 
-                // Section for Authors
-                BazarSection(
-                  text: i18n.txtAuthors,
-                  onPressed: () => context.pushNamed(
-                    AppRouteNames.authorList.name,
-                    extra: AuthorBloc(locator<HomeUsecases>()),
+                  // Section for Authors
+                  BazarSection(
+                    text: i18n.txtAuthors,
+                    onPressed: () => context.pushNamed(
+                      AppRouteNames.authorList.name,
+                      extra: AuthorBloc(locator<HomeUsecases>()),
+                    ),
                   ),
-                ),
-                // List of authors
-                const ListAuthors(),
-                const SizedBox(height: 20),
-              ],
+                  // List of authors
+                  const ListAuthors(),
+                ],
+              ),
             ),
           ),
         ),

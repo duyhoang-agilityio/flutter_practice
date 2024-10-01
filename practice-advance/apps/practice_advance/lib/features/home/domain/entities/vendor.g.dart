@@ -27,78 +27,88 @@ const VendorSchema = CollectionSchema(
       name: r'cuisine',
       type: IsarType.string,
     ),
-    r'difficulty': PropertySchema(
+    r'desc': PropertySchema(
       id: 2,
+      name: r'desc',
+      type: IsarType.string,
+    ),
+    r'difficulty': PropertySchema(
+      id: 3,
       name: r'difficulty',
       type: IsarType.string,
     ),
     r'image': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'image',
       type: IsarType.string,
     ),
+    r'inStock': PropertySchema(
+      id: 5,
+      name: r'inStock',
+      type: IsarType.long,
+    ),
     r'ingredients': PropertySchema(
-      id: 4,
+      id: 6,
       name: r'ingredients',
       type: IsarType.stringList,
     ),
     r'instructions': PropertySchema(
-      id: 5,
+      id: 7,
       name: r'instructions',
       type: IsarType.stringList,
     ),
     r'mealType': PropertySchema(
-      id: 6,
+      id: 8,
       name: r'mealType',
       type: IsarType.stringList,
     ),
     r'name': PropertySchema(
-      id: 7,
+      id: 9,
       name: r'name',
       type: IsarType.string,
     ),
     r'prepTimeMinutes': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'prepTimeMinutes',
       type: IsarType.long,
     ),
     r'price': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'price',
-      type: IsarType.long,
+      type: IsarType.double,
     ),
     r'quantity': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'quantity',
       type: IsarType.long,
     ),
     r'rating': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'rating',
       type: IsarType.double,
     ),
     r'reviewCount': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'reviewCount',
       type: IsarType.long,
     ),
     r'servings': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'servings',
       type: IsarType.long,
     ),
     r'tags': PropertySchema(
-      id: 14,
+      id: 16,
       name: r'tags',
       type: IsarType.stringList,
     ),
     r'userId': PropertySchema(
-      id: 15,
+      id: 17,
       name: r'userId',
       type: IsarType.long,
     ),
     r'vendorId': PropertySchema(
-      id: 16,
+      id: 18,
       name: r'vendorId',
       type: IsarType.long,
     )
@@ -129,6 +139,7 @@ int _vendorEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
+  bytesCount += 3 + object.desc.length * 3;
   {
     final value = object.difficulty;
     if (value != null) {
@@ -206,21 +217,23 @@ void _vendorSerialize(
 ) {
   writer.writeLong(offsets[0], object.cookTimeMinutes);
   writer.writeString(offsets[1], object.cuisine);
-  writer.writeString(offsets[2], object.difficulty);
-  writer.writeString(offsets[3], object.image);
-  writer.writeStringList(offsets[4], object.ingredients);
-  writer.writeStringList(offsets[5], object.instructions);
-  writer.writeStringList(offsets[6], object.mealType);
-  writer.writeString(offsets[7], object.name);
-  writer.writeLong(offsets[8], object.prepTimeMinutes);
-  writer.writeLong(offsets[9], object.price);
-  writer.writeLong(offsets[10], object.quantity);
-  writer.writeDouble(offsets[11], object.rating);
-  writer.writeLong(offsets[12], object.reviewCount);
-  writer.writeLong(offsets[13], object.servings);
-  writer.writeStringList(offsets[14], object.tags);
-  writer.writeLong(offsets[15], object.userId);
-  writer.writeLong(offsets[16], object.vendorId);
+  writer.writeString(offsets[2], object.desc);
+  writer.writeString(offsets[3], object.difficulty);
+  writer.writeString(offsets[4], object.image);
+  writer.writeLong(offsets[5], object.inStock);
+  writer.writeStringList(offsets[6], object.ingredients);
+  writer.writeStringList(offsets[7], object.instructions);
+  writer.writeStringList(offsets[8], object.mealType);
+  writer.writeString(offsets[9], object.name);
+  writer.writeLong(offsets[10], object.prepTimeMinutes);
+  writer.writeDouble(offsets[11], object.price);
+  writer.writeLong(offsets[12], object.quantity);
+  writer.writeDouble(offsets[13], object.rating);
+  writer.writeLong(offsets[14], object.reviewCount);
+  writer.writeLong(offsets[15], object.servings);
+  writer.writeStringList(offsets[16], object.tags);
+  writer.writeLong(offsets[17], object.userId);
+  writer.writeLong(offsets[18], object.vendorId);
 }
 
 Vendor _vendorDeserialize(
@@ -232,21 +245,22 @@ Vendor _vendorDeserialize(
   final object = Vendor(
     cookTimeMinutes: reader.readLongOrNull(offsets[0]),
     cuisine: reader.readStringOrNull(offsets[1]),
-    difficulty: reader.readStringOrNull(offsets[2]),
-    image: reader.readStringOrNull(offsets[3]),
-    ingredients: reader.readStringList(offsets[4]),
-    instructions: reader.readStringList(offsets[5]),
-    mealType: reader.readStringList(offsets[6]),
-    name: reader.readStringOrNull(offsets[7]),
-    prepTimeMinutes: reader.readLongOrNull(offsets[8]),
-    price: reader.readLongOrNull(offsets[9]),
-    quantity: reader.readLongOrNull(offsets[10]),
-    rating: reader.readDoubleOrNull(offsets[11]),
-    reviewCount: reader.readLongOrNull(offsets[12]),
-    servings: reader.readLongOrNull(offsets[13]),
-    tags: reader.readStringList(offsets[14]),
-    userId: reader.readLongOrNull(offsets[15]),
-    vendorId: reader.readLong(offsets[16]),
+    difficulty: reader.readStringOrNull(offsets[3]),
+    image: reader.readStringOrNull(offsets[4]),
+    inStock: reader.readLongOrNull(offsets[5]),
+    ingredients: reader.readStringList(offsets[6]),
+    instructions: reader.readStringList(offsets[7]),
+    mealType: reader.readStringList(offsets[8]),
+    name: reader.readStringOrNull(offsets[9]),
+    prepTimeMinutes: reader.readLongOrNull(offsets[10]),
+    price: reader.readDoubleOrNull(offsets[11]),
+    quantity: reader.readLongOrNull(offsets[12]),
+    rating: reader.readDoubleOrNull(offsets[13]),
+    reviewCount: reader.readLongOrNull(offsets[14]),
+    servings: reader.readLongOrNull(offsets[15]),
+    tags: reader.readStringList(offsets[16]),
+    userId: reader.readLongOrNull(offsets[17]),
+    vendorId: reader.readLong(offsets[18]),
   );
   object.id = id;
   return object;
@@ -264,21 +278,21 @@ P _vendorDeserializeProp<P>(
     case 1:
       return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 5:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 6:
       return (reader.readStringList(offset)) as P;
     case 7:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 8:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 9:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
       return (reader.readLongOrNull(offset)) as P;
     case 11:
@@ -286,12 +300,16 @@ P _vendorDeserializeProp<P>(
     case 12:
       return (reader.readLongOrNull(offset)) as P;
     case 13:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 14:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 15:
       return (reader.readLongOrNull(offset)) as P;
     case 16:
+      return (reader.readStringList(offset)) as P;
+    case 17:
+      return (reader.readLongOrNull(offset)) as P;
+    case 18:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -598,6 +616,135 @@ extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'cuisine',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'desc',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descContains(String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'desc',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'desc',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'desc',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> descIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'desc',
         value: '',
       ));
     });
@@ -943,6 +1090,75 @@ extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'image',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'inStock',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'inStock',
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'inStock',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'inStock',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'inStock',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> inStockBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'inStock',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1885,46 +2101,55 @@ extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceEqualTo(int? value) {
+  QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceEqualTo(
+    double? value, {
+    double epsilon = Query.epsilon,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'price',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceGreaterThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'price',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceLessThan(
-    int? value, {
+    double? value, {
     bool include = false,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'price',
         value: value,
+        epsilon: epsilon,
       ));
     });
   }
 
   QueryBuilder<Vendor, Vendor, QAfterFilterCondition> priceBetween(
-    int? lower,
-    int? upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -1933,6 +2158,7 @@ extension VendorQueryFilter on QueryBuilder<Vendor, Vendor, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        epsilon: epsilon,
       ));
     });
   }
@@ -2604,6 +2830,18 @@ extension VendorQuerySortBy on QueryBuilder<Vendor, Vendor, QSortBy> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'desc', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByDescDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'desc', Sort.desc);
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByDifficulty() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'difficulty', Sort.asc);
@@ -2625,6 +2863,18 @@ extension VendorQuerySortBy on QueryBuilder<Vendor, Vendor, QSortBy> {
   QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByInStock() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'inStock', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> sortByInStockDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'inStock', Sort.desc);
     });
   }
 
@@ -2762,6 +3012,18 @@ extension VendorQuerySortThenBy on QueryBuilder<Vendor, Vendor, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'desc', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByDescDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'desc', Sort.desc);
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByDifficulty() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'difficulty', Sort.asc);
@@ -2795,6 +3057,18 @@ extension VendorQuerySortThenBy on QueryBuilder<Vendor, Vendor, QSortThenBy> {
   QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByInStock() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'inStock', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QAfterSortBy> thenByInStockDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'inStock', Sort.desc);
     });
   }
 
@@ -2921,6 +3195,13 @@ extension VendorQueryWhereDistinct on QueryBuilder<Vendor, Vendor, QDistinct> {
     });
   }
 
+  QueryBuilder<Vendor, Vendor, QDistinct> distinctByDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'desc', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Vendor, Vendor, QDistinct> distinctByDifficulty(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2932,6 +3213,12 @@ extension VendorQueryWhereDistinct on QueryBuilder<Vendor, Vendor, QDistinct> {
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'image', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Vendor, Vendor, QDistinct> distinctByInStock() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'inStock');
     });
   }
 
@@ -3034,6 +3321,12 @@ extension VendorQueryProperty on QueryBuilder<Vendor, Vendor, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Vendor, String, QQueryOperations> descProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'desc');
+    });
+  }
+
   QueryBuilder<Vendor, String?, QQueryOperations> difficultyProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'difficulty');
@@ -3043,6 +3336,12 @@ extension VendorQueryProperty on QueryBuilder<Vendor, Vendor, QQueryProperty> {
   QueryBuilder<Vendor, String?, QQueryOperations> imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'image');
+    });
+  }
+
+  QueryBuilder<Vendor, int?, QQueryOperations> inStockProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'inStock');
     });
   }
 
@@ -3076,7 +3375,7 @@ extension VendorQueryProperty on QueryBuilder<Vendor, Vendor, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Vendor, int?, QQueryOperations> priceProperty() {
+  QueryBuilder<Vendor, double?, QQueryOperations> priceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'price');
     });

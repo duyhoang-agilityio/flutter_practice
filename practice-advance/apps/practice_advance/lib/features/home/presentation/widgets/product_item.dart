@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/core/extensions/double_extension.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
+import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/tokens/sizes.dart';
 import 'package:practice_advance_design/widgets/image.dart';
 import 'package:practice_advance_design/widgets/text.dart';
@@ -37,7 +38,7 @@ class ProductItem extends StatelessWidget {
                 // Product thumbnail image
                 Container(
                   decoration: BoxDecoration(
-                    color: const Color(0XFFFAFAFA),
+                    color: context.colorScheme.tertiaryContainer,
                     borderRadius: BorderRadiusDirectional.circular(10),
                   ),
                   child: BazarCachedNetworkImage(

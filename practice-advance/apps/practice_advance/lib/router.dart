@@ -5,12 +5,10 @@ import 'package:practice_advance/core/router/page_names.dart';
 import 'package:practice_advance/features/cart/presentation/cart_screen.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
-import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home/presentation/home_screen.dart';
 import 'package:practice_advance/features/home_author/presentation/author_detail.dart';
 import 'package:practice_advance/features/home_author/presentation/authors_list.dart';
-import 'package:practice_advance/features/home_product/presentation/products_list.dart';
 import 'package:practice_advance/features/onboarding/onboarding_screen.dart';
 import 'package:practice_advance/features/sign_in/presentation/sign_in_screen.dart';
 import 'package:practice_advance_design/foundations/models.dart';
@@ -112,42 +110,12 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
-      path: AppRouteNames.productList.path,
-      name: AppRouteNames.productList.name,
-      builder: (BuildContext context, GoRouterState state) {
-        final param = state.extra != null ? state.extra! as ProductBloc : null;
-
-        return ListProductsScreen(bloc: param!);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: AppRouteNames.detailProduct.path,
-      name: AppRouteNames.detailProduct.name,
-      builder: (BuildContext context, GoRouterState state) {
-        final param = state.extra != null ? state.extra! as ProductBloc : null;
-
-        return ListProductsScreen(bloc: param!);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
       path: AppRouteNames.detailAuthor.path,
       name: AppRouteNames.detailAuthor.name,
       builder: (BuildContext context, GoRouterState state) {
         final param = state.extra != null ? state.extra! as Author : null;
 
         return AuthorDetail(author: param!);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: _rootNavigatorKey,
-      path: AppRouteNames.detailVendor.path,
-      name: AppRouteNames.detailVendor.name,
-      builder: (BuildContext context, GoRouterState state) {
-        final param = state.extra != null ? state.extra! as ProductBloc : null;
-
-        return ListProductsScreen(bloc: param!);
       },
     ),
     ShellRoute(

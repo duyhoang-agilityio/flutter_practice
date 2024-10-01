@@ -22,14 +22,14 @@ class LoadCartItemsSuccessfulScenario
           setUp: () {
             // Mock the data source to return a successful response
             when(dataSource.fetchCartItems).thenAnswerValue(
-              VendorMock.productsList,
+              VendorMock.vendorsList,
             );
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
           act: (bloc) => bloc.add(LoadCartItemsEvent()),
           expect: () => [
             CartItemsLoadingState(),
-            CartItemsLoadedState(VendorMock.productsList),
+            CartItemsLoadedState(VendorMock.vendorsList),
           ],
         );
 
@@ -107,12 +107,12 @@ class CheckoutCartSuccessfulScenario
             when(() => dataSource.clearCart())
                 .thenAnswer((_) async => Future.value());
             when(
-              () => useCase.checkoutProducts(products: VendorMock.productsList),
+              () => useCase.checkoutVendors(vendors: VendorMock.vendorsList),
             ).thenAnswerValue(true); // Successful checkout
           },
           build: () => CartBloc(useCase, dataSource),
           act: (bloc) async => bloc.add(
-            CheckoutCartEvent(products: VendorMock.productsList),
+            CheckoutCartEvent(vendors: VendorMock.vendorsList),
           ),
           expect: () => [
             CartCheckoutLoadingState(),
@@ -138,12 +138,12 @@ class CheckoutCartFailureScenario
           ''',
           setUp: () {
             when(
-              () => useCase.checkoutProducts(products: VendorMock.productsList),
+              () => useCase.checkoutVendors(vendors: VendorMock.vendorsList),
             ).thenAnswerFailureValue(const NetworkFailure('error'));
           },
           build: () => CartBloc(useCase, dataSource),
           act: (bloc) async => bloc.add(
-            CheckoutCartEvent(products: VendorMock.productsList),
+            CheckoutCartEvent(vendors: VendorMock.vendorsList),
           ),
           expect: () => [
             CartCheckoutLoadingState(),
@@ -167,19 +167,19 @@ class RemoveProductFromCartSuccessfulScenario
             Then Emit [CartItemsLoadedState] with the updated list of items
           ''',
           setUp: () {
-            when(() => dataSource.removeProduct(productId: 1))
+            when(() => dataSource.removeVendor(vendorId: 1))
                 .thenAnswer((_) async => {});
             when(dataSource.fetchCartItems).thenAnswerValue(
-              VendorMock.productsList,
+              VendorMock.vendorsList,
             ); // Assume product1 was removed
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
           act: (bloc) async {
-            bloc.add(RemoveProductFromCartEvent(productId: 1));
+            bloc.add(RemoveVendorFromCartEvent(vendorId: 1));
           },
           expect: () => [
             CartItemsLoadingState(),
-            CartItemsLoadedState(VendorMock.productsList),
+            CartItemsLoadedState(VendorMock.vendorsList),
           ],
         );
 
@@ -198,11 +198,11 @@ class RemoveProductFromCartFailureScenario
             Then Emit [CartErrorState] with the error message
           ''',
           setUp: () {
-            when(() => dataSource.removeProduct).thenThrow('error');
+            when(() => dataSource.removeVendor).thenThrow('error');
           },
           build: () => CartBloc(CartUsecaseMock(), dataSource),
           act: (bloc) async {
-            bloc.add(RemoveProductFromCartEvent(productId: 1));
+            bloc.add(RemoveVendorFromCartEvent(vendorId: 1));
           },
           expect: () => [
             CartItemsLoadingState(),

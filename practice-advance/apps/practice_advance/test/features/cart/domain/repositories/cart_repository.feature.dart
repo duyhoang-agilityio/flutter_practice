@@ -3,7 +3,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:practice_advance/features/cart/domain/repositories/cart_repository.dart';
 
 import '../../../../helper/utils.dart';
-import '../../../home/presentation/bloc/vendor_bloc.feature.dart';
 import 'cart_repository_test.dart';
 
 class CartCheckoutProductsScenario extends AgbUTScenario<CartRepository, bool> {
@@ -18,15 +17,12 @@ class CartCheckoutProductsScenario extends AgbUTScenario<CartRepository, bool> {
             late final CartRepository repository = MockCartRepository();
 
             // Mocking successful checkout
-            when(() => repository.checkoutProducts(
-                products: VendorMock.productsList)).thenAnswerValue(true);
+            when(repository.checkoutVendors).thenAnswerValue(true);
 
             return repository;
           },
           act: (CartRepository entity) async {
-            final res = await entity
-                .checkoutProducts(products: VendorMock.productsList)
-                .run();
+            final res = await entity.checkoutVendors().run();
 
             return res.getRight().toNullable();
           },

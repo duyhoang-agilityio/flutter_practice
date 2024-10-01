@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/home/data/home_box_impl.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
+import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart';
 
 part 'product_event.dart';
@@ -21,6 +22,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<GetListProductsEvent>(_fetch);
     // Event handler for adding products to cart
     on<AddToCartEvent>(_onAddProductToCart);
+    // Event handler for update product
+    on<UpdateProductEvent>(_onUpdateProduct);
   }
 
   /// Fetches the list of products and emits the corresponding states.
@@ -54,9 +57,21 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       // Add or update product in cart
       await box.addOrUpdateToCart(item: event.item);
+      emit(AddProductToCartSucces());
     } catch (e) {
       // Emit error state if an exception occurs
       emit(ProductError(e.toString()));
     }
+  }
+
+  /// Handles the addition of a product to the cart.
+  ///
+  /// [event] contains the product item to be added.
+  /// [emit] is used to emit loading and error states during the process.
+  Future<void> _onUpdateProduct(
+    UpdateProductEvent event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(UpdatedProductSuccess(event.item));
   }
 }

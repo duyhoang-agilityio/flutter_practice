@@ -17,7 +17,7 @@ class CartCheckoutLoadingState extends CartState {}
 
 /// State indicating that cart items have been successfully loaded.
 class CartItemsLoadedState extends CartState {
-  final List<Product> items;
+  final List<Vendor> items;
 
   CartItemsLoadedState(this.items);
 }
