@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 ///
 /// The [width] and [height] of the avatar can be customized. If they are not
 /// provided, they default to 40.0.
-class AgbUiCircleAvatar extends StatelessWidget {
-  /// Creates a [AgbUiCircleAvatar].
+class BazarCircleAvatar extends StatelessWidget {
+  /// Creates a [BazarCircleAvatar].
   ///
   /// The [child] parameter must not be null.
-  const AgbUiCircleAvatar({
+  const BazarCircleAvatar({
     required this.child,
     this.width = 40,
     this.height = 40,

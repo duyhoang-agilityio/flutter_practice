@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 import 'package:practice_advance_design/widgets/text.dart';
@@ -6,7 +7,7 @@ import 'package:practice_advance_design/widgets/text.dart';
 class BazarElevatedButton extends StatefulWidget {
   /// Returns a Bazar style [ElevatedButton]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
@@ -52,12 +53,12 @@ class BazarElevatedButton extends StatefulWidget {
 
   /// The button's background fill color.
   ///
-  /// Default is primary which is defined in [agbUiLightTheme]
+  /// Default is primary which is defined in [bazarLightTheme]
   final Color? backgroundColor;
 
   /// The color for the button's [Text] widget descendants.
   ///
-  /// Default is onPrimary which is defined in [agbUiLightTheme]
+  /// Default is onPrimary which is defined in [bazarLightTheme]
   final Color? foregroundColor;
 
   /// The content padding is used to provide space between the [text] and the
@@ -90,7 +91,7 @@ class _BazarElevatedButtonState extends State<BazarElevatedButton> {
       child: Container(
         padding: widget.padding ?? const EdgeInsets.symmetric(vertical: 7),
         width: widget.width,
-        height: 60,
+        height: 60.h,
         child: ElevatedButton(
           style: ButtonStyle(
             shadowColor: WidgetStateProperty.all<Color>(Colors.transparent),
@@ -158,7 +159,7 @@ class _BazarElevatedButtonState extends State<BazarElevatedButton> {
 class BazarElevatedIconButton extends StatefulWidget {
   /// Returns a Bazar style [ElevatedButton.icon]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
@@ -207,12 +208,12 @@ class BazarElevatedIconButton extends StatefulWidget {
 
   /// The button's background fill color.
   ///
-  /// Default is primary which is defined in [agbUiLightTheme]
+  /// Default is primary which is defined in [bazarLightTheme]
   final Color? backgroundColor;
 
   /// The color for the button's [Text] widget descendants.
   ///
-  /// Default is onPrimary which is defined in [agbUiLightTheme]
+  /// Default is onPrimary which is defined in [bazarLightTheme]
   final Color? foregroundColor;
 
   final Widget Function(String)? textBuilder;

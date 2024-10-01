@@ -62,12 +62,12 @@ class BazarIconButtons extends StatelessWidget {
 ///
 /// This widget is useful when you want to use an [Icon] in a circular icon
 /// button with zero padding and without any highlight or splash colors.
-class AgbUiCircleIconButton extends StatelessWidget {
+class BazarCircleIconButton extends StatelessWidget {
   /// Creates a circular icon button with the given [icon] and optional
   /// [onPressed] callback.
   ///
   /// The [key] argument is ignored.
-  const AgbUiCircleIconButton({
+  const BazarCircleIconButton({
     required this.icon,
     this.alignment,
     this.backgroundColor,

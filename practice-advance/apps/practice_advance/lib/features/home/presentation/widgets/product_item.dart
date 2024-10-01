@@ -28,42 +28,42 @@ class ProductItem extends StatelessWidget {
           // Get the product item or create a placeholder product.
           final item = products?[index] ?? Product(productId: 1);
 
-          return Padding(
+          return Container(
             padding: const EdgeInsets.only(right: 20),
-            child: SizedBox(
-              width: 127.h, // Fixed width for each product item.
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Product thumbnail image
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0XFFFAFAFA),
-                      borderRadius: BorderRadiusDirectional.circular(10),
-                    ),
-                    child: BazarCachedNetworkImage(
-                      height: BazarSizingTokens.productImageHeight.h,
-                      width: BazarSizingTokens.productImageWidth.h,
-                      imagePath: item.thumbnail ?? i18n.txtDefault,
-                      boxFit: BoxFit.fill,
-                      radius: BorderRadius.circular(7),
-                    ),
+            width: BazarSizingTokens.productImageWidth.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Product thumbnail image
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0XFFFAFAFA),
+                    borderRadius: BorderRadiusDirectional.circular(10),
                   ),
-                  const SizedBox(height: 8),
+                  child: BazarCachedNetworkImage(
+                    height: BazarSizingTokens.productImageHeight.h,
+                    width: BazarSizingTokens.productImageWidth.w,
+                    imagePath: item.thumbnail ?? i18n.txtDefault,
+                    boxFit: BoxFit.fill,
+                    radius: BorderRadius.circular(7),
+                  ),
+                ),
+                const SizedBox(height: 8),
 
-                  // Product title
-                  BazarBodyMediumText(
-                    maxLines: 1,
-                    text: item.title ?? i18n.txtDefault,
-                  ),
+                // Product title
+                BazarBodyMediumText(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  text: item.title ?? i18n.txtDefault,
+                ),
 
-                  // Product price
-                  BazarBodyMediumText(
-                    maxLines: 1,
-                    text: item.price?.toCurrency() ?? i18n.txtDefault,
-                  ),
-                ],
-              ),
+                // Product price
+                BazarBodyMediumText(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  text: item.price?.toCurrency() ?? i18n.txtDefault,
+                ),
+              ],
             ),
           );
         },

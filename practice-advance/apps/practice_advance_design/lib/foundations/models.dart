@@ -4,8 +4,8 @@
 ///   - title: Text show on dropdown when the item selected
 ///   - value: value will received dropdown item selected
 ///
-class AgbUiDropdownModel<T> {
-  AgbUiDropdownModel({
+class BazarDropdownModel<T> {
+  BazarDropdownModel({
     required this.title,
     required this.value,
     this.subTitle,
@@ -18,8 +18,8 @@ class AgbUiDropdownModel<T> {
   final String? trailingText;
 }
 
-class AgbUiRoute {
-  AgbUiRoute(
+class BazarRoute {
+  BazarRoute(
     this.path,
     this.name,
   );

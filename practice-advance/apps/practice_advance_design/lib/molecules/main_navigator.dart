@@ -13,18 +13,18 @@ import 'package:practice_advance_design/foundations/models.dart';
 /// the given items.
 ///
 /// When the user taps on an item, this widget will navigate to the
-/// item's [AgbUiBottomNavBarModel.routeNamed] route.
-class AgbUiMainNavigation extends StatelessWidget {
+/// item's [BazarBottomNavBarModel.routeNamed] route.
+class BazarMainNavigation extends StatelessWidget {
   /// Creates a main navigation widget
   ///
   /// The [items] parameter must not be null.
-  const AgbUiMainNavigation({
+  const BazarMainNavigation({
     required this.items,
     super.key,
   });
 
   /// The items to be displayed on the bottom navigation bar
-  final List<AgbUiBottomNavBarModel> items;
+  final List<BazarBottomNavBarModel> items;
 
   @override
   Widget build(BuildContext context) {
@@ -96,18 +96,18 @@ class AgbUiMainNavigation extends StatelessWidget {
   }
 }
 
-/// A model for the [AgbUiMainNavigation]
+/// A model for the [BazarMainNavigation]
 ///
 /// This model holds the data needed to create a bottom navigation bar item.
 /// The model holds the [label], [icon] and [activeIcon] that will be used
 /// to create the bottom navigation bar item, and the [routeNamed] that
 /// represents the route that this item will navigate to.
-class AgbUiBottomNavBarModel {
-  /// Creates a [AgbUiBottomNavBarModel]
+class BazarBottomNavBarModel {
+  /// Creates a [BazarBottomNavBarModel]
   ///
   /// The [label] and [icon] are required, and the [activeIcon] defaults to
   /// the [icon]. The [routeNamed] is optional.
-  AgbUiBottomNavBarModel({
+  BazarBottomNavBarModel({
     required this.label,
     required this.icon,
     required this.activeIcon,
@@ -126,5 +126,5 @@ class AgbUiBottomNavBarModel {
   final Widget activeIcon;
 
   /// The route that this item will navigate to
-  final AgbUiRoute? routeNamed;
+  final BazarRoute? routeNamed;
 }

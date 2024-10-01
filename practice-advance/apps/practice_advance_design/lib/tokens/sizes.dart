@@ -62,9 +62,9 @@ class BazarSizingTokens {
   static const double fixedBottomContainer = 108;
 
   static const double bottomNavigationBar = 80;
-  
+
   /// -------------------- Card Item --------------------
-  static const double productItemHeight = 200;
+  static const double productItemHeight = 230;
   static const double productImageHeight = 150;
   static const double productImageWidth = 127;
 

@@ -4,7 +4,7 @@ import 'package:practice_advance_design/widgets/indicators/circle_progress_indic
 class BazarTextButton extends StatefulWidget {
   /// Returns a Agility Bank style [TextButton]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
@@ -99,7 +99,7 @@ class _BazarTextButtonState extends State<BazarTextButton> {
 class BazarTextIconButton extends StatefulWidget {
   /// Returns a Agility Bank style [TextButton.icon]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
@@ -139,7 +139,7 @@ class BazarTextIconButton extends StatefulWidget {
 
   /// The width of Button
   ///
-  /// The padding of [AgbUiElevatedIconButton] is
+  /// The padding of [bazarElevatedIconButton] is
   /// * vertical: 10
   /// * horizontal: 24
   final double? width;

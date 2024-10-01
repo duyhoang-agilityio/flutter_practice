@@ -3,14 +3,14 @@ import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 import 'package:practice_advance_design/widgets/text.dart';
 
-class AgbUiFilledButton extends StatefulWidget {
+class BazarFilledButton extends StatefulWidget {
   /// Returns a Agility Bank style [FilledButton]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiFilledButton({
+  const BazarFilledButton({
     required this.text,
     this.isLoading = false,
     this.isDisabled = false,
@@ -36,7 +36,7 @@ class AgbUiFilledButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiFilledButton] which is defined in Theme is
+  /// The padding of [BazarFilledButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -53,29 +53,29 @@ class AgbUiFilledButton extends StatefulWidget {
   /// Called when the button is tapped or otherwise activated.
   final VoidCallback? onPressed;
 
-  /// The default padding of [AgbUiFilledButton] is
+  /// The default padding of [BazarFilledButton] is
   /// * vertical: 10
   /// * horizontal: 24
-  /// which are defined in [agbUiLightTheme]
+  /// which are defined in [bazarLightTheme]
   final EdgeInsetsGeometry? contentPadding;
 
   /// The button's background fill color.
   ///
-  /// Default is primaryContainer which is defined in [agbUiLightTheme]
+  /// Default is primaryContainer which is defined in [bazarLightTheme]
   final Color? backgroundColor;
 
   /// The color for the button's [Text] widget descendants.
   ///
-  /// Default is primary which is defined in [agbUiLightTheme]
+  /// Default is primary which is defined in [bazarLightTheme]
   final Color? foregrountColor;
 
   final String? semanticValue;
 
   @override
-  State<AgbUiFilledButton> createState() => _AgbUiFilledButtonState();
+  State<BazarFilledButton> createState() => _BazarFilledButtonState();
 }
 
-class _AgbUiFilledButtonState extends State<AgbUiFilledButton> {
+class _BazarFilledButtonState extends State<BazarFilledButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -135,14 +135,14 @@ class _AgbUiFilledButtonState extends State<AgbUiFilledButton> {
   }
 }
 
-class AgbUiFilledIconButton extends StatefulWidget {
+class BazarFilledIconButton extends StatefulWidget {
   /// Returns a Agility Bank style [FilledButton.icon]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
-  const AgbUiFilledIconButton({
+  const BazarFilledIconButton({
     required this.icon,
     required this.text,
     this.isLoading = false,
@@ -173,7 +173,7 @@ class AgbUiFilledIconButton extends StatefulWidget {
   /// Default to false
   final bool isDisabled;
 
-  /// The padding of [AgbUiFilledIconButton] which is defined in Theme is
+  /// The padding of [BazarFilledIconButton] which is defined in Theme is
   /// * vertical: 10
   /// * horizontal: 24
   ///
@@ -190,20 +190,20 @@ class AgbUiFilledIconButton extends StatefulWidget {
   /// Called when the button is tapped or otherwise activated.
   final VoidCallback? onPressed;
 
-  /// The default padding of [AgbUiFilledButton] is
+  /// The default padding of [BazarFilledButton] is
   /// * vertical: 10
   /// * horizontal: 24
-  /// which are defined in [agbUiLightTheme]
+  /// which are defined in [bazarLightTheme]
   final EdgeInsetsGeometry? contentPadding;
 
   /// The button's background fill color.
   ///
-  /// Default is primaryContainer which is defined in [agbUiLightTheme]
+  /// Default is primaryContainer which is defined in [bazarLightTheme]
   final Color? backgroundColor;
 
   /// The color for the button's [Text] widget descendants.
   ///
-  /// Default is primary which is defined in [agbUiLightTheme]
+  /// Default is primary which is defined in [bazarLightTheme]
   final Color? foregrountColor;
 
   final Color? textColor;
@@ -211,10 +211,10 @@ class AgbUiFilledIconButton extends StatefulWidget {
   final String? semanticValue;
 
   @override
-  State<AgbUiFilledIconButton> createState() => _AgbUiFilledIconButtonState();
+  State<BazarFilledIconButton> createState() => _BazarFilledIconButtonState();
 }
 
-class _AgbUiFilledIconButtonState extends State<AgbUiFilledIconButton> {
+class _BazarFilledIconButtonState extends State<BazarFilledIconButton> {
   @override
   Widget build(BuildContext context) {
     return Semantics(

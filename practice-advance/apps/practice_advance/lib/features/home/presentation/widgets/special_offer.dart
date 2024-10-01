@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance_design/foundations/context_extension.dart';
 import 'package:practice_advance_design/tokens/sizes.dart';
 import 'package:practice_advance_design/widgets/image.dart';
@@ -51,7 +52,7 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
             color: context.colorScheme.secondaryContainer,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r), // Responsive radius
             ),
             child: Row(
               children: [
@@ -59,7 +60,8 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 16.w), // Responsive padding
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -69,19 +71,20 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                         const BazarBodyLargeText(
                           text: 'Discount 25%',
                         ),
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h), // Responsive SizedBox
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: context.colorScheme.primary,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(
+                                  16.r), // Responsive radius
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10.0,
-                              horizontal: 24.0,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10.h, // Responsive padding
+                              horizontal: 24.w, // Responsive padding
                             ),
                             child: BazarBodyLargeText(
                               text: 'Order Now',
@@ -98,21 +101,25 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 Expanded(
                   flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.w), // Responsive padding
                     child: CarouselSlider(
                       items: imageUrls.map((url) {
                         return ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius:
+                              BorderRadius.circular(12.r), // Responsive radius
                           child: BazarCachedNetworkImage(
                             imagePath: url,
                             boxFit: BoxFit.contain,
-                            radius: BorderRadius.circular(7),
+                            radius:
+                                BorderRadius.circular(7.r), // Responsive radius
                           ),
                         );
                       }).toList(),
                       carouselController: _carouselController,
                       options: CarouselOptions(
-                        height: BazarSizingTokens.productItemHeight,
+                        height: BazarSizingTokens
+                            .productItemHeight.h, // Responsive height
                         autoPlay: true,
                         enableInfiniteScroll: true,
                         enlargeCenterPage: true,
@@ -138,11 +145,11 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                 // Navigate to the tapped page
                 onTap: () => _carouselController.animateToPage(entry.key),
                 child: Container(
-                  width: isActive ? 10.0 : 5,
-                  height: isActive ? 10.0 : 5,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 2.0,
+                  width: isActive ? 10.0.w : 5.w, // Responsive width
+                  height: isActive ? 10.0.h : 5.h, // Responsive height
+                  margin: EdgeInsets.symmetric(
+                    vertical: 8.0.h, // Responsive margin
+                    horizontal: 2.0.w, // Responsive margin
                   ),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

@@ -62,12 +62,16 @@ class DetailVendor extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              BazarImage.imgOnboarding1(),
+              Center(child: BazarImage.imgOnboarding1()),
               const SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BazarHeadlineLargeTitle(text: vendor.name ?? ''),
+                  Expanded(
+                    child: FittedBox(
+                      child: BazarHeadlineLargeTitle(text: vendor.name ?? ''),
+                    ),
+                  ),
+                  const SizedBox(width: 30),
                   const Icon(Icons.favorite),
                 ],
               ),

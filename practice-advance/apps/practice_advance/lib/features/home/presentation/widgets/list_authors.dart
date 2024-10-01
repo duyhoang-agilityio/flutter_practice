@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
 import 'package:practice_advance_design/widgets/empty.dart';
@@ -61,7 +62,7 @@ class _Authors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180,
+      height: 180.h,
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -72,7 +73,7 @@ class _Authors extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(right: 20),
             child: SizedBox(
-              width: 127,
+              width: 127.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

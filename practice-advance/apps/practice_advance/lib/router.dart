@@ -26,58 +26,58 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellBottomNavLayoutNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouteNames {
-  static AgbUiRoute splash = AgbUiRoute(
+  static BazarRoute splash = BazarRoute(
     '/splash',
     AgbPageNames.splash,
   );
-  static AgbUiRoute login = AgbUiRoute(
+  static BazarRoute login = BazarRoute(
     '/login',
     AgbPageNames.login,
   );
-  static AgbUiRoute detailAuthor = AgbUiRoute(
+  static BazarRoute detailAuthor = BazarRoute(
     '/detailAuthor',
     AgbPageNames.detailAuthor,
   );
-  static AgbUiRoute detailVendor = AgbUiRoute(
+  static BazarRoute detailVendor = BazarRoute(
     '/detailVendor',
     AgbPageNames.detailVendor,
   );
-  static AgbUiRoute detailProduct = AgbUiRoute(
+  static BazarRoute detailProduct = BazarRoute(
     '/detailProduct',
     AgbPageNames.detailProduct,
   );
-  static AgbUiRoute authorList = AgbUiRoute(
+  static BazarRoute authorList = BazarRoute(
     '/authorList',
     AgbPageNames.authorList,
   );
-  static AgbUiRoute vendorList = AgbUiRoute(
+  static BazarRoute vendorList = BazarRoute(
     '/vendorList',
     AgbPageNames.vendorList,
   );
-  static AgbUiRoute productList = AgbUiRoute(
+  static BazarRoute productList = BazarRoute(
     '/productList',
     AgbPageNames.productList,
   );
-  static AgbUiRoute welcome = AgbUiRoute(
+  static BazarRoute welcome = BazarRoute(
     '/welcome',
     AgbPageNames.welcome,
   );
-  static AgbUiRoute onboarding = AgbUiRoute(
+  static BazarRoute onboarding = BazarRoute(
     '/onboarding',
     AgbPageNames.onboarding,
   );
 
   // Home route
-  static AgbUiRoute home = AgbUiRoute('/home', AgbPageNames.home);
-  static AgbUiRoute category = AgbUiRoute('/category', AgbPageNames.category);
-  static AgbUiRoute cart = AgbUiRoute('/cart', AgbPageNames.cart);
-  static AgbUiRoute profile = AgbUiRoute('/profile', AgbPageNames.profile);
+  static BazarRoute home = BazarRoute('/home', AgbPageNames.home);
+  static BazarRoute category = BazarRoute('/category', AgbPageNames.category);
+  static BazarRoute cart = BazarRoute('/cart', AgbPageNames.cart);
+  static BazarRoute profile = BazarRoute('/profile', AgbPageNames.profile);
 }
 
 final GoRouter router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRouteNames.login.path,
+  initialLocation: AppRouteNames.home.path,
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,
@@ -153,7 +153,7 @@ final GoRouter router = GoRouter(
     ShellRoute(
       navigatorKey: _shellBottomNavLayoutNavigatorKey,
       builder: (context, state, child) => BazarScaffold(
-        mainNavigation: AgbUiMainNavigation(
+        mainNavigation: BazarMainNavigation(
           items: _navigationItems(context),
         ),
         body: child,
@@ -203,30 +203,30 @@ final GoRouter router = GoRouter(
   ],
 );
 
-List<AgbUiBottomNavBarModel> _navigationItems(BuildContext context) {
+List<BazarBottomNavBarModel> _navigationItems(BuildContext context) {
   final theme = Theme.of(context).colorScheme;
   final intl = AppLocalizations.of(context)!;
 
-  return <AgbUiBottomNavBarModel>[
-    AgbUiBottomNavBarModel(
+  return <BazarBottomNavBarModel>[
+    BazarBottomNavBarModel(
       label: intl.txtHome,
       icon: BazarIcon.ichome(),
       activeIcon: BazarIcon.ichome(color: theme.primary),
       routeNamed: AppRouteNames.home,
     ),
-    AgbUiBottomNavBarModel(
+    BazarBottomNavBarModel(
       label: intl.txtCategory,
       icon: BazarIcon.icCategory(),
       activeIcon: BazarIcon.icCategory(color: theme.primary),
       routeNamed: AppRouteNames.category,
     ),
-    AgbUiBottomNavBarModel(
+    BazarBottomNavBarModel(
       label: intl.txtCart,
       icon: BazarIcon.icCart(),
       activeIcon: BazarIcon.icCart(color: theme.primary),
       routeNamed: AppRouteNames.cart,
     ),
-    AgbUiBottomNavBarModel(
+    BazarBottomNavBarModel(
       label: intl.txtProfile,
       icon: BazarIcon.icProfile(),
       activeIcon: BazarIcon.icProfile(color: theme.primary),

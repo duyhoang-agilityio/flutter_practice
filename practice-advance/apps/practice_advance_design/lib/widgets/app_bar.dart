@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-enum AgbUiTitleAligment {
+enum BazarTitleAligment {
   center,
   bottom,
   normal,
@@ -15,7 +15,7 @@ class BazarAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.subTitle,
     this.toolbarHeight = 120,
     this.backgroundColor,
-    this.alignmentTitle = AgbUiTitleAligment.center,
+    this.alignmentTitle = BazarTitleAligment.center,
     this.trailing,
   });
 
@@ -34,8 +34,8 @@ class BazarAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// The [backgroundColor] is the background color of the AppBar.
   final Color? backgroundColor;
 
-  /// The [alignmentTitle] is the title alignment, see [AgbUiTitleAligment].
-  final AgbUiTitleAligment? alignmentTitle;
+  /// The [alignmentTitle] is the title alignment, see [BazarTitleAligment].
+  final BazarTitleAligment? alignmentTitle;
 
   /// The [trailing] is the widget on the right side of the AppBar.
   final Widget? trailing;
@@ -47,7 +47,7 @@ class BazarAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       toolbarHeight: toolbarHeight,
       backgroundColor: backgroundColor,
-      centerTitle: alignmentTitle == AgbUiTitleAligment.center,
+      centerTitle: alignmentTitle == BazarTitleAligment.center,
       automaticallyImplyLeading: false,
       elevation: 0,
       titleSpacing: 0,

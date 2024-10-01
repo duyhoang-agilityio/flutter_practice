@@ -5,7 +5,7 @@ import 'package:practice_advance_design/widgets/indicators/circle_progress_indic
 class BazarOutLinedButton extends StatefulWidget {
   /// Returns a Agility Bank style [OutlinedButton]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give
@@ -95,7 +95,7 @@ class _BazarOutLinedButtonState extends State<BazarOutLinedButton> {
 class BazarOutLinedIconButton extends StatefulWidget {
   /// Returns a Agility Bank style [OutlinedButton.icon]
   ///
-  /// This style is defined in [agbUiLightTheme] & can't be overwrite
+  /// This style is defined in [bazarLightTheme] & can't be overwrite
   /// The [text] parameter must not be null.
   /// The [isLoading] & [isDisabled] parameters is default to false
   /// The [width] parameters is default to maximum width the parent give

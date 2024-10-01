@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/detail_vendor_screen.dart';
@@ -61,7 +62,7 @@ class ListVendors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-        height: BazarSizingTokens.vendorItemHeight,
+        height: BazarSizingTokens.vendorItemHeight.h,
         child: ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
@@ -80,7 +81,7 @@ class ListVendors extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: BazarCachedNetworkImage(
-                  height: BazarSizingTokens.vendorItemHeight,
+                  height: BazarSizingTokens.vendorItemHeight.h,
                   radius: BorderRadius.circular(10),
                   imagePath: item.image ?? '',
                 ),
