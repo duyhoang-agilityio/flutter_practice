@@ -22,7 +22,7 @@ void main() {
         ],
       ),
       AgbUTFeature(
-        description: 'Vendor model productPrice method',
+        description: 'Vendor model productPrice methodd',
         scenarios: [
           VendorModelProductPriceScenario(),
           VendorCopyWithScenario(),
