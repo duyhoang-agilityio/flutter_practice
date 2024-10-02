@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 class BazarTextButton extends StatefulWidget {
   /// Returns a Agility Bank style [TextButton]
@@ -89,7 +91,11 @@ class _BazarTextButtonState extends State<BazarTextButton> {
                   height: 19,
                   child: BazarCircularProgressIndicator(),
                 )
-              : Text(widget.text),
+              : BazarBodyMediumText(
+                  text: widget.text,
+                  color: context.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                ),
         ),
       ),
     );

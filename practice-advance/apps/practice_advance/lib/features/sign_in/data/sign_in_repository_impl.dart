@@ -20,8 +20,8 @@ class SignInRepositoryImpl implements SignInRepository {
   }) {
     try {
       final data = {
-        "username": "emilys",
-        "password": "emilyspass",
+        "username": username,
+        "password": password,
       };
       // Fetch new vendors from API
       final response = apiClient.post(

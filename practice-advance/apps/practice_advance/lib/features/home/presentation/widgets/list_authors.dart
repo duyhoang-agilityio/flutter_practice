@@ -6,13 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/tokens/sizes.dart';
-import 'package:practice_advance_design/widgets/circle_avatar.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/widgets/tokens/sizes.dart';
+import 'package:practice_advance_design/widgets/avatar/circle_avatar.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 /// A stateless widget that displays a list of authors.
 class ListAuthors extends StatelessWidget {

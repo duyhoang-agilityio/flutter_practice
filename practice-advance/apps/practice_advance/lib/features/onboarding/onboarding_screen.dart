@@ -1,13 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:practice_advance/features/onboarding/widgets/onboarding_card.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/molecules/dot_indicator.dart';
-import 'package:practice_advance_design/molecules/onboarding.dart';
 import 'package:practice_advance_design/widgets/buttons/elevated_button.dart';
-import 'package:practice_advance_design/widgets/carouse_slider.dart';
-import 'package:practice_advance_design/widgets/image.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/layout/carouse_slider.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
+
+import 'widgets/dot_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

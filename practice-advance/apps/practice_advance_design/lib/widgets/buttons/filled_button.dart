@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 class BazarFilledButton extends StatefulWidget {
   /// Returns a Agility Bank style [FilledButton]

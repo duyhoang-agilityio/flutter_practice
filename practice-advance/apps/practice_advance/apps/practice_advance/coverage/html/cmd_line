@@ -1,0 +1,1 @@
+genhtml apps/practice_advance/coverage/lcov.info -o apps/practice_advance/coverage/html --exclude apps/practice_advance/lib/core/*

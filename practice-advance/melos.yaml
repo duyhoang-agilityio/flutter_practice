@@ -35,7 +35,7 @@ scripts:
   # Script to run tests for all packages and apps
   test:
     run: |
-      melos exec --scope=practice_advance -- flutter test --coverage
+      melos exec --scope=practice_advance -- flutter test --coverage && melos exec --scope=practice_advance -- genhtml apps/practice_advance/coverage/lcov.info -o apps/practice_advance/coverage/html --exclude 'apps/practice_advance/lib/core/*' && melos exec --scope=practice_advance -- open apps/practice_advance/coverage/html/index.html
     description: "Run all unit and widget tests with coverage."
 
   # Run the app with the DEV flavor

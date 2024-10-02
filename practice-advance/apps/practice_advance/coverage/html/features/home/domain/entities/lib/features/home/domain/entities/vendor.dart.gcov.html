@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryHi">92.0&nbsp;%</td>
-            <td class="headerCovTableEntry">25</td>
-            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntryMed">89.1&nbsp;%</td>
+            <td class="headerCovTableEntry">46</td>
+            <td class="headerCovTableEntry">41</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-09-30 17:52:38</td>
+            <td class="headerValue">2024-10-02 14:27:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -88,109 +88,156 @@
 <span id="L26"><span class="lineNum">      26</span>              : class Vendor {</span>
 <span id="L27"><span class="lineNum">      27</span>              :   Id id = Isar.autoIncrement; // Primary key with auto increment</span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span>              :   final int vendorId;</span>
-<span id="L30"><span class="lineNum">      30</span>              :   final String? name;</span>
-<span id="L31"><span class="lineNum">      31</span>              :   final List&lt;String&gt;? ingredients;</span>
-<span id="L32"><span class="lineNum">      32</span>              :   final List&lt;String&gt;? instructions;</span>
-<span id="L33"><span class="lineNum">      33</span>              :   final int? prepTimeMinutes;</span>
-<span id="L34"><span class="lineNum">      34</span>              :   final int? cookTimeMinutes;</span>
-<span id="L35"><span class="lineNum">      35</span>              :   final int? servings;</span>
-<span id="L36"><span class="lineNum">      36</span>              :   final String? difficulty;</span>
-<span id="L37"><span class="lineNum">      37</span>              :   final String? cuisine;</span>
-<span id="L38"><span class="lineNum">      38</span>              :   final int? price;</span>
-<span id="L39"><span class="lineNum">      39</span>              :   final List&lt;String&gt;? tags;</span>
-<span id="L40"><span class="lineNum">      40</span>              :   final int? userId;</span>
-<span id="L41"><span class="lineNum">      41</span>              :   final String? image;</span>
-<span id="L42"><span class="lineNum">      42</span>              :   final double? rating;</span>
-<span id="L43"><span class="lineNum">      43</span>              :   final int? quantity;</span>
-<span id="L44"><span class="lineNum">      44</span>              :   final int? reviewCount;</span>
-<span id="L45"><span class="lineNum">      45</span>              :   final List&lt;String&gt;? mealType;</span>
-<span id="L46"><span class="lineNum">      46</span>              : </span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC tlaBgGNC">           5 :   Vendor({</span></span>
-<span id="L48"><span class="lineNum">      48</span>              :     required this.vendorId,</span>
-<span id="L49"><span class="lineNum">      49</span>              :     this.name,</span>
-<span id="L50"><span class="lineNum">      50</span>              :     this.ingredients,</span>
-<span id="L51"><span class="lineNum">      51</span>              :     this.instructions,</span>
-<span id="L52"><span class="lineNum">      52</span>              :     this.prepTimeMinutes,</span>
-<span id="L53"><span class="lineNum">      53</span>              :     this.cookTimeMinutes,</span>
-<span id="L54"><span class="lineNum">      54</span>              :     this.servings,</span>
-<span id="L55"><span class="lineNum">      55</span>              :     this.difficulty,</span>
-<span id="L56"><span class="lineNum">      56</span>              :     this.cuisine,</span>
-<span id="L57"><span class="lineNum">      57</span>              :     this.price,</span>
-<span id="L58"><span class="lineNum">      58</span>              :     this.tags,</span>
-<span id="L59"><span class="lineNum">      59</span>              :     this.userId,</span>
-<span id="L60"><span class="lineNum">      60</span>              :     this.image,</span>
-<span id="L61"><span class="lineNum">      61</span>              :     this.rating,</span>
-<span id="L62"><span class="lineNum">      62</span>              :     this.quantity,</span>
-<span id="L63"><span class="lineNum">      63</span>              :     this.reviewCount,</span>
-<span id="L64"><span class="lineNum">      64</span>              :     this.mealType,</span>
-<span id="L65"><span class="lineNum">      65</span>              :   });</span>
-<span id="L66"><span class="lineNum">      66</span>              : </span>
-<span id="L67"><span class="lineNum">      67</span>              :   // Factory constructor to parse from JSON</span>
-<span id="L68"><span class="lineNum">      68</span> <span class="tlaGNC">           2 :   factory Vendor.fromJson(Map&lt;String, dynamic&gt; json) {</span></span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           2 :     return Vendor(</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           2 :       vendorId: json[VendorJsonKeys.idKey] ?? Isar.autoIncrement, //</span></span>
-<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           2 :       name: json[VendorJsonKeys.nameKey] ?? '',</span></span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           5 :       ingredients: List&lt;String&gt;.from(json[VendorJsonKeys.ingredientsKey] ?? []),</span></span>
-<span id="L73"><span class="lineNum">      73</span>              :       instructions:</span>
-<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           5 :           List&lt;String&gt;.from(json[VendorJsonKeys.instructionsKey] ?? []),</span></span>
-<span id="L75"><span class="lineNum">      75</span> <span class="tlaGNC">           2 :       prepTimeMinutes: json[VendorJsonKeys.prepTimeMinutesKey] ?? 0,</span></span>
-<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           2 :       cookTimeMinutes: json[VendorJsonKeys.cookTimeMinutesKey] ?? 0,</span></span>
-<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           2 :       servings: json[VendorJsonKeys.servingsKey] ?? 0,</span></span>
-<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           2 :       difficulty: json[VendorJsonKeys.difficultyKey] ?? '',</span></span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           2 :       cuisine: json[VendorJsonKeys.cuisineKey] ?? '',</span></span>
-<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           2 :       price: json[VendorJsonKeys.caloriesPerServingKey] ?? 0,</span></span>
-<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           5 :       tags: List&lt;String&gt;.from(json[VendorJsonKeys.tagsKey] ?? []),</span></span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           2 :       userId: json[VendorJsonKeys.userIdKey] ?? 0,</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           2 :       image: json[VendorJsonKeys.imageKey] ?? '',</span></span>
-<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           6 :       rating: double.tryParse(json[VendorJsonKeys.ratingKey].toString()) ?? 0.0,</span></span>
-<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           2 :       reviewCount: json[VendorJsonKeys.reviewCountKey] ?? 0,</span></span>
-<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           5 :       mealType: List&lt;String&gt;.from(json[VendorJsonKeys.mealTypeKey] ?? []),</span></span>
-<span id="L87"><span class="lineNum">      87</span>              :       quantity: 5,</span>
-<span id="L88"><span class="lineNum">      88</span>              :     );</span>
-<span id="L89"><span class="lineNum">      89</span>              :   }</span>
-<span id="L90"><span class="lineNum">      90</span>              : </span>
-<span id="L91"><span class="lineNum">      91</span>              :   // Static method to parse a list of Vendors</span>
-<span id="L92"><span class="lineNum">      92</span> <span class="tlaGNC">           2 :   static List&lt;Vendor&gt; fromJsonList(List&lt;dynamic&gt; json) {</span></span>
-<span id="L93"><span class="lineNum">      93</span>              :     // Return an empty list if input is empty</span>
-<span id="L94"><span class="lineNum">      94</span> <span class="tlaGNC">           2 :     if (json.isEmpty) return [];</span></span>
-<span id="L95"><span class="lineNum">      95</span>              : </span>
-<span id="L96"><span class="lineNum">      96</span>              :     // Map each item to a Vendor</span>
-<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           8 :     return json.map((json) =&gt; Vendor.fromJson(json)).toList();</span></span>
-<span id="L98"><span class="lineNum">      98</span>              :   }</span>
-<span id="L99"><span class="lineNum">      99</span>              : </span>
-<span id="L100"><span class="lineNum">     100</span>              :   // Method to format product price and format price as a string</span>
-<span id="L101"><span class="lineNum">     101</span> <span class="tlaGNC">           4 :   String productPrice(int price) =&gt; '\$${(price - 0.01).toStringAsFixed(2)}';</span></span>
+<span id="L29"><span class="lineNum">      29</span>              :   late int vendorId;</span>
+<span id="L30"><span class="lineNum">      30</span>              :   late String? name;</span>
+<span id="L31"><span class="lineNum">      31</span>              :   late List&lt;String&gt;? ingredients;</span>
+<span id="L32"><span class="lineNum">      32</span>              :   late List&lt;String&gt;? instructions;</span>
+<span id="L33"><span class="lineNum">      33</span>              :   late int? prepTimeMinutes;</span>
+<span id="L34"><span class="lineNum">      34</span>              :   late int? cookTimeMinutes;</span>
+<span id="L35"><span class="lineNum">      35</span>              :   late int? servings;</span>
+<span id="L36"><span class="lineNum">      36</span>              :   late String? difficulty;</span>
+<span id="L37"><span class="lineNum">      37</span>              :   late String? cuisine;</span>
+<span id="L38"><span class="lineNum">      38</span>              :   late double? price;</span>
+<span id="L39"><span class="lineNum">      39</span>              :   late List&lt;String&gt;? tags;</span>
+<span id="L40"><span class="lineNum">      40</span>              :   late int? userId;</span>
+<span id="L41"><span class="lineNum">      41</span>              :   late String? image;</span>
+<span id="L42"><span class="lineNum">      42</span>              :   late double? rating;</span>
+<span id="L43"><span class="lineNum">      43</span>              :   late int? quantity;</span>
+<span id="L44"><span class="lineNum">      44</span>              :   late int? reviewCount;</span>
+<span id="L45"><span class="lineNum">      45</span>              :   late int? inStock;</span>
+<span id="L46"><span class="lineNum">      46</span>              :   late List&lt;String&gt;? mealType;</span>
+<span id="L47"><span class="lineNum">      47</span>              : </span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC tlaBgGNC">           9 :   Vendor({</span></span>
+<span id="L49"><span class="lineNum">      49</span>              :     required this.vendorId,</span>
+<span id="L50"><span class="lineNum">      50</span>              :     this.name,</span>
+<span id="L51"><span class="lineNum">      51</span>              :     this.ingredients,</span>
+<span id="L52"><span class="lineNum">      52</span>              :     this.instructions,</span>
+<span id="L53"><span class="lineNum">      53</span>              :     this.prepTimeMinutes,</span>
+<span id="L54"><span class="lineNum">      54</span>              :     this.cookTimeMinutes,</span>
+<span id="L55"><span class="lineNum">      55</span>              :     this.servings,</span>
+<span id="L56"><span class="lineNum">      56</span>              :     this.difficulty,</span>
+<span id="L57"><span class="lineNum">      57</span>              :     this.cuisine,</span>
+<span id="L58"><span class="lineNum">      58</span>              :     this.price,</span>
+<span id="L59"><span class="lineNum">      59</span>              :     this.tags,</span>
+<span id="L60"><span class="lineNum">      60</span>              :     this.userId,</span>
+<span id="L61"><span class="lineNum">      61</span>              :     this.image,</span>
+<span id="L62"><span class="lineNum">      62</span>              :     this.rating,</span>
+<span id="L63"><span class="lineNum">      63</span>              :     this.quantity,</span>
+<span id="L64"><span class="lineNum">      64</span>              :     this.reviewCount,</span>
+<span id="L65"><span class="lineNum">      65</span>              :     this.inStock,</span>
+<span id="L66"><span class="lineNum">      66</span>              :     this.mealType,</span>
+<span id="L67"><span class="lineNum">      67</span>              :   });</span>
+<span id="L68"><span class="lineNum">      68</span>              : </span>
+<span id="L69"><span class="lineNum">      69</span>              :   // Factory constructor to parse from JSON</span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">           2 :   factory Vendor.fromJson(Map&lt;String, dynamic&gt; json) {</span></span>
+<span id="L71"><span class="lineNum">      71</span> <span class="tlaGNC">           2 :     return Vendor(</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           2 :       vendorId: json[VendorJsonKeys.idKey] ?? Isar.autoIncrement, //</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           2 :       name: json[VendorJsonKeys.nameKey] ?? '',</span></span>
+<span id="L74"><span class="lineNum">      74</span> <span class="tlaGNC">           5 :       ingredients: List&lt;String&gt;.from(json[VendorJsonKeys.ingredientsKey] ?? []),</span></span>
+<span id="L75"><span class="lineNum">      75</span>              :       instructions:</span>
+<span id="L76"><span class="lineNum">      76</span> <span class="tlaGNC">           5 :           List&lt;String&gt;.from(json[VendorJsonKeys.instructionsKey] ?? []),</span></span>
+<span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           2 :       prepTimeMinutes: json[VendorJsonKeys.prepTimeMinutesKey] ?? 0,</span></span>
+<span id="L78"><span class="lineNum">      78</span> <span class="tlaGNC">           2 :       cookTimeMinutes: json[VendorJsonKeys.cookTimeMinutesKey] ?? 0,</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           2 :       servings: json[VendorJsonKeys.servingsKey] ?? 0,</span></span>
+<span id="L80"><span class="lineNum">      80</span> <span class="tlaGNC">           2 :       difficulty: json[VendorJsonKeys.difficultyKey] ?? '',</span></span>
+<span id="L81"><span class="lineNum">      81</span> <span class="tlaGNC">           2 :       cuisine: json[VendorJsonKeys.cuisineKey] ?? '',</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           4 :       price: (json[VendorJsonKeys.caloriesPerServingKey] ?? 0).toDouble(),</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           5 :       tags: List&lt;String&gt;.from(json[VendorJsonKeys.tagsKey] ?? []),</span></span>
+<span id="L84"><span class="lineNum">      84</span> <span class="tlaGNC">           2 :       userId: json[VendorJsonKeys.userIdKey] ?? 0,</span></span>
+<span id="L85"><span class="lineNum">      85</span> <span class="tlaGNC">           2 :       image: json[VendorJsonKeys.imageKey] ?? '',</span></span>
+<span id="L86"><span class="lineNum">      86</span> <span class="tlaGNC">           6 :       rating: double.tryParse(json[VendorJsonKeys.ratingKey].toString()) ?? 0.0,</span></span>
+<span id="L87"><span class="lineNum">      87</span> <span class="tlaGNC">           2 :       reviewCount: json[VendorJsonKeys.reviewCountKey] ?? 0,</span></span>
+<span id="L88"><span class="lineNum">      88</span> <span class="tlaGNC">           5 :       mealType: List&lt;String&gt;.from(json[VendorJsonKeys.mealTypeKey] ?? []),</span></span>
+<span id="L89"><span class="lineNum">      89</span>              :       quantity: 1,</span>
+<span id="L90"><span class="lineNum">      90</span>              :       inStock: 5,</span>
+<span id="L91"><span class="lineNum">      91</span>              :     );</span>
+<span id="L92"><span class="lineNum">      92</span>              :   }</span>
+<span id="L93"><span class="lineNum">      93</span>              : </span>
+<span id="L94"><span class="lineNum">      94</span>              :   // Static method to parse a list of Vendors</span>
+<span id="L95"><span class="lineNum">      95</span> <span class="tlaGNC">           2 :   static List&lt;Vendor&gt; fromJsonList(List&lt;dynamic&gt; json) {</span></span>
+<span id="L96"><span class="lineNum">      96</span>              :     // Return an empty list if input is empty</span>
+<span id="L97"><span class="lineNum">      97</span> <span class="tlaGNC">           2 :     if (json.isEmpty) return [];</span></span>
+<span id="L98"><span class="lineNum">      98</span>              : </span>
+<span id="L99"><span class="lineNum">      99</span>              :     // Map each item to a Vendor</span>
+<span id="L100"><span class="lineNum">     100</span> <span class="tlaGNC">           8 :     return json.map((json) =&gt; Vendor.fromJson(json)).toList();</span></span>
+<span id="L101"><span class="lineNum">     101</span>              :   }</span>
 <span id="L102"><span class="lineNum">     102</span>              : </span>
-<span id="L103"><span class="lineNum">     103</span> <span class="tlaUNC tlaBgUNC">           0 :   String get desc =&gt; '${instructions?[4] ?? ''} ${instructions?[3] ?? ''}';</span></span>
-<span id="L104"><span class="lineNum">     104</span>              : }</span>
-<span id="L105"><span class="lineNum">     105</span>              : </span>
-<span id="L106"><span class="lineNum">     106</span>              : // List of tags related to vendors</span>
-<span id="L107"><span class="lineNum">     107</span> <span class="tlaUNC">           0 : final List&lt;String&gt; tags = [</span></span>
-<span id="L108"><span class="lineNum">     108</span>              :   &quot;Pizza&quot;,</span>
-<span id="L109"><span class="lineNum">     109</span>              :   &quot;Italian&quot;,</span>
-<span id="L110"><span class="lineNum">     110</span>              :   &quot;Vegetarian&quot;,</span>
-<span id="L111"><span class="lineNum">     111</span>              :   &quot;Stir-fry&quot;,</span>
-<span id="L112"><span class="lineNum">     112</span>              :   &quot;Asian&quot;,</span>
-<span id="L113"><span class="lineNum">     113</span>              :   &quot;Cookies&quot;,</span>
-<span id="L114"><span class="lineNum">     114</span>              :   &quot;Dessert&quot;,</span>
-<span id="L115"><span class="lineNum">     115</span>              :   &quot;Baking&quot;,</span>
-<span id="L116"><span class="lineNum">     116</span>              :   &quot;Pasta&quot;,</span>
-<span id="L117"><span class="lineNum">     117</span>              :   &quot;Chicken&quot;,</span>
-<span id="L118"><span class="lineNum">     118</span>              :   &quot;Salsa&quot;,</span>
-<span id="L119"><span class="lineNum">     119</span>              :   &quot;Salad&quot;,</span>
-<span id="L120"><span class="lineNum">     120</span>              :   &quot;Quinoa&quot;,</span>
-<span id="L121"><span class="lineNum">     121</span>              :   &quot;Bruschetta&quot;,</span>
-<span id="L122"><span class="lineNum">     122</span>              :   &quot;Beef&quot;,</span>
-<span id="L123"><span class="lineNum">     123</span>              :   &quot;Caprese&quot;,</span>
-<span id="L124"><span class="lineNum">     124</span>              :   &quot;Shrimp&quot;,</span>
-<span id="L125"><span class="lineNum">     125</span>              :   &quot;Biryani&quot;,</span>
-<span id="L126"><span class="lineNum">     126</span>              :   &quot;Main course&quot;,</span>
-<span id="L127"><span class="lineNum">     127</span>              :   &quot;Indian&quot;,</span>
-<span id="L128"><span class="lineNum">     128</span>              :   &quot;Pakistani&quot;,</span>
-<span id="L129"><span class="lineNum">     129</span>              :   &quot;Karahi&quot;,</span>
-<span id="L130"><span class="lineNum">     130</span>              :   &quot;Keema&quot;,</span>
-<span id="L131"><span class="lineNum">     131</span>              : ];</span>
+<span id="L103"><span class="lineNum">     103</span>              :   // Method to format product price and format price as a string</span>
+<span id="L104"><span class="lineNum">     104</span> <span class="tlaGNC">           1 :   String productPrice(double price, int quantity) =&gt;</span></span>
+<span id="L105"><span class="lineNum">     105</span> <span class="tlaGNC">           4 :       '\$${((price - 0.01) * quantity).toStringAsFixed(2)}';</span></span>
+<span id="L106"><span class="lineNum">     106</span>              : </span>
+<span id="L107"><span class="lineNum">     107</span> <span class="tlaUNC tlaBgUNC">           0 :   String get desc =&gt; '${instructions?[4] ?? ''} ${instructions?[3] ?? ''}';</span></span>
+<span id="L108"><span class="lineNum">     108</span>              : </span>
+<span id="L109"><span class="lineNum">     109</span>              :   // CopyWith method</span>
+<span id="L110"><span class="lineNum">     110</span> <span class="tlaGNC tlaBgGNC">           1 :   Vendor copyWith({</span></span>
+<span id="L111"><span class="lineNum">     111</span>              :     int? vendorId,</span>
+<span id="L112"><span class="lineNum">     112</span>              :     String? name,</span>
+<span id="L113"><span class="lineNum">     113</span>              :     List&lt;String&gt;? ingredients,</span>
+<span id="L114"><span class="lineNum">     114</span>              :     List&lt;String&gt;? instructions,</span>
+<span id="L115"><span class="lineNum">     115</span>              :     int? prepTimeMinutes,</span>
+<span id="L116"><span class="lineNum">     116</span>              :     int? cookTimeMinutes,</span>
+<span id="L117"><span class="lineNum">     117</span>              :     int? servings,</span>
+<span id="L118"><span class="lineNum">     118</span>              :     String? difficulty,</span>
+<span id="L119"><span class="lineNum">     119</span>              :     String? cuisine,</span>
+<span id="L120"><span class="lineNum">     120</span>              :     double? price,</span>
+<span id="L121"><span class="lineNum">     121</span>              :     List&lt;String&gt;? tags,</span>
+<span id="L122"><span class="lineNum">     122</span>              :     int? userId,</span>
+<span id="L123"><span class="lineNum">     123</span>              :     String? image,</span>
+<span id="L124"><span class="lineNum">     124</span>              :     double? rating,</span>
+<span id="L125"><span class="lineNum">     125</span>              :     int? quantity,</span>
+<span id="L126"><span class="lineNum">     126</span>              :     int? reviewCount,</span>
+<span id="L127"><span class="lineNum">     127</span>              :     int? inStock,</span>
+<span id="L128"><span class="lineNum">     128</span>              :     List&lt;String&gt;? mealType,</span>
+<span id="L129"><span class="lineNum">     129</span>              :   }) {</span>
+<span id="L130"><span class="lineNum">     130</span> <span class="tlaGNC">           1 :     return Vendor(</span></span>
+<span id="L131"><span class="lineNum">     131</span> <span class="tlaGNC">           1 :       vendorId: vendorId ?? this.vendorId,</span></span>
+<span id="L132"><span class="lineNum">     132</span> <span class="tlaUNC tlaBgUNC">           0 :       name: name ?? this.name,</span></span>
+<span id="L133"><span class="lineNum">     133</span> <span class="tlaGNC tlaBgGNC">           1 :       ingredients: ingredients ?? this.ingredients,</span></span>
+<span id="L134"><span class="lineNum">     134</span> <span class="tlaGNC">           1 :       instructions: instructions ?? this.instructions,</span></span>
+<span id="L135"><span class="lineNum">     135</span> <span class="tlaGNC">           1 :       prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,</span></span>
+<span id="L136"><span class="lineNum">     136</span> <span class="tlaGNC">           1 :       cookTimeMinutes: cookTimeMinutes ?? this.cookTimeMinutes,</span></span>
+<span id="L137"><span class="lineNum">     137</span> <span class="tlaGNC">           1 :       servings: servings ?? this.servings,</span></span>
+<span id="L138"><span class="lineNum">     138</span> <span class="tlaGNC">           1 :       difficulty: difficulty ?? this.difficulty,</span></span>
+<span id="L139"><span class="lineNum">     139</span> <span class="tlaGNC">           1 :       cuisine: cuisine ?? this.cuisine,</span></span>
+<span id="L140"><span class="lineNum">     140</span> <span class="tlaUNC tlaBgUNC">           0 :       price: price ?? this.price,</span></span>
+<span id="L141"><span class="lineNum">     141</span> <span class="tlaGNC tlaBgGNC">           1 :       tags: tags ?? this.tags,</span></span>
+<span id="L142"><span class="lineNum">     142</span> <span class="tlaGNC">           1 :       userId: userId ?? this.userId,</span></span>
+<span id="L143"><span class="lineNum">     143</span> <span class="tlaGNC">           1 :       image: image ?? this.image,</span></span>
+<span id="L144"><span class="lineNum">     144</span> <span class="tlaGNC">           1 :       rating: rating ?? this.rating,</span></span>
+<span id="L145"><span class="lineNum">     145</span> <span class="tlaUNC tlaBgUNC">           0 :       quantity: quantity ?? this.quantity,</span></span>
+<span id="L146"><span class="lineNum">     146</span> <span class="tlaGNC tlaBgGNC">           1 :       inStock: inStock ?? this.inStock,</span></span>
+<span id="L147"><span class="lineNum">     147</span> <span class="tlaGNC">           1 :       reviewCount: reviewCount ?? this.reviewCount,</span></span>
+<span id="L148"><span class="lineNum">     148</span> <span class="tlaGNC">           1 :       mealType: mealType ?? this.mealType,</span></span>
+<span id="L149"><span class="lineNum">     149</span>              :     );</span>
+<span id="L150"><span class="lineNum">     150</span>              :   }</span>
+<span id="L151"><span class="lineNum">     151</span>              : }</span>
+<span id="L152"><span class="lineNum">     152</span>              : </span>
+<span id="L153"><span class="lineNum">     153</span>              : // List of tags related to vendors</span>
+<span id="L154"><span class="lineNum">     154</span> <span class="tlaUNC tlaBgUNC">           0 : final List&lt;String&gt; tags = [</span></span>
+<span id="L155"><span class="lineNum">     155</span>              :   &quot;Pizza&quot;,</span>
+<span id="L156"><span class="lineNum">     156</span>              :   &quot;Italian&quot;,</span>
+<span id="L157"><span class="lineNum">     157</span>              :   &quot;Vegetarian&quot;,</span>
+<span id="L158"><span class="lineNum">     158</span>              :   &quot;Stir-fry&quot;,</span>
+<span id="L159"><span class="lineNum">     159</span>              :   &quot;Asian&quot;,</span>
+<span id="L160"><span class="lineNum">     160</span>              :   &quot;Cookies&quot;,</span>
+<span id="L161"><span class="lineNum">     161</span>              :   &quot;Dessert&quot;,</span>
+<span id="L162"><span class="lineNum">     162</span>              :   &quot;Baking&quot;,</span>
+<span id="L163"><span class="lineNum">     163</span>              :   &quot;Pasta&quot;,</span>
+<span id="L164"><span class="lineNum">     164</span>              :   &quot;Chicken&quot;,</span>
+<span id="L165"><span class="lineNum">     165</span>              :   &quot;Salsa&quot;,</span>
+<span id="L166"><span class="lineNum">     166</span>              :   &quot;Salad&quot;,</span>
+<span id="L167"><span class="lineNum">     167</span>              :   &quot;Quinoa&quot;,</span>
+<span id="L168"><span class="lineNum">     168</span>              :   &quot;Bruschetta&quot;,</span>
+<span id="L169"><span class="lineNum">     169</span>              :   &quot;Beef&quot;,</span>
+<span id="L170"><span class="lineNum">     170</span>              :   &quot;Caprese&quot;,</span>
+<span id="L171"><span class="lineNum">     171</span>              :   &quot;Shrimp&quot;,</span>
+<span id="L172"><span class="lineNum">     172</span>              :   &quot;Biryani&quot;,</span>
+<span id="L173"><span class="lineNum">     173</span>              :   &quot;Main course&quot;,</span>
+<span id="L174"><span class="lineNum">     174</span>              :   &quot;Indian&quot;,</span>
+<span id="L175"><span class="lineNum">     175</span>              :   &quot;Pakistani&quot;,</span>
+<span id="L176"><span class="lineNum">     176</span>              :   &quot;Karahi&quot;,</span>
+<span id="L177"><span class="lineNum">     177</span>              :   &quot;Keema&quot;,</span>
+<span id="L178"><span class="lineNum">     178</span>              : ];</span>
         </pre>
               </td>
             </tr>

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 class BazarElevatedButton extends StatefulWidget {
   /// Returns a Bazar style [ElevatedButton]
@@ -138,10 +138,12 @@ class _BazarElevatedButtonState extends State<BazarElevatedButton> {
           ),
           onPressed: widget.isDisabled ? null : widget.onPressed,
           child: widget.isLoading
-              ? const SizedBox(
+              ? SizedBox(
                   width: 19,
                   height: 19,
-                  child: BazarCircularProgressIndicator(),
+                  child: BazarCircularProgressIndicator(
+                    backgroundColor: context.colorScheme.surface,
+                  ),
                 )
               : FittedBox(
                   fit: BoxFit.contain,

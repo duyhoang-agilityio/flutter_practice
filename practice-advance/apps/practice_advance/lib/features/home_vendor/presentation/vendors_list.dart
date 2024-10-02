@@ -6,18 +6,18 @@ import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/detail_vendor_screen.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/molecules/bottom_sheet.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/widgets/app_bar.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/appbar/app_bar.dart';
+import 'package:practice_advance_design/widgets/avatar/circle_avatar.dart';
+import 'package:practice_advance_design/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
-import 'package:practice_advance_design/widgets/circle_avatar.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 /// Screen for listing vendors, implementing a BLoC pattern for state management.
@@ -110,7 +110,10 @@ class _VendorsHeader extends StatelessWidget {
       children: [
         BazarBodyLargeText(text: AppLocalizations.of(context)!.txtOurVendors),
         const SizedBox(height: 5),
-        BazarHeadlineLargeTitle(text: AppLocalizations.of(context)!.txtVendors),
+        BazarHeadlineLargeTitle(
+          text: AppLocalizations.of(context)!.txtVendors,
+          color: context.colorScheme.primary,
+        ),
       ],
     );
   }

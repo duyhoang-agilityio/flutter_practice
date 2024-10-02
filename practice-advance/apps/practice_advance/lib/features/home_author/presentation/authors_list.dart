@@ -6,18 +6,18 @@ import 'package:go_router/go_router.dart';
 import 'package:practice_advance/features/home/domain/entities/author.dart';
 import 'package:practice_advance/features/home/presentation/bloc/author_bloc.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/molecules/list_tile.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/widgets/app_bar.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/appbar/app_bar.dart';
+import 'package:practice_advance_design/widgets/avatar/circle_avatar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
-import 'package:practice_advance_design/widgets/circle_avatar.dart';
-import 'package:practice_advance_design/widgets/divider.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/layout/divider.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/list_tile/list_tile.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 /// A stateless widget to display the list of authors.
 class ListAuthorsScreen extends StatelessWidget {
@@ -74,9 +74,14 @@ class _ListAuthorsState extends State<_ListAuthors> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BazarBodyLargeText(text: intl.txtCheckTheAuthor),
+          BazarBodyLargeText(
+            text: intl.txtCheckTheAuthor,
+          ),
           const SizedBox(height: 5),
-          BazarBodyMediumText(text: intl.txtAuthors),
+          BazarHeadlineLargeTitle(
+            text: intl.txtAuthors,
+            color: context.colorScheme.primary,
+          ),
           BlocBuilder<AuthorBloc, AuthorState>(
             builder: (context, state) {
               // Handle loading state

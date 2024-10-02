@@ -21,7 +21,7 @@ class GetListAuthorsByCategoryEvent extends AuthorEvent {
   final int? limit;
 
   /// Constructor for [GetListAuthorsByCategoryEvent].
-  GetListAuthorsByCategoryEvent({this.categoryName, this.limit = 5});
+  GetListAuthorsByCategoryEvent({this.categoryName, this.limit});
 }
 
 /// Event to load the next page of authors in a paginated list.

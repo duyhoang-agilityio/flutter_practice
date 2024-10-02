@@ -17,12 +17,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({required this.usecases, required this.isarService})
       : super(LoginInitial()) {
     on<LoginRequested>(_onLoginRequested);
+    on<ShowPasswordEvent>(_onShowPassword);
   }
 
   Future<void> _onLoginRequested(
     LoginRequested event,
     Emitter<LoginState> emit,
   ) async {
+    emit(LoginLoading());
+
     final result = await usecases
         .login(
           username: event.username,
@@ -32,9 +35,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     result.fold(
       (l) => emit(LoginFailure(l.message)),
-      (r) =>
-          // Store user data in Isar
-          emit(LoginSuccess(r)),
+      (r) => emit(LoginSuccess(r)),
     );
+  }
+
+  Future<void> _onShowPassword(
+    ShowPasswordEvent event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(ShowPasswordSuccess(!(event.showPassword)));
   }
 }

@@ -9,18 +9,18 @@ import 'package:practice_advance/features/cart/presentation/bloc/cart_bloc.dart'
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/injection.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/molecules/list_tile.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/widgets/app_bar.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/appbar/app_bar.dart';
+import 'package:practice_advance_design/widgets/avatar/circle_avatar.dart';
 import 'package:practice_advance_design/widgets/buttons/elevated_button.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
-import 'package:practice_advance_design/widgets/circle_avatar.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
-import 'package:practice_advance_design/widgets/image.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/list_tile/list_tile.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 /// Screen displaying the cart and allowing users to manage their cart items.
 class CartScreen extends StatelessWidget {
@@ -137,11 +137,12 @@ class _CartItem extends StatelessWidget {
           Expanded(
             child: BazarBodyMediumText(text: item.name ?? ''),
           ),
+          const SizedBox(width: 15),
           BazarBodyMediumText(text: '${item.quantity ?? 1}'),
         ],
       ),
       trailing: SizedBox(
-        width: 100,
+        width: 200,
         child: Row(
           children: [
             Expanded(

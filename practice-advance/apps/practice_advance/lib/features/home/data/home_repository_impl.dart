@@ -131,6 +131,7 @@ class HomeRepositoryImpl implements HomeRepository {
         useSecondaryUrl: true,
         queryParameters: {
           AuthorJsonKeys.limitKey: limit,
+          AuthorJsonKeys.pageKey: page,
         },
       );
 

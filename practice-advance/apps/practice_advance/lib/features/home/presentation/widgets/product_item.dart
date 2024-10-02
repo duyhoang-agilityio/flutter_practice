@@ -3,10 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/core/extensions/double_extension.dart';
 import 'package:practice_advance/features/home/domain/entities/product.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/tokens/sizes.dart';
-import 'package:practice_advance_design/widgets/image.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
+import 'package:practice_advance_design/widgets/tokens/sizes.dart';
 
 /// A stateless widget that displays a horizontal list of product items.
 class ProductItem extends StatelessWidget {

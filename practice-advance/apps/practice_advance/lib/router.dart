@@ -11,10 +11,9 @@ import 'package:practice_advance/features/home_author/presentation/author_detail
 import 'package:practice_advance/features/home_author/presentation/authors_list.dart';
 import 'package:practice_advance/features/onboarding/onboarding_screen.dart';
 import 'package:practice_advance/features/sign_in/presentation/sign_in_screen.dart';
-import 'package:practice_advance_design/foundations/models.dart';
-import 'package:practice_advance_design/molecules/main_navigator.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/navigation/main_navigator.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:talker_package/main.dart';
 
@@ -75,7 +74,7 @@ class AppRouteNames {
 final GoRouter router = GoRouter(
   observers: [TalkerRouteObserver(talker)],
   navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRouteNames.home.path,
+  initialLocation: AppRouteNames.login.path,
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

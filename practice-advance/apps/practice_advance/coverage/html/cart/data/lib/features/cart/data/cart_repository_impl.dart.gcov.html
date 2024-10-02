@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-10-01 08:55:08</td>
+            <td class="headerValue">2024-10-02 14:30:52</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -66,12 +66,12 @@
 <span id="L4"><span class="lineNum">       4</span>              : import 'package:practice_advance/core/error/error_mapper.dart';</span>
 <span id="L5"><span class="lineNum">       5</span>              : import 'package:practice_advance/core/error/failures.dart';</span>
 <span id="L6"><span class="lineNum">       6</span>              : import 'package:practice_advance/features/cart/domain/repositories/cart_repository.dart';</span>
-<span id="L7"><span class="lineNum">       7</span>              : import 'package:practice_advance/features/home/domain/entities/product.dart';</span>
+<span id="L7"><span class="lineNum">       7</span>              : import 'package:practice_advance/features/home/domain/entities/vendor.dart';</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
 <span id="L9"><span class="lineNum">       9</span>              : /// Class containing constant values used in the CartRepository.</span>
 <span id="L10"><span class="lineNum">      10</span>              : class CartRepositoryConstants {</span>
 <span id="L11"><span class="lineNum">      11</span>              :   // Unique key for caching</span>
-<span id="L12"><span class="lineNum">      12</span>              :   static const String checkoutProductsKey = 'checkout_products';</span>
+<span id="L12"><span class="lineNum">      12</span>              :   static const String checkoutVendorsKey = 'checkout_vendors';</span>
 <span id="L13"><span class="lineNum">      13</span>              :   // API endpoint for checkout</span>
 <span id="L14"><span class="lineNum">      14</span>              :   static const String checkoutApiEndpoint = '/recipes/tag/';</span>
 <span id="L15"><span class="lineNum">      15</span>              : }</span>
@@ -83,12 +83,12 @@
 <span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC tlaBgGNC">           1 :   CartRepositoryImpl(this.apiClient);</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : </span>
 <span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L24"><span class="lineNum">      24</span>              :   TaskEither&lt;Failure, bool&gt; checkoutProducts({List&lt;Product&gt;? products}) {</span>
-<span id="L25"><span class="lineNum">      25</span>              :     // Using Query to cache the checkout products</span>
+<span id="L24"><span class="lineNum">      24</span>              :   TaskEither&lt;Failure, bool&gt; checkoutVendors({List&lt;Vendor&gt;? vendors}) {</span>
+<span id="L25"><span class="lineNum">      25</span>              :     // Using Query to cache the checkout vendors</span>
 <span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           1 :     Query&lt;void&gt;(</span></span>
-<span id="L27"><span class="lineNum">      27</span>              :       key: CartRepositoryConstants.checkoutProductsKey,</span>
+<span id="L27"><span class="lineNum">      27</span>              :       key: CartRepositoryConstants.checkoutVendorsKey,</span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaUNC tlaBgUNC">           0 :       queryFn: () async {</span></span>
-<span id="L29"><span class="lineNum">      29</span>              :         // Making a GET request to checkout the products</span>
+<span id="L29"><span class="lineNum">      29</span>              :         // Making a GET request to checkout the vendors</span>
 <span id="L30"><span class="lineNum">      30</span> <span class="tlaUNC">           0 :         await apiClient.get(</span></span>
 <span id="L31"><span class="lineNum">      31</span>              :           CartRepositoryConstants.checkoutApiEndpoint,</span>
 <span id="L32"><span class="lineNum">      32</span>              :         );</span>

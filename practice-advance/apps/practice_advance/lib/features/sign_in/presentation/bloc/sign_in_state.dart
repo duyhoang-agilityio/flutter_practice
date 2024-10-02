@@ -18,8 +18,18 @@ class LoginSuccess extends LoginState {
   List<Object?> get props => [user];
 }
 
+class ShowPasswordSuccess extends LoginState {
+  final bool showPassword;
+
+  ShowPasswordSuccess(this.showPassword);
+  @override
+  List<Object?> get props => [showPassword];
+}
+
 class LoginFailure extends LoginState {
   final String error;
 
   LoginFailure(this.error);
+  @override
+  List<Object?> get props => [error];
 }

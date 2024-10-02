@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 
 class BazarCircularProgressIndicator extends StatelessWidget {
   const BazarCircularProgressIndicator({

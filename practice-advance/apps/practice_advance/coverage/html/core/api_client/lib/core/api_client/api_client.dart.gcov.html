@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">14.3&nbsp;%</td>
+            <td class="headerCovTableEntryLo">4.8&nbsp;%</td>
             <td class="headerCovTableEntry">63</td>
-            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">3</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-09-30 17:52:38</td>
+            <td class="headerValue">2024-10-02 14:27:32</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -76,22 +76,22 @@
 <span id="L14"><span class="lineNum">      14</span>              :   final String primaryBaseUrl;</span>
 <span id="L15"><span class="lineNum">      15</span>              :   final String secondaryBaseUrl;</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC tlaBgGNC">           1 :   ApiClient(</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC tlaBgUNC">           0 :   ApiClient(</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :     this._dio,</span>
 <span id="L19"><span class="lineNum">      19</span>              :     this._storage, {</span>
 <span id="L20"><span class="lineNum">      20</span>              :     required this.primaryBaseUrl,</span>
 <span id="L21"><span class="lineNum">      21</span>              :     required this.secondaryBaseUrl,</span>
 <span id="L22"><span class="lineNum">      22</span>              :   }) {</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           3 :     _dio.options = BaseOptions(</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :       baseUrl: primaryBaseUrl, // Set the default base URL</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :     _dio.options = BaseOptions(</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 :       baseUrl: primaryBaseUrl, // Set the default base URL</span></span>
 <span id="L25"><span class="lineNum">      25</span>              :       connectTimeout: const Duration(seconds: 30),</span>
 <span id="L26"><span class="lineNum">      26</span>              :       receiveTimeout: const Duration(seconds: 30),</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           1 :       headers: {</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaUNC">           0 :       headers: {</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :         'Content-Type': 'application/json',</span>
 <span id="L29"><span class="lineNum">      29</span>              :       },</span>
 <span id="L30"><span class="lineNum">      30</span>              :     );</span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           1 :     TalkerDioLogger prettyDioLogger = TalkerDioLogger(</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC">           0 :     TalkerDioLogger prettyDioLogger = TalkerDioLogger(</span></span>
 <span id="L33"><span class="lineNum">      33</span>              :       settings: const TalkerDioLoggerSettings(</span>
 <span id="L34"><span class="lineNum">      34</span>              :         printRequestHeaders: true,</span>
 <span id="L35"><span class="lineNum">      35</span>              :         printResponseHeaders: true,</span>
@@ -101,9 +101,9 @@
 <span id="L39"><span class="lineNum">      39</span>              :     );</span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span>              :     // Add interceptors</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           2 :     _dio.interceptors.addAll({prettyDioLogger, DioInterceptor(_storage)});</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     _dio.interceptors.addAll({prettyDioLogger, DioInterceptor(_storage)});</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC tlaBgUNC">           0 :     _dio.interceptors.add(InterceptorsWrapper(</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaUNC">           0 :     _dio.interceptors.add(InterceptorsWrapper(</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaUNC">           0 :       onRequest: (options, handler) async {</span></span>
 <span id="L46"><span class="lineNum">      46</span>              :         // Add authentication token if available</span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :         final token = await _storage.read(key: 'jwt_token');</span></span>

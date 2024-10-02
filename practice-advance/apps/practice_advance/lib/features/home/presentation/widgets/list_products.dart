@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home/presentation/widgets/product_item.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
 
 /// A stateless widget that displays a list of products.
 class ListProducts extends StatelessWidget {

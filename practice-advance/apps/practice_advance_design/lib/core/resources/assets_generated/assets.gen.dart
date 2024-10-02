@@ -21,6 +21,10 @@ class $AssetsImagesGen {
   SvgGenImage get icCategory =>
       const SvgGenImage('assets/images/ic_category.svg');
 
+  /// File path: assets/images/ic_google.png
+  AssetGenImage get icGoogle =>
+      const AssetGenImage('assets/images/ic_google.png');
+
   /// File path: assets/images/ic_home.svg
   SvgGenImage get icHome => const SvgGenImage('assets/images/ic_home.svg');
 
@@ -55,6 +59,7 @@ class $AssetsImagesGen {
   List<dynamic> get values => [
         icCart,
         icCategory,
+        icGoogle,
         icHome,
         icProfile,
         imgCongrs,

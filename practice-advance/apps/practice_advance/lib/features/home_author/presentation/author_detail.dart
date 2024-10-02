@@ -9,17 +9,17 @@ import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/vendors_list.dart';
 import 'package:practice_advance/injection.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/tokens/sizes.dart';
-import 'package:practice_advance_design/widgets/app_bar.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/appbar/app_bar.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/tokens/sizes.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
-import 'package:practice_advance_design/widgets/circle_avatar.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/widgets/avatar/circle_avatar.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 /// A stateless widget that displays the details of an author.
 class AuthorDetail extends StatelessWidget {

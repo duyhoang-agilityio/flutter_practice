@@ -8,11 +8,11 @@ import 'package:practice_advance/features/home/domain/usecases/home_usecase.dart
 import 'package:practice_advance/features/home/presentation/bloc/product_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/vendors_list.dart';
 import 'package:practice_advance/injection.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 import 'package:practice_advance_design/widgets/buttons/elevated_button.dart';
-import 'package:practice_advance_design/widgets/image.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 class DetailVendor extends StatefulWidget {
   const DetailVendor({super.key, required this.vendor});
@@ -163,8 +163,10 @@ class _DetailVendorState extends State<DetailVendor> {
                                 // Display product price
                                 Expanded(
                                   child: BazarHeadlineMediumTitle(
-                                    text: widget.vendor
-                                        .productPrice(widget.vendor.price ?? 1),
+                                    text: widget.vendor.productPrice(
+                                      widget.vendor.price ?? 1,
+                                      _quantity,
+                                    ),
                                     color: context.colorScheme.primary,
                                   ),
                                 ),
@@ -199,6 +201,8 @@ class _DetailVendorState extends State<DetailVendor> {
                                       AddToCartEvent(
                                         widget.vendor.copyWith(
                                           quantity: _quantity,
+                                          price: (widget.vendor.price ?? 1) *
+                                              _quantity,
                                         ),
                                       ),
                                     ),

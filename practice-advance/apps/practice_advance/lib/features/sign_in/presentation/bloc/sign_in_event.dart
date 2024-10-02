@@ -8,3 +8,9 @@ class LoginRequested extends LoginEvent {
 
   LoginRequested({required this.username, required this.password});
 }
+
+class ShowPasswordEvent extends LoginEvent {
+  final bool showPassword;
+  
+  ShowPasswordEvent({required this.showPassword});
+}

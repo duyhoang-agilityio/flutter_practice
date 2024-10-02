@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/global.dart';
 import 'package:practice_advance/injection.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/foundations/themes/theme.dart';
+import 'package:practice_advance_design/themes/theme.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:talker_package/main.dart';
 
@@ -59,30 +59,27 @@ class Bazar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(
-          375, 812), // Adjust this to your design size (e.g., iPhone 12)
-      builder: (context, child) {
-        return ResponsiveWrapper.builder(
-          MaterialApp.router(
-            themeMode: ThemeMode.light,
-            theme: lightTheme,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            debugShowCheckedModeBanner: false,
-            locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
-            routerConfig: router,
-            title: 'Bazar App',
-          ),
-          breakpoints: const [
-            ResponsiveBreakpoint.autoScale(400, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
-            ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
-          ],
-          background: Container(color: Colors.grey[200]),
-        );
-      },
+      designSize: const Size(375, 812),
+      builder: (context, child) => ResponsiveWrapper.builder(
+        MaterialApp.router(
+          themeMode: ThemeMode.light,
+          theme: lightTheme,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          debugShowCheckedModeBanner: false,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          routerConfig: router,
+          title: 'Bazar App',
+        ),
+        breakpoints: const [
+          ResponsiveBreakpoint.autoScale(400, name: MOBILE),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET),
+          ResponsiveBreakpoint.autoScale(1200, name: DESKTOP),
+          ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+        ],
+        background: Container(color: Colors.grey[200]),
+      ),
     );
   }
 }

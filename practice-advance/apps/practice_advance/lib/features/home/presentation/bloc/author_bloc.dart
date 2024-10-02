@@ -32,7 +32,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
 
     try {
       // Fetch authors from use cases
-      final query = homeUsecases.getAuthorsByCategory(limit: 5);
+      final query = homeUsecases.getAuthorsByCategory(limit: event.limit);
 
       // Listen to the query stream and handle the states
       await emit.forEach<InfiniteQueryState<List<Author>>>(

@@ -20,14 +20,15 @@ class GetListVendorSuccessfulScenario
             Then Emit [VendorLoaded] state with the list of vendors
           ''',
           setUp: () {
-            when(useCases.getVendors).thenAnswerValue(VendorMock.vendorsList);
+            when(() => useCases.getVendors(limit: 2))
+                .thenAnswerValue(VendorMock.vendorsList);
           },
           build: () {
             return VendorBloc(
               homeUsecases: useCases,
             );
           },
-          act: (bloc) => bloc.add(GetListVendorsEvent()),
+          act: (bloc) => bloc.add(GetListVendorsEvent(limit: 2)),
           expect: () => [
             VendorLoaded(vendors: VendorMock.vendorsList),
           ],
@@ -47,14 +48,14 @@ class GetListVendorEmptyDataScenario
             Then Emit [VendorLoaded] state with an empty list of vendors
           ''',
           setUp: () {
-            when(useCases.getVendors).thenAnswerValue([]);
+            when(() => useCases.getVendors(limit: 2)).thenAnswerValue([]);
           },
           build: () {
             return VendorBloc(
               homeUsecases: useCases,
             );
           },
-          act: (bloc) => bloc.add(GetListVendorsEvent()),
+          act: (bloc) => bloc.add(GetListVendorsEvent(limit: 2)),
           expect: () => [
             VendorLoaded(vendors: const []),
           ],
@@ -74,13 +75,13 @@ class VendorBlocFetchFailureScenario
               Then Emit [VendorError] state
           ''',
           setUp: () {
-            when(() => usecases.getVendors()).thenAnswerFailureValue(
+            when(() => usecases.getVendors(limit: 2)).thenAnswerFailureValue(
               VendorMock.apiFailureMock,
             ); // Mock failure response
           },
           build: () => VendorBloc(homeUsecases: usecases),
           act: (bloc) async {
-            bloc.add(GetListVendorsEvent(limit: 10));
+            bloc.add(GetListVendorsEvent(limit: 2));
           },
           expect: () => [
             VendorError(VendorMock.apiFailureMock.message), // Expected state

@@ -25,6 +25,7 @@ void main() {
         description: 'Vendor model productPrice method',
         scenarios: [
           VendorModelProductPriceScenario(),
+          VendorCopyWithScenario(),
         ],
       ),
     ],

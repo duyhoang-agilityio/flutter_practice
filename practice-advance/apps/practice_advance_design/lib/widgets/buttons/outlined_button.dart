@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
 import 'package:practice_advance_design/widgets/indicators/circle_progress_indicator.dart';
 
 class BazarOutLinedButton extends StatefulWidget {
@@ -155,6 +155,9 @@ class _BazarOutLinedIconButtonState extends State<BazarOutLinedIconButton> {
       width: widget.width,
       child: OutlinedButton.icon(
         style: ButtonStyle(
+          side: WidgetStateProperty.all<BorderSide?>(
+            BorderSide(color: context.colorScheme.tertiary),
+          ),
           backgroundColor: WidgetStateProperty.all<Color?>(Colors.transparent),
           padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
             const EdgeInsets.symmetric(

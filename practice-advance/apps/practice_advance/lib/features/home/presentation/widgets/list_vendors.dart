@@ -5,12 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:practice_advance/features/home/domain/entities/vendor.dart';
 import 'package:practice_advance/features/home/presentation/bloc/vendor_bloc.dart';
 import 'package:practice_advance/features/home_vendor/presentation/detail_vendor_screen.dart';
-import 'package:practice_advance_design/molecules/bottom_sheet.dart';
-import 'package:practice_advance_design/tokens/sizes.dart';
-import 'package:practice_advance_design/widgets/empty.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:practice_advance_design/widgets/snackbar/snackbar_content.dart';
+import 'package:practice_advance_design/widgets/tokens/sizes.dart';
+import 'package:practice_advance_design/widgets/feedback/empty_state.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
-import 'package:practice_advance_design/widgets/snackbar_content.dart';
 
 /// A stateless widget that displays a list of vendors.
 class ListVendor extends StatelessWidget {

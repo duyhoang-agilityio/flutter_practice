@@ -14,12 +14,12 @@ import 'package:practice_advance/features/home/presentation/widgets/list_vendors
 import 'package:practice_advance/features/home/presentation/widgets/special_offer.dart';
 import 'package:practice_advance/injection.dart';
 import 'package:practice_advance/router.dart';
-import 'package:practice_advance_design/templetes/scaffold.dart';
-import 'package:practice_advance_design/widgets/app_bar.dart';
+import 'package:practice_advance_design/widgets/appbar/app_bar.dart';
 import 'package:practice_advance_design/widgets/buttons/icon_button.dart';
 import 'package:practice_advance_design/widgets/buttons/text_button.dart';
-import 'package:practice_advance_design/widgets/icon.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/images/icon.dart';
+import 'package:practice_advance_design/widgets/layout/scaffold.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
 
 /// A stateless widget that serves as the home page of the application.
 class HomePage extends StatelessWidget {
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
         BlocProvider(
           create: (_) => AuthorBloc(locator<HomeUsecases>())
             ..add(
-              GetListAuthorsByCategoryEvent(),
+              GetListAuthorsByCategoryEvent(limit: 10),
             ), // Fetch authors by category
         ),
       ],
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
             },
           ),
           trailing: BazarIconButtons(
-            icon: BazarIcon.icCart(),
+            icon: BazarIcon.icNotification(),
             onPressed: () {
               // FIXED: Implement notification function
             },

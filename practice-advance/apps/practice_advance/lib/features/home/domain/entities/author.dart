@@ -8,8 +8,8 @@ class AuthorJsonKeys {
   static const String titleKey = 'title';
   static const String bodyKey = 'body';
   static const String imageKey = 'image';
-  static const String limitKey = '_page';
-  static const String pageKey = '_limit';
+  static const String pageKey = '_page';
+  static const String limitKey = '_limit';
 }
 
 @collection

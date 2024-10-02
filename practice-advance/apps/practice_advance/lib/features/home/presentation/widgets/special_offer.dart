@@ -2,11 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:practice_advance_design/foundations/context_extension.dart';
-import 'package:practice_advance_design/tokens/sizes.dart';
-import 'package:practice_advance_design/widgets/image.dart';
+import 'package:practice_advance_design/core/extensions/context_extension.dart';
+import 'package:practice_advance_design/widgets/images/image.dart';
 import 'package:practice_advance_design/widgets/indicators/skeletonize_loading.dart';
-import 'package:practice_advance_design/widgets/text.dart';
+import 'package:practice_advance_design/widgets/text/text.dart';
+import 'package:practice_advance_design/widgets/tokens/sizes.dart';
 
 /// A stateful widget that displays a special offer card with a carousel of images.
 class SpecialOfferCard extends StatefulWidget {
@@ -111,7 +111,7 @@ class SpecialOfferCardState extends State<SpecialOfferCard> {
                           borderRadius: BorderRadius.circular(12.r),
                           child: BazarCachedNetworkImage(
                             imagePath: url,
-                            boxFit: BoxFit.contain,
+                            boxFit: BoxFit.cover,
                             radius: BorderRadius.circular(7.r),
                           ),
                         );

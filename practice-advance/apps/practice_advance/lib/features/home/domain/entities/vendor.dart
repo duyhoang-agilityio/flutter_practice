@@ -101,7 +101,8 @@ class Vendor {
   }
 
   // Method to format product price and format price as a string
-  String productPrice(double price) => '\$${(price - 0.01).toStringAsFixed(2)}';
+  String productPrice(double price, int quantity) =>
+      '\$${((price - 0.01) * quantity).toStringAsFixed(2)}';
 
   String get desc => '${instructions?[4] ?? ''} ${instructions?[3] ?? ''}';
 

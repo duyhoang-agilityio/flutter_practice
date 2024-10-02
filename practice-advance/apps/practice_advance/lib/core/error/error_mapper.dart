@@ -1,42 +1,29 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:practice_advance/core/error/failures.dart';
 
 import 'exceptions.dart';
 
 class ErrorMapper {
-  final i18n = AppLocalizations.of(GlobalKey().currentContext!)!;
-
   static Failure mapError(dynamic error, [String? code]) {
     if (error is ServerException) {
-      return ServerFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!.errorInternalServer,
-      );
+      return const ServerFailure('Internal server error');
     } else if (error is CacheException) {
-      return CacheFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!.errorCacheError,
-      );
+      return const CacheFailure('Cache error occurred');
     } else if (error is NetworkException) {
-      return NetworkFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!.errorNoInternet,
-      );
+      return const NetworkFailure('No internet connection');
     } else if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return NetworkFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!
-                .errorConnectionTimeOut,
+          return const NetworkFailure(
+            'Connection timed out. Please try again.',
           );
         case DioExceptionType.sendTimeout:
-          return NetworkFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!
-                .errorRequestSendTimeout,
+          return const NetworkFailure(
+            'Request send timeout. Please check your connection.',
           );
         case DioExceptionType.receiveTimeout:
-          return NetworkFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!
-                .errorRequestTimeout,
+          return const NetworkFailure(
+            'Response timeout. Please try again later.',
           );
         case DioExceptionType.badResponse:
           // Handle specific HTTP status codes here
@@ -50,89 +37,69 @@ class ErrorMapper {
           // Fallback for known status codes
           switch (statusCode) {
             case 400:
-              return ServerFailure(
-                AppLocalizations.of(GlobalKey().currentContext!)!
-                    .errorBadRequest,
+              return const ServerFailure(
+                'Bad request. Please check the data sent.',
               );
             case 401:
-              return UnauthorizedFailure(
-                AppLocalizations.of(GlobalKey().currentContext!)!
-                    .errorUnauthorizedAccess,
+              return const UnauthorizedFailure(
+                'Unauthorized access. Please log in again.',
               );
             case 403:
-              return PermissionFailure(
-                AppLocalizations.of(GlobalKey().currentContext!)!
-                    .errorForbidden,
+              return const PermissionFailure(
+                'Forbidden. You do not have the necessary permissions.',
               );
             case 404:
-              return NotFoundFailure(
-                AppLocalizations.of(GlobalKey().currentContext!)!
-                    .errorResourceNotFound,
+              return const NotFoundFailure(
+                'Resource not found. Please try again.',
               );
             case 500:
-              return ServerFailure(
-                AppLocalizations.of(GlobalKey().currentContext!)!
-                    .errorInternalServe,
+              return const ServerFailure(
+                'Internal server error. Please try again later.',
               );
             default:
               return ServerFailure('Received invalid status code: $statusCode');
           }
         case DioExceptionType.cancel:
-          return OperationCanceledFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!
-                .errorRequestWasCanceled,
-          );
+          return const OperationCanceledFailure('Request was canceled.');
         case DioExceptionType.badCertificate:
-          return NetworkFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!
-                .errorBadCertificate,
+          return const NetworkFailure(
+            'Bad certificate. Connection could not be established securely.',
           );
         case DioExceptionType.connectionError:
-          return NetworkFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!.errorConnection,
+          return const NetworkFailure(
+            'Connection error. Unable to reach the server.',
           );
         case DioExceptionType.unknown:
           if (error.message?.contains('SocketException') ?? false) {
-            return NetworkFailure(
-              AppLocalizations.of(GlobalKey().currentContext!)!
-                  .errorNoInternetConnection,
+            return const NetworkFailure(
+              'No internet connection. Please check your network.',
             );
           } else {
             return NetworkFailure(
-              error.message ??
-                  AppLocalizations.of(GlobalKey().currentContext!)!
-                      .errorAnunknownNetwork,
+              error.message ?? 'An unknown network error occurred.',
             );
           }
         default:
-          return UnknownFailure(
-            AppLocalizations.of(GlobalKey().currentContext!)!.errorAnunknownDio,
-          );
+          return const UnknownFailure('An unknown Dio error occurred.');
       }
     } else if (error is FormatException) {
-      return ParsingFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!
-            .errorDataFormatIncorrect,
+      return const ParsingFailure(
+        'Data format is incorrect. Unable to parse the response.',
       );
     } else if (error is UnauthorizedException) {
-      return UnauthorizedFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!.errorNotAuthorized,
+      return const UnauthorizedFailure(
+        'You are not authorized. Please log in again.',
       );
     } else if (error is TimeoutException) {
-      return NetworkFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!
-            .errorConnectionHasTimedOut,
+      return const NetworkFailure(
+        'The connection has timed out. Please try again.',
       );
     } else if (error is ValidationException) {
-      return ValidationFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)!.errorValidationFailed,
+      return const ValidationFailure(
+        'Validation failed. Please check the input data.',
       );
     } else {
-      return UnknownFailure(
-        AppLocalizations.of(GlobalKey().currentContext!)
-                ?.errorUnknownErrorOccurred ??
-            '',
-      );
+      return const UnknownFailure('An unknown error occurred.');
     }
   }
 
