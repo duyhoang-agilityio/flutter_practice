@@ -25,18 +25,12 @@ jobs:
         with:
           flutter-version: '3.24.3'
 
-        # Set up JDK to Java 17
+      # Set up JDK to Java 17
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
-
-      # Create .env file
-      - name: Create .env file
-        run: |
-          echo "API_ENDPOINT=https://dummyjson.com" >> practice-advance/.env
-          echo "API_ENDPOINT2=https://jsonplaceholder.typicode.com" >> practice-advance/.env
 
       # Install melos
       - name: Install Melos
@@ -46,12 +40,13 @@ jobs:
       - name: Build Android APK
         run: |
           cd practice-advance
-          melos exec --scope=practice_advance -- flutter build apk --debug --flavor dev
+          melos exec --scope=practice_advance -- flutter build apk --debug --flavor dev --dart-define=API_ENDPOINT=${{ secrets.API_ENDPOINT }} --dart-define=API_ENDPOINT2=${{ secrets.API_ENDPOINT2 }}
+
       # Build the iOS app for the dev flavor
       - name: Build iOS IPA
         run: |
           cd practice-advance
-          melos exec --scope=practice_advance -- flutter build ios --debug --flavor dev --no-codesign
+          melos exec --scope=practice_advance -- flutter build ios --debug --flavor dev --no-codesign --dart-define=API_ENDPOINT=${{ secrets.API_ENDPOINT }} --dart-define=API_ENDPOINT2=${{ secrets.API_ENDPOINT2 }}
   
   PROD:    
     runs-on: macos-latest
@@ -67,18 +62,13 @@ jobs:
         with:
           flutter-version: '3.24.3'
 
-        # Set up JDK to Java 17
+      # Set up JDK to Java 17
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'adopt'
 
-      # Create .env file
-      - name: Create .env file
-        run: |
-          echo "API_ENDPOINT=https://dummyjson.com" >> practice-advance/.env
-          echo "API_ENDPOINT2=https://jsonplaceholder.typicode.com" >> practice-advance/.env
       # Install melos
       - name: Install Melos
         run: flutter pub global activate melos
@@ -87,9 +77,10 @@ jobs:
       - name: Build Android APK
         run: |
           cd practice-advance
-          melos exec --scope=practice_advance -- flutter build apk --debug --flavor prod
+          melos exec --scope=practice_advance -- flutter build apk --debug --flavor prod --dart-define=API_ENDPOINT=${{ secrets.API_ENDPOINT }} --dart-define=API_ENDPOINT2=${{ secrets.API_ENDPOINT2 }}
+
       # Build the iOS app for the prod flavor
       - name: Build iOS IPA
         run: |
           cd practice-advance
-          melos exec --scope=practice_advance -- flutter build ios --debug --flavor prod --no-codesign
+          melos exec --scope=practice_advance -- flutter build ios --debug --flavor prod --no-codesign --dart-define=API_ENDPOINT=${{ secrets.API_ENDPOINT }} --dart-define=API_ENDPOINT2=${{ secrets.API_ENDPOINT2 }}
